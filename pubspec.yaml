@@ -1,6 +1,6 @@
 name: my_graduation
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -11,6 +11,7 @@ dependencies:
   cloud_firestore: ^6.1.0
   extended_svg_picture: ^1.0.0
   firebase_auth: ^6.1.2
+  firebase_core: ^4.2.1
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1

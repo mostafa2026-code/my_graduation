@@ -10,7 +10,7 @@ mypushReplace(BuildContext context, String route, Object? data) {
 mygo(BuildContext context, String route, Object? data) {
   context.go(route, extra: data);
 }
-mypop(BuildContext context, String route, Object? data) {
-  context.pop(route, );
+mypop(BuildContext context, ) {
+  context.pop( );
 }
 
