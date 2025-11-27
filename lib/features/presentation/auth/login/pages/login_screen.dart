@@ -3,19 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:my_graduation/component/my_main_botton.dart';
+import 'package:my_graduation/component/my_text_bottn.dart';
 import 'package:my_graduation/component/my_text_feild.dart';
 import 'package:my_graduation/core/const/my_images.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_graduation/core/dialogs/error_dialog.dart';
+import 'package:my_graduation/core/dialogs/loading_dialog.dart';
 import 'package:my_graduation/core/navigation/my_routes.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_states.dart';
+import 'package:my_graduation/features/presentation/auth/login/widgets/social_bottons.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +26,14 @@ class LoginScreen extends StatelessWidget {
     return BlocListener<LoginCubit, LoginStates>(
       listener: (context, state) {
         if (state is LoginLoadingState) {
-          
           loadingDialog(context);
         } else if (state is LoginSuccessState) {
-        
           mypop(context);
-          
+
           mypushReplace(context, MyRoutes.home, null);
         } else if (state is LoginErrorState) {
-         
           mypop(context);
-         
+
           errorDialog(context, state.error);
         }
       },
@@ -58,28 +58,51 @@ class LoginScreen extends StatelessWidget {
                   Text("Welcome Back"),
                   Gap(10),
                   MyTextFeild(
+                    
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      } else if (!RegExp(
+                        r'^[^@]+@[^@]+\.[^@]+',
+                      ).hasMatch(value)) {
+                        return 'Please enter a valid email address';
+                      }
+                      return null;
+                    },
                     hint: 'Enter your email',
                     controller: cubitLogin.emailLogin,
                   ),
                   Gap(10),
-              
+
                   MyTextFeild(
+                    
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      } else if (value.length < 6) {
+                        return 'Password must be at least 6 characters long';
+                      }
+                      return null;
+                    },
                     hint: 'Enter your password',
                     controller: cubitLogin.passwordLogin,
                   ),
-              
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-              
+
                     children: [
                       Text("Forget your password?"),
                       MyTextBottn(text: 'Reset', onTap: () {}),
                     ],
                   ),
                   Gap(20),
-                  MyMainBotton(title: "Login", onTap: () {
-                    cubitLogin.login();
-                  }),
+                  MyMainBotton(
+                    title: "Login",
+                    onTap: () {
+                      cubitLogin.login();
+                    },
+                  ),
                   Gap(20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -92,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                   Gap(20),
-              
+
                   SocialBottons(),
                 ],
               ),
@@ -119,77 +142,4 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
-  
-
-  
 }
-
-class MyTextBottn extends StatelessWidget {
-  final String text;
-  final Function()? onTap;
-  const MyTextBottn({super.key, required this.text, this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: onTap,
-      child: Text(text, style: TextStyle(color: MyColors.button)),
-    );
-  }
-}
-
-class SocialBottons extends StatelessWidget {
-  const SocialBottons({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      spacing: 20,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(3, (index) {
-        return GestureDetector(
-          child: CircleAvatar(
-            radius: 30,
-            backgroundColor: Colors.transparent,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SvgPicture.asset(MyImages.socialImages[index]),
-            ),
-          ),
-        );
-      }),
-    );
-  }
-}
-
-
-Future<dynamic> loadingDialog(BuildContext context) {
-    return showDialog(
-          context: context,
-          builder: (context) {
-            return Center(child: Lottie.asset(MyImages.loading));
-          },
-        );
-  }
-
-
-  Future<dynamic> errorDialog(BuildContext context, String error) {
-    return showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text("Error"),
-              content: Text(error),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    mypop(context);
-                  },
-                  child: Text("OK"),
-                ),
-              ],
-            );
-          },
-        );
-  }

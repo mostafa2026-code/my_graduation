@@ -4,20 +4,23 @@ import 'package:my_graduation/core/utils/my_colors.dart';
 class MyTextFeild extends StatelessWidget {
   final String hint;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
-  const MyTextFeild({super.key, required this.hint, this.controller});
+  const MyTextFeild({
+    super.key,
+    required this.hint,
+    this.controller,
+    this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter your email';
-        }
-        return null;
-      },
+      autovalidateMode: AutovalidateMode.disabled,
+      
+      validator: validator,
 
-      // controller: emailLogin,
+      controller: controller,
       decoration: InputDecoration(
         filled: true,
         fillColor: MyColors.textFieldText.withAlpha(60),

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_states.dart';
@@ -11,19 +12,26 @@ class LoginCubit extends Cubit<LoginStates> {
   final TextEditingController passwordLogin = TextEditingController();
   final GlobalKey<FormState> formKeyLogin = GlobalKey<FormState>();
 
-  login() {
+  login() async {
     if (formKeyLogin.currentState!.validate()) {
       emit(LoginLoadingState());
       try {
-        FirebaseHelper.login(emailLogin.text.trim(), passwordLogin.text.trim());
-        emit(LoginSuccessState());
+        UserCredential? response = await FirebaseHelper.login(
+          emailLogin.text.trim(),
+          passwordLogin.text.trim(),
+        );
+        if (response == null) {
+          emit(LoginErrorState("Login failed"));
+          return;
+        } else {
+          emit(LoginSuccessState());
+        }
       } on Exception catch (e) {
         emit(LoginErrorState(e.toString()));
         log(e.toString());
       }
     }
   }
-  loginWithGoogle(){
-    
-  }
+
+  loginWithGoogle() {}
 }
