@@ -5,17 +5,19 @@ class MyTextFeild extends StatelessWidget {
   final String hint;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
 
   const MyTextFeild({
     super.key,
     required this.hint,
     this.controller,
-    this.validator,
+    this.validator, this.keyboardType,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType,
       autovalidateMode: AutovalidateMode.always,
       validator: validator,
       controller: controller,

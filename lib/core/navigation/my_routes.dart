@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/pages/add_edit_patient.dart';
 import 'package:my_graduation/features/presentation/auth/login/pages/login_screen.dart';
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:my_graduation/features/presentation/auth/register/cubit/register_cubit.dart';
@@ -22,6 +23,7 @@ class MyRoutes {
   static const String search = '/search';
   static const String patientsHome = '/patientsHome';
   static const String patientDetails = '/patientDetails';
+  static const String addPatient = '/addPatient';
 
   static final GoRouter routes = GoRouter(
     initialLocation: splash,
@@ -54,6 +56,11 @@ class MyRoutes {
       GoRoute(
         path: patientDetails,
         builder: (context, state) => const PateintDetails(),
+      ),
+      //add patient
+      GoRoute(
+        path: addPatient,
+        builder: (context, state) => const AddEditPatient(),
       ),
     ],
   );

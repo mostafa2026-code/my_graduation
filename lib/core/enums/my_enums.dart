@@ -3,6 +3,11 @@ enum Gender {
   female,
   
 }
+enum MartialStatus {
+  single,
+  married,
+  
+}
 
 
 enum Onset {

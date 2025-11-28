@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:my_graduation/component/my_main_botton.dart';
+import 'package:my_graduation/core/navigation/my_routes.dart';
+import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/features/presentation/home/widgets/patient_card.dart';
 
 class PatientsHome extends StatelessWidget {
@@ -11,24 +14,41 @@ class PatientsHome extends StatelessWidget {
       appBar: AppBar(title: const Text('Patients Home')),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Your Patient"),
-            Gap(24),
-            ListView.separated(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 10,
-              separatorBuilder: (BuildContext context, int index) {
-                return Gap(8);
-              },
-              itemBuilder: (BuildContext context, int index) {
-                return PatientCard();
-              },
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Your Patient"),
+                  MyMainBotton(
+                    width: 50,
+                    height: 30,
+
+                    title: "Add Patient",
+                    onTap: () {
+                      mypush(context, MyRoutes.addPatient, null);
+                    },
+                  ),
+                ],
+              ),
+              Gap(24),
+              ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 10,
+                separatorBuilder: (BuildContext context, int index) {
+                  return Gap(8);
+                },
+                itemBuilder: (BuildContext context, int index) {
+                  return PatientCard();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
