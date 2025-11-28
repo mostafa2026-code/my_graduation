@@ -30,6 +30,10 @@ class FirebaseHelper {
     }
   }
 
+  static String? getUserName() {
+    return _auth.currentUser?.displayName;
+  }
+
   static Future<void> logout() async {
     await _auth.signOut();
   }

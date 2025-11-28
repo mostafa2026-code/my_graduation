@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
-import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/features/presentation/auth/register/cubit/register_states.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
@@ -11,27 +10,32 @@ class RegisterCubit extends Cubit<RegisterStates> {
   final TextEditingController emailReg = TextEditingController();
   final TextEditingController nameReg = TextEditingController();
   final TextEditingController passwordReg = TextEditingController();
-  final GlobalKey<FormState> formKeyReg = GlobalKey<FormState>();
-  
 
   register() async {
     emit(RegisterLoadingState());
     try {
-      UserCredential? userCredential = await FirebaseHelper.register(
-        emailReg.text.trim(),
-        passwordReg.text.trim(),
+      FirebaseAuth auth = FirebaseAuth.instance;
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+        email: emailReg.text.trim(),
+        password: passwordReg.text.trim(),
       );
-      if (userCredential == null) {
-        emit(RegisterErrorState("Register failed"));
-        return;
-      } else {
+      if (userCredential.user != null) {
+        await userCredential.user!.updateDisplayName(nameReg.text.trim());
         emit(RegisterSuccessState());
+      } else {
+        emit(RegisterErrorState("Error in Register"));
       }
-    } on Exception catch (e) {
-      emit(RegisterErrorState(e.toString()));
+    } on FirebaseAuthException catch (e) {
       log(e.toString());
+      emit(RegisterErrorState(e.toString()));
     }
   }
 
-  loginWithGoogle() {}
+  @override
+  Future<void> close() {
+    emailReg.dispose();
+    nameReg.dispose();
+    passwordReg.dispose();
+    return super.close();
+  }
 }

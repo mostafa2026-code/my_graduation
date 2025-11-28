@@ -9,6 +9,8 @@ class MyImages {
       "assets/icons/Healthcare Heart icon animation.json";
 
   static const String back = "assets/icons/backArrow.svg";
+  static const String heartFailure = "assets/images/heart_failure.png";
+  static const String rheumaticFever = "assets/images/knee_pain.png";
 
   static final List<String> socialImages = [google, facebook, twitter];
 }

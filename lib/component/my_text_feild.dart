@@ -16,10 +16,8 @@ class MyTextFeild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      autovalidateMode: AutovalidateMode.disabled,
-      
+      autovalidateMode: AutovalidateMode.always,
       validator: validator,
-
       controller: controller,
       decoration: InputDecoration(
         filled: true,

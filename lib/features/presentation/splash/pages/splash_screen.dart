@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       // ignore: use_build_context_synchronously
-      mypushReplace(context, MyRoutes.login, null);
+      mypushReplace(context, MyRoutes.register, null);
     });
   }
 

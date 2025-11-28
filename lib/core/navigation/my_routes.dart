@@ -4,7 +4,7 @@ import 'package:my_graduation/features/presentation/auth/login/pages/login_scree
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:my_graduation/features/presentation/auth/register/cubit/register_cubit.dart';
 import 'package:my_graduation/features/presentation/auth/register/pages/register_screen.dart';
-import 'package:my_graduation/features/presentation/home/pages/home_screen.dart';
+import 'package:my_graduation/features/presentation/home/pages/main_screen.dart';
 import 'package:my_graduation/features/presentation/splash/pages/splash_screen.dart';
 
 class MyRoutes {
@@ -37,7 +37,7 @@ class MyRoutes {
           child: const RegisterScreen(),
         ),
       ),
-      GoRoute(path: home, builder: (context, state) => const HomeScreen()),
+      GoRoute(path: home, builder: (context, state) => const MainScreen()),
     ],
   );
 }
