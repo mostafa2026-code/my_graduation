@@ -7,18 +7,17 @@ class ComplicatedCasesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        itemBuilder: (context, index) {
-          return PatientCard();
-        },
-        separatorBuilder: (context, index) {
-          return Gap(8);
-        },
-        itemCount: 10,
-      ),
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      itemBuilder: (context, index) {
+        return PatientCard();
+      },
+      separatorBuilder: (context, index) {
+        return Gap(8);
+      },
+      itemCount: 10,
     );
   }
 }

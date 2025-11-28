@@ -10,7 +10,8 @@ class MyImages {
 
   static const String back = "assets/icons/backArrow.svg";
   static const String heartFailure = "assets/images/heart_failure.png";
-  static const String rheumaticFever = "assets/images/knee_pain.png";
+  static const String rheumatoidArthritis = "assets/images/knee_pain.png";
+  static const String rheumaticFever = "assets/images/patient_Icon.png";
 
   static final List<String> socialImages = [google, facebook, twitter];
 }
