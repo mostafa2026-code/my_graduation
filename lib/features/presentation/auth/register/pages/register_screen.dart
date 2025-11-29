@@ -63,8 +63,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Welcome to Dr.record"),
-                Gap(10),
+                const Text("Welcome to Dr.record"),
+                const Gap(10),
                 MyTextFeild(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -75,7 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hint: "Enter your name",
                   controller: cubitReg.nameReg,
                 ),
-                Gap(10),
+                const Gap(10),
                 MyTextFeild(
                   validator: (p0) {
                     if (p0 == null || p0.isEmpty) {
@@ -90,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hint: "Enter your email",
                   controller: cubitReg.emailReg,
                 ),
-                Gap(10),
+                const Gap(10),
                 MyTextFeild(
                   validator: (p0) {
                     if (p0 == null || p0.isEmpty) {
@@ -103,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hint: "Enter your password",
                   controller: cubitReg.passwordReg,
                 ),
-                Gap(20),
+                const Gap(20),
                 MyMainBotton(
                   title: "Register",
                   onTap: () {
@@ -123,7 +123,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         bottomNavigationBar: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Already have an account?"),
+            const Text("Already have an account?"),
             MyTextBottn(
               text: "Login",
               onTap: () {

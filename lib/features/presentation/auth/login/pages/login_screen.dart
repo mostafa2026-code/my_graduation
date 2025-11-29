@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:lottie/lottie.dart';
 import 'package:my_graduation/component/my_main_botton.dart';
 import 'package:my_graduation/component/my_text_bottn.dart';
 import 'package:my_graduation/component/my_text_feild.dart';
@@ -12,7 +11,6 @@ import 'package:my_graduation/core/dialogs/error_dialog.dart';
 import 'package:my_graduation/core/dialogs/loading_dialog.dart';
 import 'package:my_graduation/core/navigation/my_routes.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
-import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_states.dart';
 import 'package:my_graduation/features/presentation/auth/login/widgets/social_bottons.dart';
@@ -54,11 +52,10 @@ class LoginScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(child: SvgPicture.asset(MyImages.doctor, height: 150)),
-                  Gap(20),
+                  const Gap(20),
                   Text("Welcome Back"),
-                  Gap(10),
+                  const Gap(10),
                   MyTextFeild(
-                    
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
@@ -72,10 +69,9 @@ class LoginScreen extends StatelessWidget {
                     hint: 'Enter your email',
                     controller: cubitLogin.emailLogin,
                   ),
-                  Gap(10),
+                  const Gap(10),
 
                   MyTextFeild(
-                    
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your password';
@@ -92,31 +88,31 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
 
                     children: [
-                      Text("Forget your password?"),
+                     const Text("Forget your password?"),
                       MyTextBottn(text: 'Reset', onTap: () {}),
                     ],
                   ),
-                  Gap(20),
+                  const Gap(20),
                   MyMainBotton(
                     title: "Login",
                     onTap: () {
                       cubitLogin.login();
                     },
                   ),
-                  Gap(20),
+                  const Gap(20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Expanded(child: Divider()),
-                      Gap(5),
-                      Text("or continue with"),
-                      Gap(5),
-                      Expanded(child: Divider()),
+                      const Expanded(child: Divider()),
+                      const Gap(5),
+                      const Text("or continue with"),
+                      const Gap(5),
+                      const Expanded(child: Divider()),
                     ],
                   ),
-                  Gap(20),
+                 const  Gap(20),
 
-                  SocialBottons(),
+                 const  SocialBottons(),
                 ],
               ),
             ),

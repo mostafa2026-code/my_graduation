@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/features/presentation/home/pages/home_screen.dart';
 import 'package:my_graduation/features/presentation/patients/pages/patients_home.dart';
+import 'package:my_graduation/features/presentation/profile/pages/profile_screen.dart';
 
 List<Widget> pages = [
   HomeScreen(),
   PatientsHome(),
-  Center(child: Text('Search Page')),
+
   Center(child: Text('Profile Page')),
+  ProfileScreen(),
 ];
 
 class MainScreen extends StatefulWidget {

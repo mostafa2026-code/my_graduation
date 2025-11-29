@@ -9,6 +9,7 @@ import 'package:my_graduation/features/presentation/home/pages/home_screen.dart'
 import 'package:my_graduation/features/presentation/home/pages/main_screen.dart';
 import 'package:my_graduation/features/presentation/patient_details/pages/pateint_details.dart';
 import 'package:my_graduation/features/presentation/patients/pages/patients_home.dart';
+import 'package:my_graduation/features/presentation/profile/pages/profile_screen.dart';
 import 'package:my_graduation/features/presentation/splash/pages/splash_screen.dart';
 
 class MyRoutes {
@@ -61,6 +62,10 @@ class MyRoutes {
       GoRoute(
         path: addPatient,
         builder: (context, state) => const AddEditPatient(),
+      ),
+      GoRoute(
+        path: profile,
+        builder: (context, state) => const ProfileScreen(),
       ),
     ],
   );
