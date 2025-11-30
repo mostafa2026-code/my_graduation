@@ -12,6 +12,12 @@ class MyImages {
   static const String heartFailure = "assets/images/heart_failure.png";
   static const String rheumatoidArthritis = "assets/images/knee_pain.png";
   static const String rheumaticFever = "assets/images/patient_Icon.png";
+  static const String personalHistory = "assets/images/pasthistory.png";
+  static const String therapeutic = "assets/images/therapeutic.png";
+  static const String familyHistory = "assets/images/fami;ly.png";
+  static const String pastHistory = "assets/images/pasthistory.png";
+
+  static const String presentillness = "assets/images/presentillnes.png";
 
   static final List<String> socialImages = [google, facebook, twitter];
 }
