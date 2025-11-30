@@ -16,4 +16,32 @@ class PatientTherapueticHistory {
     this.allergyToDrugs,
     this.recentPrescribedDrugs,
   });
+
+  //toJson method
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'doctorId': doctorId,
+      'doctorName': doctorName,
+      'drugTherapy': drugTherapy,
+      'allergyToDrugs': allergyToDrugs,
+      'recentPrescribedDrugs': recentPrescribedDrugs,
+    };
+  }
+
+
+
+  //fromJson method
+  factory PatientTherapueticHistory.fromJson(Map<String, dynamic> json) {
+    return PatientTherapueticHistory(
+      id: json['id'],
+      name: json['name'],
+      doctorId: json['doctorId'],
+      doctorName: json['doctorName'],
+      drugTherapy: List<String>.from(json['drugTherapy'] ?? []),
+      allergyToDrugs: List<String>.from(json['allergyToDrugs'] ?? []),
+      recentPrescribedDrugs: List<String>.from(json['recentPrescribedDrugs'] ?? []),
+    );
+  }
 }

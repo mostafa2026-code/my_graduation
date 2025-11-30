@@ -1,4 +1,4 @@
-class PatinetFamilyHistory {
+class FamilyHistory {
   String? id;
   String? name;
   String? relationship;
