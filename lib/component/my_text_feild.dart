@@ -6,17 +6,21 @@ class MyTextFeild extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final int? maxline;
 
   const MyTextFeild({
     super.key,
     required this.hint,
     this.controller,
-    this.validator, this.keyboardType,
+    this.validator,
+    this.keyboardType,
+    this.maxline,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxline ?? 1,
       keyboardType: keyboardType,
       autovalidateMode: AutovalidateMode.always,
       validator: validator,
