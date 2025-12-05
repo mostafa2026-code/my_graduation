@@ -6,14 +6,14 @@ class PatientcomplainAnalysis {
   String? name;
   String? doctorId;
   String? doctorName;
-  List<String>? complain;
+  String? complain;
   Onset? onset;
   String? duration;
   Course? course;
-  List<String>? associatedSymptoms;
-  List<String>? reliefFactors;
-  List<String>? aggravatingFactors;
-  List<String>? specialCharacteristics;
+  String? associatedSymptoms;
+  String? reliefFactors;
+  String? aggravatingFactors;
+  String? specialCharacteristics;
 
   PatientcomplainAnalysis({
     this.id,
@@ -76,14 +76,14 @@ class PatientcomplainAnalysis {
     String? name,
     String? doctorId,
     String? doctorName,
-    List<String>? complain,
+    String? complain,
     Onset? onset,
     String? duration,
     Course? course,
-    List<String>? associatedSymptoms,
-    List<String>? reliefFactors,
-    List<String>? aggravatingFactors,
-    List<String>? specialCharacteristics,
+    String? associatedSymptoms,
+    String? reliefFactors,
+    String? aggravatingFactors,
+    String? specialCharacteristics,
   }) {
     return PatientcomplainAnalysis(
       id: id ?? this.id,
