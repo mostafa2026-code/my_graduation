@@ -80,6 +80,9 @@ class FirestoreHelper {
         .get();
   }
 
+
+
+
   // static completeFilter(String diagnosis , String? occupation, String? residency, ) {
   //   return _firestore.collection(patientsCollection).where('diagnosis', isEqualTo: diagnosis).where('occupation', isEqualTo: occupation).where('residency', isEqualTo: residency).get();
   // } 

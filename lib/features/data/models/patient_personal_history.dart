@@ -1,12 +1,14 @@
+import 'package:my_graduation/core/enums/my_enums.dart';
+
 class PatientPersonalHistory {
   String? id;
   String? name;
   String? age;
-  String? gender;
+  Gender? gender;
   String? address;
   String? occupation;
-  List<String>? specialHabits;
-  bool? married;
+  String? specialHabits;
+  MartialStatus? martialStatus;
   int? childrenNumber;
   String? doctorId;
   String? doctorName;
@@ -19,7 +21,7 @@ class PatientPersonalHistory {
     this.address,
     this.occupation,
     this.specialHabits,
-    this.married,
+    this.martialStatus,
     this.childrenNumber = 0,
     this.doctorId,
     this.doctorName,
@@ -34,7 +36,7 @@ class PatientPersonalHistory {
     address = json['address'];
     occupation = json['occupation'];
     specialHabits = json['specialHabits'];
-    married = json['married'];
+    martialStatus = json['martialStatus'];
     childrenNumber = json['childrenNumber'];
     doctorId = json['doctorId'];
     doctorName = json['doctorName'];
@@ -48,7 +50,7 @@ class PatientPersonalHistory {
     'address': address,
     'occupation': occupation,
     'specialHabits': specialHabits,
-    'married': married,
+    'martialStatus': martialStatus,
     'childrenNumber': childrenNumber,
     'doctorId': doctorId,
     'doctorName': doctorName,
@@ -58,11 +60,11 @@ class PatientPersonalHistory {
     String? id,
     String? name,
     String? age,
-    String? gender,
+    Gender? gender,
     String? address,
     String? occupation,
-    List<String>? specialHabits,
-    bool? married,
+   String? specialHabits,
+    MartialStatus? martialStatus,
     int? childrenNumber,
     String? doctorId,
     String? doctorName,
@@ -75,7 +77,7 @@ class PatientPersonalHistory {
       address: address ?? this.address,
       occupation: occupation ?? this.occupation,
       specialHabits: specialHabits ?? this.specialHabits,
-      married: married ?? this.married,
+      martialStatus: martialStatus ?? this.martialStatus,
       childrenNumber: childrenNumber ?? this.childrenNumber,
       doctorId: doctorId ?? this.doctorId,
       doctorName: doctorName ?? this.doctorName,

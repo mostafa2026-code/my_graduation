@@ -5,14 +5,8 @@ import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_e
 
 class AddEditPatientCubit extends Cubit<AddEditPatientState> {
   AddEditPatientCubit() : super(AddEditPatientInitial());
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController ageController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
-  late final Gender gender;
-  late final MartialStatus martialStatus;
-
-  final TextEditingController occupationController = TextEditingController();
-  final TextEditingController chidrenController = TextEditingController();
+  
+ 
 
 
 

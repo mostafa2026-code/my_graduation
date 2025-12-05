@@ -38,5 +38,8 @@ class FirebaseHelper {
     await _auth.signOut();
   }
 
-  static FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  static String getUserId() {
+    return _auth.currentUser!.uid;
+  }
 }

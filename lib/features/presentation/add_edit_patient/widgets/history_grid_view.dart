@@ -36,8 +36,8 @@ class HistoryGridView extends StatelessWidget {
               context: context,
               builder: (context) {
                 return DraggableScrollableSheet(
-                  initialChildSize: .6,
-                  minChildSize: 0.2,
+                  initialChildSize: .8,
+                  minChildSize: .6,
                   maxChildSize: 1,
                   expand: false,
 

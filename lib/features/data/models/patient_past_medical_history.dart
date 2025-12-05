@@ -5,12 +5,12 @@ class PatientPastMedicalHistory {
   String? name;
   String? doctorId;
   String? doctorName;
-  List<String>? similarCondition;
-  List<String>? previousHospitalizationCondition;
-  List<String>? previousOperations;
-  List<String>? previousChronicDiseases;
-  List<String>? bloodTransfusion;
-  List<String>? foodAllergy;
+  String? similarCondition;
+  String ?previousHospitalizationCondition;
+  String? previousOperations;
+  String ?previousChronicDiseases;
+  String ?bloodTransfusion;
+  String ?foodAllergy;
 
   PatientPastMedicalHistory({
     this.id,
@@ -67,12 +67,12 @@ class PatientPastMedicalHistory {
     String? name,
     String? doctorId,
     String? doctorName,
-    List<String>? similarCondition,
-    List<String>? previousHospitalizationCondition,
-    List<String>? previousOperations,
-    List<String>? previousChronicDiseases,
-    List<String>? bloodTransfusion,
-    List<String>? foodAllergy,
+    String? similarCondition,
+    String? previousHospitalizationCondition,
+    String? previousOperations,
+    String? previousChronicDiseases,
+    String? bloodTransfusion,
+    String? foodAllergy,
   }) {
     return PatientPastMedicalHistory(
       id: id ?? this.id,

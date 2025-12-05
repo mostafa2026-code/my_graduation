@@ -1,9 +1,28 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:my_graduation/component/my_chip.dart';
+import 'package:my_graduation/component/my_main_botton.dart';
 import 'package:my_graduation/component/my_text_feild.dart';
+import 'package:my_graduation/core/enums/my_enums.dart';
+import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
+import 'package:my_graduation/features/data/models/patient_personal_history.dart';
 
 class PersonalHistoryForm extends StatelessWidget {
-  const PersonalHistoryForm({super.key});
+  PersonalHistoryForm({super.key, required this.id});
+  final String id;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+  late final Gender gender;
+  final TextEditingController addressControllor = TextEditingController();
+  final TextEditingController occupationController = TextEditingController();
+  final TextEditingController childrenNumberController =
+      TextEditingController();
+  final TextEditingController specailHabitController = TextEditingController();
+  late final SmokingStatus smokingStatus;
+  late final PatientPersonalHistory patientPersonalHistory;
+  late final MartialStatus martialStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -13,73 +32,125 @@ class PersonalHistoryForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Gap(16),
-
-          MyTextFeild(hint: "Name"),
+          MyTextFeild(hint: "Name", controller: nameController),
           Gap(8),
-
-          MyTextFeild(hint: "Age"),
+          MyTextFeild(hint: "Age", controller: ageController),
           Gap(8),
-
           Row(
             children: [
-              DropdownButton(
-                hint: Text("Gender"),
-
-                items: [
-                  DropdownMenuItem(value: "Male", child: Text("Male")),
-                  DropdownMenuItem(value: "Female", child: Text("Female")),
+              Text("Gender"),
+              Gap(16),
+              Wrap(
+                spacing: 5,
+                children: [
+                  MyChip(
+                    label: "Male",
+                    onselected: () {
+                      gender = Gender.male;
+                    },
+                  ),
+                  MyChip(
+                    label: "Female",
+                    onselected: () {
+                      gender = Gender.female;
+                    },
+                  ),
                 ],
-                onChanged: (String? value) {},
-              ),
-              Gap(8),
-              DropdownButton(
-                hint: Text("Marital Status"),
-
-                items: [
-                  DropdownMenuItem(value: "Single", child: Text("Single")),
-                  DropdownMenuItem(value: "Married", child: Text("Married")),
-                ],
-                onChanged: (String? value) {},
-              ),
-              Gap(8),
-              Expanded(
-                child: MyTextFeild(
-                  hint: "Number of Children",
-                  keyboardType: TextInputType.number,
-                ),
               ),
             ],
           ),
           Gap(8),
-          MyTextFeild(hint: "Address"),
+          MyTextFeild(hint: "Address", controller: ageController),
           Gap(8),
-          MyTextFeild(hint: "Occupation"),
+          MyTextFeild(hint: "Occupation", controller: occupationController),
           Gap(8),
-          DropdownButton(
-            hint: Text("Smoking Status"),
-
-            items: [
-              DropdownMenuItem(value: "Non Smoker", child: Text("Non Smoker")),
-              DropdownMenuItem(
-                value: "Light Smoker",
-                child: Text("Light Smoker"),
-              ),
-
-              DropdownMenuItem(
-                value: "Heavy Smoker",
-                child: Text("Heavy Smoker"),
+          Row(
+            children: [
+              Text("Martial Status"),
+              Gap(16),
+              Wrap(
+                children: [
+                  MyChip(
+                    label: "Single ",
+                    onselected: () {
+                      martialStatus = MartialStatus.single;
+                    },
+                  ),
+                  MyChip(
+                    label: "Married",
+                    onselected: () {
+                      martialStatus = MartialStatus.married;
+                    },
+                  ),
+                ],
               ),
             ],
-            onChanged: (String? value) {},
+          ),
+          if (martialStatus == MartialStatus.married)
+            MyTextFeild(
+              hint: "Number of Childern",
+              controller: childrenNumberController,
+            ),
+          Row(
+            children: [
+              Text("Smoking Status"),
+              Gap(16),
+
+              Wrap(
+                children: [
+                  MyChip(
+                    label: "Non Smoker",
+                    onselected: () {
+                      smokingStatus = SmokingStatus.nonSmoker;
+                    },
+                  ),
+
+                  MyChip(
+                    label: "Ex Smoker",
+                    onselected: () {
+                      smokingStatus = SmokingStatus.exSmoker;
+                    },
+                  ),
+
+                  MyChip(
+                    label: "Heavy Smoker",
+                    onselected: () {
+                      smokingStatus = SmokingStatus.heavySmoker;
+                    },
+                  ),
+
+                  MyChip(
+                    label: "light Smoker",
+                    onselected: () {
+                      smokingStatus = SmokingStatus.lightSmoker;
+                    },
+                  ),
+                ],
+              ),
+            ],
           ),
           Gap(8),
-          SizedBox(height: 20),
+          MyTextFeild(hint: "Specail Habits"),
+
           Gap(8),
-          ElevatedButton(
-            onPressed: () {
-              // Save patient information
+          MyMainBotton(
+            title: "Save",
+            onTap: () {
+              patientPersonalHistory = PatientPersonalHistory(
+                id: id,
+                name: nameController.text,
+                age: ageController.text,
+                address: addressControllor.text,
+                occupation: occupationController.text,
+                gender: gender,
+                doctorId: FirebaseHelper.getUserId(),
+                doctorName: FirebaseHelper.getUserName(),
+                martialStatus: martialStatus,
+                childrenNumber: int.tryParse(childrenNumberController.text),
+                specialHabits: specailHabitController.text,
+              );
+              log(patientPersonalHistory.toString());
             },
-            child: Text('Save'),
           ),
         ],
       ),
