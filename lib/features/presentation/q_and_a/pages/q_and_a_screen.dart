@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:my_graduation/core/utils/my_colors.dart';
+import 'package:my_graduation/features/data/models/q_and_a_model.dart';
 
 class QAndAScreen extends StatelessWidget {
   const QAndAScreen({super.key});
@@ -6,14 +9,40 @@ class QAndAScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-
-
+      appBar: AppBar(title: Text("Dr.Record Q&A")),
+      body: Padding(
+        padding: EdgeInsets.all(8),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ListView.separated(
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: drRecordQA.length,
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Gap(10);
+                },
+                itemBuilder: (BuildContext context, int index) {
+                  QAndAModel qAndAModel = drRecordQA[index];
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: MyColors.accent,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ExpansionTile(
+                      title: Text(qAndAModel.question),
+                      children: [
+                        Text(qAndAModel.answer, textAlign: TextAlign.start),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
-
-
-
-
-
