@@ -9,20 +9,35 @@ import 'package:my_graduation/core/enums/my_enums.dart';
 import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/features/data/models/patient_personal_history.dart';
 
-class PersonalHistoryForm extends StatelessWidget {
-  PersonalHistoryForm({super.key, required this.id});
+class PersonalHistoryForm extends StatefulWidget {
+  const PersonalHistoryForm({super.key, required this.id});
   final String id;
+
+  @override
+  State<PersonalHistoryForm> createState() => _PersonalHistoryFormState();
+}
+
+class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
   final TextEditingController nameController = TextEditingController();
+
   final TextEditingController ageController = TextEditingController();
+
   late final Gender gender;
+
   final TextEditingController addressControllor = TextEditingController();
+
   final TextEditingController occupationController = TextEditingController();
+
   final TextEditingController childrenNumberController =
       TextEditingController();
+
   final TextEditingController specailHabitController = TextEditingController();
-  late final SmokingStatus smokingStatus;
+
+  SmokingStatus? smokingStatus;
+
   late final PatientPersonalHistory patientPersonalHistory;
-  late final MartialStatus martialStatus;
+
+  MartialStatus? martialStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +75,7 @@ class PersonalHistoryForm extends StatelessWidget {
             ],
           ),
           Gap(8),
-          MyTextFeild(hint: "Address", controller: ageController),
+          MyTextFeild(hint: "Address", controller: addressControllor),
           Gap(8),
           MyTextFeild(hint: "Occupation", controller: occupationController),
           Gap(8),
@@ -130,14 +145,17 @@ class PersonalHistoryForm extends StatelessWidget {
             ],
           ),
           Gap(8),
-          MyTextFeild(hint: "Specail Habits"),
+          MyTextFeild(
+            hint: "Specail Habits",
+            controller: specailHabitController,
+          ),
 
           Gap(8),
           MyMainBotton(
             title: "Save",
             onTap: () {
               patientPersonalHistory = PatientPersonalHistory(
-                id: id,
+                id: widget.id,
                 name: nameController.text,
                 age: ageController.text,
                 address: addressControllor.text,

@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+class QAndAScreen extends StatelessWidget {
+  const QAndAScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       
+
+
     );
   }
 }
+
+
+
+
+

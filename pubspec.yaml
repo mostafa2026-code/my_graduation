@@ -8,11 +8,10 @@ environment:
 
 dependencies:
   bloc: ^9.1.0
- 
+  cloud_firestore: ^6.1.0
   extended_svg_picture: ^1.0.0
   firebase_auth: ^6.1.2
   firebase_core: ^4.2.1
-  cloud_firestore: ^6.1.0
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
@@ -21,7 +20,8 @@ dependencies:
   google_nav_bar: ^5.0.6
   lottie: 3.3.1
   path_provider: ^2.0.15
-
+  shared_preferences: ^2.5.4
+  
 dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:

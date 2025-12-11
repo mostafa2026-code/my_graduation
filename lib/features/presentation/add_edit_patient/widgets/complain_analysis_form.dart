@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:my_graduation/component/my_chip.dart';
@@ -136,6 +138,7 @@ class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
               specialCharacteristics: specialCharacter.text,
               associatedSymptoms: associatedSymptomsController.text,
             );
+            log(patientcomplainAnalysis.toJson().toString());
           },
         ),
       ],

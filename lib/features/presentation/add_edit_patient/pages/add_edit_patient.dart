@@ -67,7 +67,7 @@ List<HistoryItemBuilder> historyCardList = [
     title: "History of Present Illness",
     image: MyImages.presentillness,
     color: ColorsPalette.lightPurple,
-    bottomSheet: ComplainAnalysisForm(),
+    bottomSheet: ComplainAnalysisForm(id: '', name: '',),
   ),
   HistoryItemBuilder(
     title: "Past Medical History ",
