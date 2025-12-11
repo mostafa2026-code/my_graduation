@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 class FirebaseHelper {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static Future<UserCredential?> login(String email, String password) async {
@@ -37,8 +36,47 @@ class FirebaseHelper {
     await _auth.signOut();
   }
 
-
   static String getUserId() {
     return _auth.currentUser!.uid;
+  }
+
+  static Future<bool?> resetPassword(String newPassword) async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      await user.reload();
+      bool isemailVerified = user.emailVerified;
+      try {
+        if (isemailVerified == true) {
+          await user.updatePassword(newPassword);
+          return true;
+        } else {
+          await user.sendEmailVerification();
+
+          return false;
+        }
+      } on FirebaseAuthException catch (e) {
+        log(e.toString());
+      }
+    } else {
+      return false;
+    }
+    return null;
+  }
+
+  static Future<bool?> isEmailVerified() async {
+    User? user = _auth.currentUser;
+    try {
+      if (user != null && user.emailVerified) {
+        return true;
+      } else if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+        return false;
+      } else if (user == null) {
+        return null;
+      }
+    } on FirebaseAuthException catch (e) {
+      log(e.toString());
+      return false;
+    }
   }
 }
