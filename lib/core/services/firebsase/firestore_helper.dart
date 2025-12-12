@@ -23,12 +23,14 @@ class FirestoreHelper {
   static const String therapeuticHistorySubCollection = "therapeuticHistory";
   static const String familyHistorySubCollection = "familyHistory";
   static const String pastSubCollection = "pastHistory";
-    
+
+  static createPatientCollectionWithId(PatientModel patientModel) {
+    _firestore.collection(patientsCollection).doc(patientModel.id).set(patientModel.toJson());
+  }
 
   static Future<String> savePesonalHistory(
     PatientPersonalHistory patientPersonal,
-    PatientModel pateintModel
-
+    PatientModel pateintModel,
   ) async {
     try {
       await _firestore
@@ -43,6 +45,7 @@ class FirestoreHelper {
       return e.toString();
     }
   }
+
   static Future<String> savePresentIllnessHistory(
     PatientcomplainAnalysis complain,
     PatientModel patient,
@@ -60,6 +63,7 @@ class FirestoreHelper {
       return e.toString();
     }
   }
+
   static Future<String> saveTherapeuticHistory(
     PatientTherapueticHistory therapy,
     PatientModel patient,
@@ -68,7 +72,7 @@ class FirestoreHelper {
       await _firestore
           .collection(patientsCollection)
           .doc(patient.id)
-          .collection(presentIllnessSubCollection)
+          .collection(therapeuticHistorySubCollection)
           .add(therapy.toJson());
 
       return "success";
@@ -77,7 +81,7 @@ class FirestoreHelper {
       return e.toString();
     }
   }
-  
+
   static Future<String> saveFamilyHistory(
     PatientFamilyHistory family,
     PatientModel patient,
@@ -86,7 +90,7 @@ class FirestoreHelper {
       await _firestore
           .collection(patientsCollection)
           .doc(patient.id)
-          .collection(presentIllnessSubCollection)
+          .collection(familyHistorySubCollection)
           .add(family.toJson());
 
       return "success";
@@ -95,6 +99,7 @@ class FirestoreHelper {
       return e.toString();
     }
   }
+
   static Future<String> savePastHistory(
     PatientPastMedicalHistory past,
     PatientModel patient,
@@ -103,7 +108,7 @@ class FirestoreHelper {
       await _firestore
           .collection(patientsCollection)
           .doc(patient.id)
-          .collection(presentIllnessSubCollection)
+          .collection(pastSubCollection)
           .add(past.toJson());
 
       return "success";
@@ -112,8 +117,7 @@ class FirestoreHelper {
       return e.toString();
     }
   }
-  
-  
+
   static saveDoctorData(DoctorsModel doctor) {
     _firestore.collection(doctorCollection).doc(doctor.id).set(doctor.toJson());
   }
@@ -150,7 +154,6 @@ class FirestoreHelper {
         .where("diagnosis", isNull: true)
         .get();
   }
-
 
   // static completeFilter(String diagnosis , String? occupation, String? residency, ) {
   //   return _firestore.collection(patientsCollection).where('diagnosis', isEqualTo: diagnosis).where('occupation', isEqualTo: occupation).where('residency', isEqualTo: residency).get();
