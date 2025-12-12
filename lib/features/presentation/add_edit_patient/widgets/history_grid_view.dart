@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/pages/add_edit_patient.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/pages/history_cards.dart';
 
 class HistoryGridView extends StatelessWidget {
-  const HistoryGridView({super.key});
+  const HistoryGridView({super.key, required this.cubit, required this.id});
+  final AddEditPatientCubit cubit;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +38,11 @@ class HistoryGridView extends StatelessWidget {
 
               context: context,
               builder: (context) {
-                return SafeArea(child: model.bottomSheet);
+                return SafeArea(child: model.bottomSheet(cubit, id));
               },
             );
           },
-          child: HistoryCards(model: model),
+          child: HistoryCards(model: model, cubit: cubit),
         );
       },
     );

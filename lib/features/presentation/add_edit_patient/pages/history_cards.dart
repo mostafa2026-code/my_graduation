@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/pages/add_edit_patient.dart';
 
 class HistoryCards extends StatelessWidget {
-  const HistoryCards({super.key, required this.model});
+  const HistoryCards({super.key, required this.model, required this.cubit});
 
   final HistoryItemBuilder model;
+  final AddEditPatientCubit cubit;
 
   @override
   Widget build(BuildContext context) {

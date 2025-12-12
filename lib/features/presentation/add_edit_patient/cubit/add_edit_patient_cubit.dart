@@ -14,6 +14,8 @@ import 'package:uuid/uuid.dart';
 
 class AddEditPatientCubit extends Cubit<AddEditPatientState> {
   AddEditPatientCubit() : super(AddEditPatientInitial());
+    String? id;
+   
 
   String generateId() {
     String id = Uuid().v4();
@@ -41,6 +43,7 @@ class AddEditPatientCubit extends Cubit<AddEditPatientState> {
       emit(AddEditPatientFailure(e.toString()));
     }
   }
+
   savePatientPastMedicalHistory(
     PatientPastMedicalHistory patientPastMedicalHistory,
     PatientModel patientModel,
@@ -62,6 +65,7 @@ class AddEditPatientCubit extends Cubit<AddEditPatientState> {
       emit(AddEditPatientFailure(e.toString()));
     }
   }
+
   savePresentIlnessHistory(
     PatientcomplainAnalysis patientcomplainAnalysis,
     PatientModel patientModel,
@@ -83,6 +87,7 @@ class AddEditPatientCubit extends Cubit<AddEditPatientState> {
       emit(AddEditPatientFailure(e.toString()));
     }
   }
+
   saveTherapeuticHistory(
     PatientTherapueticHistory patientTherapueticHistory,
     PatientModel patientModel,
@@ -104,6 +109,7 @@ class AddEditPatientCubit extends Cubit<AddEditPatientState> {
       emit(AddEditPatientFailure(e.toString()));
     }
   }
+
   saveFamilyHistory(
     PatientFamilyHistory patientFamilyHistory,
     PatientModel patientModel,
@@ -112,7 +118,7 @@ class AddEditPatientCubit extends Cubit<AddEditPatientState> {
       emit(AddEditPatientLoading());
 
       String result = await FirestoreHelper.saveFamilyHistory(
-          patientFamilyHistory,
+        patientFamilyHistory,
         patientModel,
       );
       if (result == "success") {
@@ -125,10 +131,4 @@ class AddEditPatientCubit extends Cubit<AddEditPatientState> {
       emit(AddEditPatientFailure(e.toString()));
     }
   }
-
-
-
-
-
-
 }

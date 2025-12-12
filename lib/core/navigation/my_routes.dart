@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/pages/add_edit_patient.dart';
 import 'package:my_graduation/features/presentation/auth/login/pages/login_screen.dart';
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_cubit.dart';
@@ -35,7 +36,8 @@ class MyRoutes {
   static const String logout = '/logout';
   static const String notifications = '/notifications';
   static const String resetPassword = '/resetPassword';
-  static const String verifyemailForResetPassword = '/verifyemailForResetPassword';
+  static const String verifyemailForResetPassword =
+      '/verifyemailForResetPassword';
 
   static final GoRouter routes = GoRouter(
     initialLocation: splash,
@@ -72,7 +74,10 @@ class MyRoutes {
       //add patient
       GoRoute(
         path: addPatient,
-        builder: (context, state) => const AddEditPatient(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => AddEditPatientCubit(),
+          child: const AddEditPatient(),
+        ),
       ),
       GoRoute(
         path: profile,
@@ -82,10 +87,8 @@ class MyRoutes {
         path: settings,
         builder: (context, state) => const SettingsScreen(),
       ),
-      GoRoute(
-        path: qAndA,
-        builder: (context, state) => const QAndAScreen(),
-      ),
+      GoRoute(path: qAndA, builder: (context, state) => const QAndAScreen()),
+
       // GoRoute(
       //   path: about,
       //   builder: (context, state) => const AboutScreen(),
@@ -98,8 +101,6 @@ class MyRoutes {
       //   path: notifications,
       //   builder: (context, state) => const NotificationsScreen(),
       // ),
-
-
       GoRoute(
         path: verifyemailForResetPassword,
         builder: (context, state) => const VerifyEmailForResetPassword(),

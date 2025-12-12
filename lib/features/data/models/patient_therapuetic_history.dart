@@ -3,9 +3,9 @@ class PatientTherapueticHistory {
   String? name;
   String? doctorId;
   String? doctorName;
-  List<String>? drugTherapy;
-  List<String>? allergyToDrugs;
-  List<String>? recentPrescribedDrugs;
+  String? drugTherapy;
+  String? allergyToDrugs;
+  String? recentPrescribedDrugs;
 
   PatientTherapueticHistory({
     this.id,
@@ -39,9 +39,11 @@ class PatientTherapueticHistory {
       name: json['name'],
       doctorId: json['doctorId'],
       doctorName: json['doctorName'],
-      drugTherapy: List<String>.from(json['drugTherapy'] ?? []),
-      allergyToDrugs: List<String>.from(json['allergyToDrugs'] ?? []),
-      recentPrescribedDrugs: List<String>.from(json['recentPrescribedDrugs'] ?? []),
+      drugTherapy: json['drugTherapy'],
+      allergyToDrugs: json['allergyToDrugs'],
+      recentPrescribedDrugs: json['recentPrescribedDrugs'],
     );
   }
+  
+  
 }
