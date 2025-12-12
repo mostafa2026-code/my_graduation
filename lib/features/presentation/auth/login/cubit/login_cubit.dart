@@ -35,7 +35,7 @@ class LoginCubit extends Cubit<LoginStates> {
               image: response.user!.photoURL!,
             ),
           );
-          SharedHelper.isLoggedIn();
+          SharedHelper.saveIsLoggedIn();
         }
       } on Exception catch (e) {
         emit(LoginErrorState(e.toString()));
@@ -45,4 +45,10 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 
   loginWithGoogle() {}
+
+
+  // logout() {
+  //   emit(loadin());
+  //   SharedHelper.isLoggedIn();
+  // }
 }

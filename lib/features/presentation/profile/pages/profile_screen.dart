@@ -8,38 +8,49 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+      appBar: AppBar(title: Text("My Profile"), centerTitle: true),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(radius: 50, backgroundColor: Colors.grey),
-              Gap(8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    'Username',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  CircleAvatar(radius: 50, backgroundColor: Colors.grey),
+                  Gap(8),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Username',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text('Email', style: TextStyle(fontSize: 16)),
+                    ],
                   ),
-                  Text('Email', style: TextStyle(fontSize: 16)),
                 ],
+              ),
+              Gap(20),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: 4,
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Gap(10);
+                  },
+                  itemBuilder: (BuildContext context, int index) {
+                    return ProfileListTileContainer();
+                  },
+                ),
               ),
             ],
           ),
-          Gap(20),
-          ListView.separated(
-            itemCount: 4,
-            separatorBuilder: (BuildContext context, int index) {
-              return Gap(10);
-            },
-            itemBuilder: (BuildContext context, int index) {
-              return ProfileListTileContainer();
-            },
-          ),
-        ],
+        ),
       ),
     );
   }

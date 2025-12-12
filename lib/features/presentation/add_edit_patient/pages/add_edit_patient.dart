@@ -24,7 +24,7 @@ class AddEditPatient extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(20),
+        padding:const EdgeInsets.all(20),
         child: MyMainBotton(title: "Save", onTap: () {}),
       ),
     );
@@ -97,6 +97,6 @@ class FamilyHistoryForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return  Container();
   }
 }

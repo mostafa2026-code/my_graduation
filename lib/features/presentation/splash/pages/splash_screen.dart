@@ -3,7 +3,7 @@ import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/core/navigation/my_routes.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:lottie/lottie.dart';
-import 'package:my_graduation/core/services/shared_prefrences/shared_helper.dart';
+import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-      if (SharedHelper.getUserInfo() != null && SharedHelper.isLoggedIn()) {
+      if (FirebaseHelper.getuserEmail() != null ) {
         // ignore: use_build_context_synchronously
         mypushReplace(context, MyRoutes.main, null);
       } else {

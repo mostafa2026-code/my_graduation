@@ -19,8 +19,8 @@ class ComplainAnalysisForm extends StatefulWidget {
 }
 
 class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
-  late final Onset onset;
-  late final Course course;
+  Onset? onset;
+  Course? course;
   final TextEditingController durationController = TextEditingController();
   final TextEditingController releivingFactorController =
       TextEditingController();
@@ -30,23 +30,28 @@ class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
   final TextEditingController specialCharacter = TextEditingController();
   final TextEditingController associatedSymptomsController =
       TextEditingController();
-  late final PatientcomplainAnalysis patientcomplainAnalysis;
+  PatientcomplainAnalysis? patientcomplainAnalysis;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Complain Analysis"),
-        const Gap(16),
-        MyTextFeild(hint: "Complain", controller: complaintController),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      physics: const BouncingScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Onset"),
-            Gap(16),
+            Text("Complain Analysis"),
+            const Gap(16),
+            MyTextFeild(hint: "Complain", controller: complaintController),
+            const Text("Onset"),
+            const Gap(16),
             Wrap(
+              spacing: 8,
+              alignment: WrapAlignment.start,
+
               children: [
                 MyChip(
                   label: "Acute",
@@ -62,86 +67,87 @@ class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
                 ),
               ],
             ),
+            const Gap(8),
+            const Text("Course"),
+            const Gap(16),
+            Wrap(
+              spacing: 8,
+              children: [
+                MyChip(
+                  label: "Progressive",
+                  onselected: () {
+                    course = Course.progressive;
+                  },
+                ),
+                MyChip(
+                  label: "Regressive",
+                  onselected: () {
+                    course = Course.regressive;
+                  },
+                ),
+                MyChip(
+                  label: "Intermetent",
+                  onselected: () {
+                    course = Course.intermetent;
+                  },
+                ),
+                MyChip(
+                  label: "Stationary",
+                  onselected: () {
+                    course = Course.stationary;
+                  },
+                ),
+              ],
+            ),
+
+            const Gap(8),
+            MyTextFeild(hint: "Duration", controller: durationController),
+            const Gap(8),
+            MyTextFeild(
+              hint: "Special Character",
+              maxline: 3,
+              controller: specialCharacter,
+            ),
+            const Gap(8),
+
+            MyTextFeild(
+              hint: "Reliveing Factors",
+              controller: releivingFactorController,
+            ),
+            const Gap(8),
+            MyTextFeild(
+              hint: "Exagreting Factor ",
+              controller: exaeratingFactorController,
+            ),
+            const Gap(8),
+            MyTextFeild(
+              hint: "Associated Symptoms",
+              controller: associatedSymptomsController,
+            ),
+            const Gap(16),
+            MyMainBotton(
+              title: "save",
+              onTap: () {
+                patientcomplainAnalysis = PatientcomplainAnalysis(
+                  id: widget.id,
+                  name: widget.name,
+                  doctorId: FirebaseHelper.getUserId(),
+                  doctorName: FirebaseHelper.getUserName(),
+                  onset: onset,
+                  course: course,
+                  duration: durationController.text,
+                  complain: complaintController.text,
+                  reliefFactors: releivingFactorController.text,
+                  aggravatingFactors: exaeratingFactorController.text,
+                  specialCharacteristics: specialCharacter.text,
+                  associatedSymptoms: associatedSymptomsController.text,
+                );
+                log(patientcomplainAnalysis!.toJson().toString());
+              },
+            ),
           ],
         ),
-        const Gap(8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Course"),
-            MyChip(
-              label: "Progressive",
-              onselected: () {
-                course = Course.progressive;
-              },
-            ),
-            MyChip(
-              label: "Regressive",
-              onselected: () {
-                course = Course.regressive;
-              },
-            ),
-            MyChip(
-              label: "Intermetent",
-              onselected: () {
-                course = Course.intermetent;
-              },
-            ),
-            MyChip(
-              label: "Stationary",
-              onselected: () {
-                course = Course.stationary;
-              },
-            ),
-          ],
-        ),
-
-        const Gap(8),
-        MyTextFeild(hint: "Duration", controller: durationController),
-        const Gap(8),
-        MyTextFeild(
-          hint: "Special Character",
-          maxline: 3,
-          controller: specialCharacter,
-        ),
-        const Gap(8),
-
-        MyTextFeild(
-          hint: "Reliveing Factors",
-          controller: releivingFactorController,
-        ),
-        const Gap(8),
-        MyTextFeild(
-          hint: "Exagreting Factor ",
-          controller: exaeratingFactorController,
-        ),
-        const Gap(8),
-        MyTextFeild(
-          hint: "Associated Symptoms",
-          controller: associatedSymptomsController,
-        ),
-        const Gap(16),
-        MyMainBotton(
-          title: "save",
-          onTap: () {
-            patientcomplainAnalysis = PatientcomplainAnalysis(
-              id: widget.id,
-              name: widget.name,
-              doctorId: FirebaseHelper.getUserId(),
-              doctorName: FirebaseHelper.getUserName(),
-              onset: onset,
-              course: course,
-              duration: durationController.text,
-              complain: complaintController.text,
-              reliefFactors: releivingFactorController.text,
-              aggravatingFactors: exaeratingFactorController.text,
-              specialCharacteristics: specialCharacter.text,
-              associatedSymptoms: associatedSymptomsController.text,
-            );
-            log(patientcomplainAnalysis.toJson().toString());
-          },
-        ),
-      ],
+      ),
     );
   }
 }

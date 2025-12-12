@@ -40,6 +40,10 @@ class FirebaseHelper {
     return _auth.currentUser!.uid;
   }
 
+  static String? getuserEmail() {
+    return _auth.currentUser!.email;
+  }
+
   static Future<bool?> resetPassword(String newPassword) async {
     User? user = _auth.currentUser;
     if (user != null) {

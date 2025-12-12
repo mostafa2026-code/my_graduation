@@ -24,15 +24,15 @@ class RegisterCubit extends Cubit<RegisterStates> {
       if (userCredential.user != null) {
         await userCredential.user!.updateDisplayName(nameReg.text.trim());
         emit(RegisterSuccessState());
-        SharedHelper.saveDoctor(DoctorsModel(
-          email: emailReg.text.trim(),
-          name: nameReg.text.trim(),
-          id: userCredential.user!.uid,
-          image: userCredential.user!.photoURL!,
-        ));
-        SharedHelper.isLoggedIn(
-          
+        SharedHelper.saveDoctor(
+          DoctorsModel(
+            email: emailReg.text.trim(),
+            name: nameReg.text.trim(),
+            id: userCredential.user!.uid,
+            image: userCredential.user!.photoURL!,
+          ),
         );
+        SharedHelper.saveIsLoggedIn();
       } else {
         emit(RegisterErrorState("Error in Register"));
       }

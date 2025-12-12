@@ -19,8 +19,12 @@ class SharedHelper {
     sharedPreferences.setString(kDocror, docString);
   }
 
-  static isLoggedIn() {
+  static saveIsLoggedIn() {
     sharedPreferences.setBool(kisLoggedIn, true);
+  }
+
+  static isLoggedIn() {
+    sharedPreferences.getBool(kisLoggedIn);
   }
 
   static DoctorsModel? getUserInfo() {

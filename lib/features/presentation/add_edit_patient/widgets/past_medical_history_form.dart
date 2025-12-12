@@ -13,7 +13,7 @@ class PastMedicalHistoryForm extends StatelessWidget {
   final String id;
   final String name;
 
-  late PatientPastMedicalHistory patientPastMedicalHistory;
+  PatientPastMedicalHistory? patientPastMedicalHistory;
 
   TextEditingController similarConditionController = TextEditingController();
 
@@ -36,8 +36,8 @@ class PastMedicalHistoryForm extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Past Medical History"),
-            Gap(16),
+            const Text("Past Medical History"),
+            const Gap(16),
             MyTextFeild(
               hint: "Similar condition",
               controller: similarConditionController,
@@ -82,7 +82,7 @@ class PastMedicalHistoryForm extends StatelessWidget {
 
                   similarCondition: similarConditionController.text,
                 );
-                log(patientPastMedicalHistory.toJson().toString());
+                log(patientPastMedicalHistory!.toJson().toString());
               },
             ),
           ],

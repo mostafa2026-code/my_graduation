@@ -22,7 +22,7 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
 
   final TextEditingController ageController = TextEditingController();
 
-  late final Gender gender;
+  Gender? gender;
 
   final TextEditingController addressControllor = TextEditingController();
 
@@ -35,26 +35,28 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
 
   SmokingStatus? smokingStatus;
 
-  late final PatientPersonalHistory patientPersonalHistory;
+  PatientPersonalHistory? patientPersonalHistory;
 
   MartialStatus? martialStatus;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Gap(16),
+          const Gap(16),
           MyTextFeild(hint: "Name", controller: nameController),
-          Gap(8),
+          const Gap(8),
           MyTextFeild(hint: "Age", controller: ageController),
-          Gap(8),
-          Row(
+          const Gap(8),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("Gender"),
-              Gap(16),
+              const Text("Gender"),
+              const Gap(16),
               Wrap(
                 spacing: 5,
                 children: [
@@ -74,15 +76,16 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
               ),
             ],
           ),
-          Gap(8),
+          const Gap(8),
           MyTextFeild(hint: "Address", controller: addressControllor),
-          Gap(8),
+          const Gap(8),
           MyTextFeild(hint: "Occupation", controller: occupationController),
-          Gap(8),
-          Row(
+          const Gap(8),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("Martial Status"),
-              Gap(16),
+              const Text("Martial Status"),
+              const Gap(16),
               Wrap(
                 children: [
                   MyChip(
@@ -106,12 +109,15 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
               hint: "Number of Childern",
               controller: childrenNumberController,
             ),
-          Row(
+          const Gap(8),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("Smoking Status"),
-              Gap(16),
+              const Text("Smoking Status"),
+              const Gap(16),
 
               Wrap(
+                spacing: 8,
                 children: [
                   MyChip(
                     label: "Non Smoker",
@@ -144,13 +150,13 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
               ),
             ],
           ),
-          Gap(8),
+          const Gap(8),
           MyTextFeild(
             hint: "Specail Habits",
             controller: specailHabitController,
           ),
 
-          Gap(8),
+          const Gap(8),
           MyMainBotton(
             title: "Save",
             onTap: () {
