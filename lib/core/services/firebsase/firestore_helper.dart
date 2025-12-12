@@ -14,7 +14,7 @@ import 'package:my_graduation/features/data/models/patientcomplain_analysis.dart
 // import 'package:my_graduation/features/data/models/patient_personal_history.dart';
 
 class FirestoreHelper {
-  static const String patientsCollection = 'patients';
+  static const String kpatientsCollection = 'patients';
   static const String doctorCollection = 'doctors';
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -24,8 +24,15 @@ class FirestoreHelper {
   static const String familyHistorySubCollection = "familyHistory";
   static const String pastSubCollection = "pastHistory";
 
-  static createPatientCollectionWithId(PatientModel patientModel) {
-    _firestore.collection(patientsCollection).doc(patientModel.id).set(patientModel.toJson());
+  static CollectionReference<Map<String, dynamic>> getPatientsCollection() {
+    return _firestore.collection(kpatientsCollection);
+  }
+
+  static Future<void> createPatientDocWithId(PatientModel patientModel) async {
+    await _firestore
+        .collection(kpatientsCollection)
+        .doc(patientModel.id)
+        .set(patientModel.toJson());
   }
 
   static Future<String> savePesonalHistory(
@@ -33,8 +40,7 @@ class FirestoreHelper {
     PatientModel pateintModel,
   ) async {
     try {
-      await _firestore
-          .collection(patientsCollection)
+      await getPatientsCollection()
           .doc(pateintModel.id)
           .collection(personalSubCollection)
           .add(patientPersonal.toJson());
@@ -51,8 +57,7 @@ class FirestoreHelper {
     PatientModel patient,
   ) async {
     try {
-      await _firestore
-          .collection(patientsCollection)
+      await getPatientsCollection()
           .doc(patient.id)
           .collection(presentIllnessSubCollection)
           .add(complain.toJson());
@@ -69,8 +74,7 @@ class FirestoreHelper {
     PatientModel patient,
   ) async {
     try {
-      await _firestore
-          .collection(patientsCollection)
+      await getPatientsCollection()
           .doc(patient.id)
           .collection(therapeuticHistorySubCollection)
           .add(therapy.toJson());
@@ -87,8 +91,7 @@ class FirestoreHelper {
     PatientModel patient,
   ) async {
     try {
-      await _firestore
-          .collection(patientsCollection)
+      await getPatientsCollection()
           .doc(patient.id)
           .collection(familyHistorySubCollection)
           .add(family.toJson());
@@ -105,8 +108,7 @@ class FirestoreHelper {
     PatientModel patient,
   ) async {
     try {
-      await _firestore
-          .collection(patientsCollection)
+      await getPatientsCollection()
           .doc(patient.id)
           .collection(pastSubCollection)
           .add(past.toJson());
@@ -123,7 +125,7 @@ class FirestoreHelper {
   }
 
   static saveCompletePatientData(PatientModel patient) {
-    _firestore.collection(patientsCollection).doc(patient.id).set({
+    _firestore.collection(kpatientsCollection).doc(patient.id).set({
       'name': patient.name,
       'email': patient.email,
       'phone': patient.phone,
@@ -135,14 +137,14 @@ class FirestoreHelper {
   }
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getAllPatient() {
-    return _firestore.collection(patientsCollection).get();
+    return _firestore.collection(kpatientsCollection).get();
   }
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getPatientByDisease(
     String diagnosis,
   ) {
     return _firestore
-        .collection(patientsCollection)
+        .collection(kpatientsCollection)
         .where("diagnosis", isEqualTo: diagnosis)
         .get();
   }
@@ -150,7 +152,7 @@ class FirestoreHelper {
   static Future<QuerySnapshot<Map<String, dynamic>>>
   getPatientWithoutDiagnosis() {
     return _firestore
-        .collection(patientsCollection)
+        .collection(kpatientsCollection)
         .where("diagnosis", isNull: true)
         .get();
   }
