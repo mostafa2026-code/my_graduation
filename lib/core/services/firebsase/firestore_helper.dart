@@ -1,7 +1,13 @@
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_graduation/features/data/models/doctors_model.dart';
+import 'package:my_graduation/features/data/models/family_history.dart';
 // import 'package:my_graduation/features/data/models/family_history.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
+import 'package:my_graduation/features/data/models/patient_past_medical_history.dart';
+import 'package:my_graduation/features/data/models/patient_personal_history.dart';
+import 'package:my_graduation/features/data/models/patient_therapuetic_history.dart';
+import 'package:my_graduation/features/data/models/patientcomplain_analysis.dart';
 // import 'package:my_graduation/features/data/models/patient_past_medical_history.dart';
 // import 'package:my_graduation/features/data/models/patient_therapuetic_history.dart';
 // import 'package:my_graduation/features/data/models/patientcomplain_analysis.dart';
@@ -12,38 +18,102 @@ class FirestoreHelper {
   static const String doctorCollection = 'doctors';
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // static savePesonalHistory(PatientPersonalHistory patient) {
-  //   _firestore
-  //       .collection(patientsCollection)
-  //       .doc(patient.id)
-  //       .set(patient.toJson());
-  // }
+  static const String personalSubCollection = "personalHistory";
+  static const String presentIllnessSubCollection = "presentIllness";
+  static const String therapeuticHistorySubCollection = "therapeuticHistory";
+  static const String familyHistorySubCollection = "familyHistory";
+  static const String pastSubCollection = "pastHistory";
+    
 
-  // static saveComplainAnalysis(PatientcomplainAnalysis analysis) {
-  //   _firestore
-  //       .collection(patientsCollection)
-  //       .doc(analysis.id)
-  //       .set(analysis.toJson());
-  // }
+  static Future<String> savePesonalHistory(
+    PatientPersonalHistory patientPersonal,
+    PatientModel pateintModel
 
-  // static savepastMedicalHistory(PatientPastMedicalHistory history) {
-  //   _firestore
-  //       .collection(patientsCollection)
-  //       .doc(history.id)
-  //       .set(history.toJson());
-  // }
+  ) async {
+    try {
+      await _firestore
+          .collection(patientsCollection)
+          .doc(pateintModel.id)
+          .collection(personalSubCollection)
+          .add(patientPersonal.toJson());
 
-  // static saveTheraputicHistory(PatientTherapueticHistory history) {
-  //   _firestore
-  //       .collection(patientsCollection)
-  //       .doc(history.id)
-  //       .set(history.toJson());
-  // }
+      return "success";
+    } on FirebaseException catch (e) {
+      log(e.toString());
+      return e.toString();
+    }
+  }
+  static Future<String> savePresentIllnessHistory(
+    PatientcomplainAnalysis complain,
+    PatientModel patient,
+  ) async {
+    try {
+      await _firestore
+          .collection(patientsCollection)
+          .doc(patient.id)
+          .collection(presentIllnessSubCollection)
+          .add(complain.toJson());
 
-  // static savefamilyHistory(FamilyHistory history){
-  //   _firestore.collection(patientsCollection).doc(history.id).set(history.toJson());
-  // }
+      return "success";
+    } on FirebaseException catch (e) {
+      log(e.toString());
+      return e.toString();
+    }
+  }
+  static Future<String> saveTherapeuticHistory(
+    PatientTherapueticHistory therapy,
+    PatientModel patient,
+  ) async {
+    try {
+      await _firestore
+          .collection(patientsCollection)
+          .doc(patient.id)
+          .collection(presentIllnessSubCollection)
+          .add(therapy.toJson());
 
+      return "success";
+    } on FirebaseException catch (e) {
+      log(e.toString());
+      return e.toString();
+    }
+  }
+  
+  static Future<String> saveFamilyHistory(
+    PatientFamilyHistory family,
+    PatientModel patient,
+  ) async {
+    try {
+      await _firestore
+          .collection(patientsCollection)
+          .doc(patient.id)
+          .collection(presentIllnessSubCollection)
+          .add(family.toJson());
+
+      return "success";
+    } on FirebaseException catch (e) {
+      log(e.toString());
+      return e.toString();
+    }
+  }
+  static Future<String> savePastHistory(
+    PatientPastMedicalHistory past,
+    PatientModel patient,
+  ) async {
+    try {
+      await _firestore
+          .collection(patientsCollection)
+          .doc(patient.id)
+          .collection(presentIllnessSubCollection)
+          .add(past.toJson());
+
+      return "success";
+    } on FirebaseException catch (e) {
+      log(e.toString());
+      return e.toString();
+    }
+  }
+  
+  
   static saveDoctorData(DoctorsModel doctor) {
     _firestore.collection(doctorCollection).doc(doctor.id).set(doctor.toJson());
   }
@@ -73,7 +143,8 @@ class FirestoreHelper {
         .get();
   }
 
-  static Future<QuerySnapshot<Map<String, dynamic>>> getPatientWithoutDiagnosis() {
+  static Future<QuerySnapshot<Map<String, dynamic>>>
+  getPatientWithoutDiagnosis() {
     return _firestore
         .collection(patientsCollection)
         .where("diagnosis", isNull: true)
@@ -81,10 +152,7 @@ class FirestoreHelper {
   }
 
 
-
-
   // static completeFilter(String diagnosis , String? occupation, String? residency, ) {
   //   return _firestore.collection(patientsCollection).where('diagnosis', isEqualTo: diagnosis).where('occupation', isEqualTo: occupation).where('residency', isEqualTo: residency).get();
-  // } 
-  
+  // }
 }
