@@ -89,7 +89,9 @@ class LoginScreen extends StatelessWidget {
 
                     children: [
                      const Text("Forget your password?"),
-                      MyTextBottn(text: 'Reset', onTap: () {}),
+                      MyTextBottn(text: 'Reset', onTap: () {
+                        mypush(context, MyRoutes.verifyemailForResetPassword, null);
+                      }),
                     ],
                   ),
                   const Gap(20),

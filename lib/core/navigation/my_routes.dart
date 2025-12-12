@@ -5,6 +5,8 @@ import 'package:my_graduation/features/presentation/auth/login/pages/login_scree
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:my_graduation/features/presentation/auth/register/cubit/register_cubit.dart';
 import 'package:my_graduation/features/presentation/auth/register/pages/register_screen.dart';
+import 'package:my_graduation/features/presentation/auth/reset_password/pages/reset_password.dart';
+import 'package:my_graduation/features/presentation/auth/reset_password/pages/verify_email_for_reset_password.dart';
 import 'package:my_graduation/features/presentation/home/pages/home_screen.dart';
 import 'package:my_graduation/features/presentation/home/pages/main_screen.dart';
 import 'package:my_graduation/features/presentation/patient_details/pages/pateint_details.dart';
@@ -32,6 +34,8 @@ class MyRoutes {
   static const String about = '/about';
   static const String logout = '/logout';
   static const String notifications = '/notifications';
+  static const String resetPassword = '/resetPassword';
+  static const String verifyemailForResetPassword = '/verifyemailForResetPassword';
 
   static final GoRouter routes = GoRouter(
     initialLocation: splash,
@@ -94,6 +98,16 @@ class MyRoutes {
       //   path: notifications,
       //   builder: (context, state) => const NotificationsScreen(),
       // ),
+
+
+      GoRoute(
+        path: verifyemailForResetPassword,
+        builder: (context, state) => const VerifyEmailForResetPassword(),
+      ),
+      GoRoute(
+        path: resetPassword,
+        builder: (context, state) => const ResetPasswordScreen(),
+      ),
     ],
   );
 }

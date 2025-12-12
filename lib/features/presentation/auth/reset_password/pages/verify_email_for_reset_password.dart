@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:my_graduation/component/my_main_botton.dart';
 import 'package:my_graduation/component/my_text_feild.dart';
+import 'package:my_graduation/core/navigation/my_routes.dart';
+import 'package:my_graduation/core/navigation/navigation_methods.dart';
 
 class VerifyEmailForResetPassword extends StatelessWidget {
   const VerifyEmailForResetPassword({super.key});
@@ -32,7 +34,9 @@ class VerifyEmailForResetPassword extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(8),
-        child: MyMainBotton(title: "Verify", onTap: () {}),
+        child: MyMainBotton(title: "Verify", onTap: () {
+          mypush(context, MyRoutes.resetPassword, null);
+        }),
       ),
     );
   }
