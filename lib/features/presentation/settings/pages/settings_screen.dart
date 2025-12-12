@@ -17,7 +17,7 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.person_outline,
             title: 'Account',
             onTap: () {
-              // TODO: Navigate to Account
+
             },
           ),
           _buildSettingsItem(
@@ -25,7 +25,7 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.notifications_outlined,
             title: 'Notifications',
             onTap: () {
-              // TODO: Navigate to Notifications
+
             },
           ),
           _buildSettingsItem(
@@ -33,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.language,
             title: 'Language',
             onTap: () {
-              // TODO: Change Language
+
             },
           ),
           const Divider(),
@@ -42,7 +42,7 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.help_outline,
             title: 'Help & Support',
             onTap: () {
-              // TODO: Navigate to Help
+
             },
           ),
           _buildSettingsItem(
@@ -50,7 +50,7 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.info_outline,
             title: 'About',
             onTap: () {
-              // TODO: Show About
+
             },
           ),
         ],
@@ -72,3 +72,5 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 }
+
+

@@ -10,6 +10,7 @@ import 'package:my_graduation/features/presentation/home/pages/main_screen.dart'
 import 'package:my_graduation/features/presentation/patient_details/pages/pateint_details.dart';
 import 'package:my_graduation/features/presentation/patients/pages/patients_home.dart';
 import 'package:my_graduation/features/presentation/profile/pages/profile_screen.dart';
+import 'package:my_graduation/features/presentation/q_and_a/pages/q_and_a_screen.dart';
 import 'package:my_graduation/features/presentation/splash/pages/splash_screen.dart';
 import 'package:my_graduation/features/presentation/settings/pages/settings_screen.dart';
 
@@ -27,6 +28,10 @@ class MyRoutes {
   static const String patientDetails = '/patientDetails';
   static const String addPatient = '/addPatient';
   static const String settings = '/settings';
+  static const String qAndA = '/qAndA';
+  static const String about = '/about';
+  static const String logout = '/logout';
+  static const String notifications = '/notifications';
 
   static final GoRouter routes = GoRouter(
     initialLocation: splash,
@@ -73,6 +78,22 @@ class MyRoutes {
         path: settings,
         builder: (context, state) => const SettingsScreen(),
       ),
+      GoRoute(
+        path: qAndA,
+        builder: (context, state) => const QAndAScreen(),
+      ),
+      // GoRoute(
+      //   path: about,
+      //   builder: (context, state) => const AboutScreen(),
+      // ),
+      // GoRoute(
+      //   path: logout,
+      //   builder: (context, state) => const LogoutScreen(),
+      // ),
+      // GoRoute(
+      //   path: notifications,
+      //   builder: (context, state) => const NotificationsScreen(),
+      // ),
     ],
   );
 }

@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
+import 'package:my_graduation/core/services/shared_prefrences/shared_helper.dart';
+import 'package:my_graduation/features/data/models/doctors_model.dart';
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_states.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
@@ -25,6 +27,15 @@ class LoginCubit extends Cubit<LoginStates> {
           return;
         } else {
           emit(LoginSuccessState());
+          SharedHelper.saveDoctor(
+            DoctorsModel(
+              name: response.user!.displayName!,
+              email: response.user!.email!,
+              id: response.user!.uid,
+              image: response.user!.photoURL!,
+            ),
+          );
+          SharedHelper.isLoggedIn();
         }
       } on Exception catch (e) {
         emit(LoginErrorState(e.toString()));

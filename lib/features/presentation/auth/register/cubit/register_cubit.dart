@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:my_graduation/core/services/shared_prefrences/shared_helper.dart';
+import 'package:my_graduation/features/data/models/doctors_model.dart';
 import 'package:my_graduation/features/presentation/auth/register/cubit/register_states.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
@@ -22,6 +24,15 @@ class RegisterCubit extends Cubit<RegisterStates> {
       if (userCredential.user != null) {
         await userCredential.user!.updateDisplayName(nameReg.text.trim());
         emit(RegisterSuccessState());
+        SharedHelper.saveDoctor(DoctorsModel(
+          email: emailReg.text.trim(),
+          name: nameReg.text.trim(),
+          id: userCredential.user!.uid,
+          image: userCredential.user!.photoURL!,
+        ));
+        SharedHelper.isLoggedIn(
+          
+        );
       } else {
         emit(RegisterErrorState("Error in Register"));
       }
