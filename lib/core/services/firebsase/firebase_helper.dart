@@ -78,5 +78,6 @@ class FirebaseHelper {
       log(e.toString());
       return false;
     }
+    return null;
   }
 }

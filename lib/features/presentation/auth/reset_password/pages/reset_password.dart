@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:my_graduation/component/my_main_botton.dart';
 import 'package:my_graduation/component/my_text_feild.dart';
 
@@ -9,7 +8,8 @@ class ResetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController newPasswordController = TextEditingController();
-    final TextEditingController confirmPasswordController = TextEditingController();
+    final TextEditingController confirmPasswordController =
+        TextEditingController();
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(8),
@@ -27,9 +27,10 @@ class ResetPasswordScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Padding(padding: EdgeInsets.all(8), child: MyMainBotton(title: "Reset password", onTap: (){
-        
-      }),),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.all(8),
+        child: MyMainBotton(title: "Reset password", onTap: () {}),
+      ),
     );
   }
 }

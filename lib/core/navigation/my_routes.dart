@@ -11,6 +11,7 @@ import 'package:my_graduation/features/presentation/patient_details/pages/patein
 import 'package:my_graduation/features/presentation/patients/pages/patients_home.dart';
 import 'package:my_graduation/features/presentation/profile/pages/profile_screen.dart';
 import 'package:my_graduation/features/presentation/splash/pages/splash_screen.dart';
+import 'package:my_graduation/features/presentation/settings/pages/settings_screen.dart';
 
 class MyRoutes {
   static const String login = '/login';
@@ -25,6 +26,7 @@ class MyRoutes {
   static const String patientsHome = '/patientsHome';
   static const String patientDetails = '/patientDetails';
   static const String addPatient = '/addPatient';
+  static const String settings = '/settings';
 
   static final GoRouter routes = GoRouter(
     initialLocation: splash,
@@ -66,6 +68,10 @@ class MyRoutes {
       GoRoute(
         path: profile,
         builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: settings,
+        builder: (context, state) => const SettingsScreen(),
       ),
     ],
   );
