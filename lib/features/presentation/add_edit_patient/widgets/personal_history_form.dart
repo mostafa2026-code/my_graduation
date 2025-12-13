@@ -16,11 +16,14 @@ import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/data/models/patient_personal_history.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
-import 'package:my_graduation/features/presentation/add_edit_patient/pages/add_edit_patient.dart';
 
 class PersonalHistoryForm extends StatefulWidget {
-  const PersonalHistoryForm({super.key, required this.id, required this.cubit});
-  final String id;
+  const PersonalHistoryForm({
+    super.key,
+    required this.cubit,
+    required this.model,
+  });
+  final PatientModel model;
   final AddEditPatientCubit cubit;
 
   @override
@@ -188,7 +191,7 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
                 title: "Save",
                 onTap: () {
                   patientPersonalHistory = PatientPersonalHistory(
-                    id: widget.id,
+                    id: widget.model.id,
                     name: nameController.text,
                     age: ageController.text,
                     address: addressControllor.text,
@@ -200,16 +203,10 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
                     childrenNumber: int.tryParse(childrenNumberController.text),
                     specialHabits: specailHabitController.text,
                   );
+
+                  widget.cubit.updatePersonalHistory(patientPersonalHistory!.toJson());
+                  widget.cubit.updatePatient();
                   log(patientPersonalHistory.toString());
-                  PatientModel patientModel = PatientModel(
-                    name: nameController.text,
-                    id: widget.id,
-                    personalHistory: patientPersonalHistory!.toJson(),
-                  );
-                  widget.cubit.savePatientPersonalHistory(
-                    patientPersonalHistory ?? PatientPersonalHistory(),
-                    patientModel,
-                  );
                 },
               ),
             ],

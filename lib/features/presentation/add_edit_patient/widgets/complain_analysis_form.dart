@@ -20,12 +20,12 @@ import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_e
 class ComplainAnalysisForm extends StatefulWidget {
   const ComplainAnalysisForm({
     super.key,
-    required this.id,
 
     required this.cubit,
+    required this.patientModel,
   });
-  final String id;
 
+  final PatientModel patientModel;
   final AddEditPatientCubit cubit;
 
   @override
@@ -160,9 +160,8 @@ class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
                 MyMainBotton(
                   title: "save",
                   onTap: () {
-                    PatientModel patientModel = PatientModel(id: widget.id);
                     patientcomplainAnalysis = PatientcomplainAnalysis(
-                      id: widget.id,
+                      id: widget.patientModel.id,
 
                       doctorId: FirebaseHelper.getUserId(),
                       doctorName: FirebaseHelper.getUserName(),
@@ -175,11 +174,12 @@ class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
                       specialCharacteristics: specialCharacter.text,
                       associatedSymptoms: associatedSymptomsController.text,
                     );
-                    log(patientcomplainAnalysis!.toJson().toString());
-                    widget.cubit.savePresentIlnessHistory(
-                      patientcomplainAnalysis!,
-                      patientModel,
+
+                    widget.cubit.updatePresentIllness(
+                      patientcomplainAnalysis!.toJson(),
                     );
+                    widget.cubit.updatePatient();
+                    log(patientcomplainAnalysis!.toJson().toString());
                   },
                 ),
               ],

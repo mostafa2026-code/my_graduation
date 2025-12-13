@@ -17,8 +17,8 @@ import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_e
 
 // ignore: must_be_immutable
 class PastMedicalHistoryForm extends StatelessWidget {
-  PastMedicalHistoryForm({super.key, required this.id, required this.cubit});
-  final String id;
+  PastMedicalHistoryForm({super.key, required this.cubit, required this.model});
+  final PatientModel model;
 
   final AddEditPatientCubit cubit;
 
@@ -96,7 +96,7 @@ class PastMedicalHistoryForm extends StatelessWidget {
                   title: "save",
                   onTap: () {
                     patientPastMedicalHistory = PatientPastMedicalHistory(
-                      id: id,
+                      id: model.id,
                       doctorId: FirebaseHelper.getUserId(),
                       doctorName: FirebaseHelper.getUserName(),
 
@@ -109,11 +109,9 @@ class PastMedicalHistoryForm extends StatelessWidget {
 
                       similarCondition: similarConditionController.text,
                     );
-                    PatientModel patientModel = PatientModel(id: id);
-                    cubit.savePatientPastMedicalHistory(
-                      patientPastMedicalHistory!,
-                      patientModel,
-                    );
+                   
+                    cubit.updatePastMedicalHistory(patientPastMedicalHistory!.toJson());
+    cubit.updatePatient();
                     log(patientPastMedicalHistory!.toJson().toString());
                   },
                 ),

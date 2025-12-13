@@ -14,9 +14,9 @@ import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_e
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
 
 class TnerapeuticHistoryForm extends StatelessWidget {
-  TnerapeuticHistoryForm({super.key, required this.cubit, required this.id});
+  TnerapeuticHistoryForm({super.key, required this.cubit, required this.model});
   final AddEditPatientCubit cubit;
-  final String id;
+  final PatientModel model;
   final TextEditingController drugs = TextEditingController();
   final TextEditingController drugsAllergy = TextEditingController();
   final TextEditingController recentPrescribedDrugs = TextEditingController();
@@ -68,18 +68,18 @@ class TnerapeuticHistoryForm extends StatelessWidget {
                 onTap: () {
                   PatientTherapueticHistory patientTherapeuticHistory =
                       PatientTherapueticHistory(
-                        id: id,
+                        id: model.id,
                         doctorId: FirebaseHelper.getUserId(),
                         doctorName: FirebaseHelper.getUserName(),
                         drugTherapy: drugs.text,
                         allergyToDrugs: drugsAllergy.text,
                         recentPrescribedDrugs: recentPrescribedDrugs.text,
                       );
-                  PatientModel patientModel = PatientModel(id: id);
-                  cubit.saveTherapeuticHistory(
-                    patientTherapeuticHistory,
-                    patientModel,
+
+                  cubit.updateTherapeuticHistory(
+                    patientTherapeuticHistory.toJson(),
                   );
+                  cubit.updatePatient();
                 },
               ),
             ],

@@ -1,28 +1,15 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_graduation/features/data/models/doctors_model.dart';
-import 'package:my_graduation/features/data/models/family_history.dart';
-// import 'package:my_graduation/features/data/models/family_history.dart';
+
 import 'package:my_graduation/features/data/models/patient_model.dart';
-import 'package:my_graduation/features/data/models/patient_past_medical_history.dart';
-import 'package:my_graduation/features/data/models/patient_personal_history.dart';
-import 'package:my_graduation/features/data/models/patient_therapuetic_history.dart';
-import 'package:my_graduation/features/data/models/patientcomplain_analysis.dart';
-// import 'package:my_graduation/features/data/models/patient_past_medical_history.dart';
-// import 'package:my_graduation/features/data/models/patient_therapuetic_history.dart';
-// import 'package:my_graduation/features/data/models/patientcomplain_analysis.dart';
-// import 'package:my_graduation/features/data/models/patient_personal_history.dart';
+
 
 class FirestoreHelper {
   static const String kpatientsCollection = 'patients';
   static const String doctorCollection = 'doctors';
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  static const String personalSubCollection = "personalHistory";
-  static const String presentIllnessSubCollection = "presentIllness";
-  static const String therapeuticHistorySubCollection = "therapeuticHistory";
-  static const String familyHistorySubCollection = "familyHistory";
-  static const String pastSubCollection = "pastHistory";
 
   static CollectionReference<Map<String, dynamic>> getPatientsCollection() {
     return _firestore.collection(kpatientsCollection);
@@ -35,15 +22,10 @@ class FirestoreHelper {
         .set(patientModel.toJson());
   }
 
-  static Future<String> savePesonalHistory(
-    PatientPersonalHistory patientPersonal,
-    PatientModel pateintModel,
-  ) async {
+
+  static Future<String> updatePatientData(PatientModel patient) async {
     try {
-      await getPatientsCollection()
-          .doc(pateintModel.id)
-          .collection(personalSubCollection)
-          .add(patientPersonal.toJson());
+      await getPatientsCollection().doc(patient.id).set(patient.toJson(), SetOptions(merge: true));
 
       return "success";
     } on FirebaseException catch (e) {
@@ -52,73 +34,7 @@ class FirestoreHelper {
     }
   }
 
-  static Future<String> savePresentIllnessHistory(
-    PatientcomplainAnalysis complain,
-    PatientModel patient,
-  ) async {
-    try {
-      await getPatientsCollection()
-          .doc(patient.id)
-          .collection(presentIllnessSubCollection)
-          .add(complain.toJson());
-
-      return "success";
-    } on FirebaseException catch (e) {
-      log(e.toString());
-      return e.toString();
-    }
-  }
-
-  static Future<String> saveTherapeuticHistory(
-    PatientTherapueticHistory therapy,
-    PatientModel patient,
-  ) async {
-    try {
-      await getPatientsCollection()
-          .doc(patient.id)
-          .collection(therapeuticHistorySubCollection)
-          .add(therapy.toJson());
-
-      return "success";
-    } on FirebaseException catch (e) {
-      log(e.toString());
-      return e.toString();
-    }
-  }
-
-  static Future<String> saveFamilyHistory(
-    PatientFamilyHistory family,
-    PatientModel patient,
-  ) async {
-    try {
-      await getPatientsCollection()
-          .doc(patient.id)
-          .collection(familyHistorySubCollection)
-          .add(family.toJson());
-
-      return "success";
-    } on FirebaseException catch (e) {
-      log(e.toString());
-      return e.toString();
-    }
-  }
-
-  static Future<String> savePastHistory(
-    PatientPastMedicalHistory past,
-    PatientModel patient,
-  ) async {
-    try {
-      await getPatientsCollection()
-          .doc(patient.id)
-          .collection(pastSubCollection)
-          .add(past.toJson());
-
-      return "success";
-    } on FirebaseException catch (e) {
-      log(e.toString());
-      return e.toString();
-    }
-  }
+  
 
   static saveDoctorData(DoctorsModel doctor) {
     _firestore.collection(doctorCollection).doc(doctor.id).set(doctor.toJson());

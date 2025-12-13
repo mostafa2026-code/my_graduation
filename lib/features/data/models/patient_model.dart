@@ -8,6 +8,7 @@ class PatientModel {
   Map<String, dynamic>? pastMedicalHistory;
   Map<String, dynamic>? theraputicHistory;
   List<String >? diagnosis;
+  Map<String, dynamic>? chestInspection;
   
 
   PatientModel({
@@ -19,7 +20,8 @@ class PatientModel {
     this.analysisofcomplains,
     this.pastMedicalHistory,
     this.theraputicHistory,
-    this.diagnosis
+    this.diagnosis,
+    this.chestInspection,
   });
 
 
@@ -33,6 +35,7 @@ class PatientModel {
     'pastMedicalHistory': pastMedicalHistory,
     'theraputicHistory': theraputicHistory,
     'diagnosis': diagnosis,
+    'chestInspection': chestInspection,
   };
 
 
@@ -48,6 +51,7 @@ class PatientModel {
     pastMedicalHistory: json['pastMedicalHistory'],
     theraputicHistory: json['theraputicHistory'],
     diagnosis: json['diagnosis'],
+    chestInspection: json['chestInspection'],
   );
 
 
@@ -64,6 +68,7 @@ class PatientModel {
     Map<String, dynamic>? pastMedicalHistory,
     Map<String, dynamic>? theraputicHistory,
     List<String>? diagnosis,
+    Map<String, dynamic>? chestInspection,
   }) => PatientModel(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -74,6 +79,7 @@ class PatientModel {
     pastMedicalHistory: pastMedicalHistory ?? this.pastMedicalHistory,
     theraputicHistory: theraputicHistory ?? this.theraputicHistory,
     diagnosis: diagnosis ?? this.diagnosis,
+    chestInspection: chestInspection ?? this.chestInspection,
   );  
 
 }
