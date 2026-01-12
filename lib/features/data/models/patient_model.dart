@@ -7,7 +7,7 @@ class PatientModel {
   Map<String, dynamic>? analysisofcomplains;
   Map<String, dynamic>? pastMedicalHistory;
   Map<String, dynamic>? theraputicHistory;
-  List<String >? diagnosis;
+  String ?diagnosis;
   Map<String, dynamic>? chestInspection;
   
 
@@ -67,7 +67,7 @@ class PatientModel {
     Map<String, dynamic>? analysisofcomplains,
     Map<String, dynamic>? pastMedicalHistory,
     Map<String, dynamic>? theraputicHistory,
-    List<String>? diagnosis,
+    String? diagnosis,
     Map<String, dynamic>? chestInspection,
   }) => PatientModel(
     id: id ?? this.id,

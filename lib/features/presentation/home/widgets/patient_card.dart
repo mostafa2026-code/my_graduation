@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
+import 'package:my_graduation/core/navigation/my_routes.dart';
+import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 
 class PatientCard extends StatelessWidget {
@@ -11,8 +13,13 @@ class PatientCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String name = model.personalHistory?["name"] ?? "no name ";
+    final String id = model.id ?? "uebkjrejkreb";
+    final String diagnosis = model.diagnosis ?? "no diagnosis";
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        mypush(context, MyRoutes.patientDetails, model);
+      },
       child: Container(
         padding: EdgeInsets.all(8),
         width: double.infinity,
@@ -31,17 +38,19 @@ class PatientCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Patient Name"),
+                  Text(name),
 
-                  Text("ID: 123456789"),
+                  Text("ID: $id"),
                   Gap(8),
-                  Text("Disease Name"),
+                  Text(diagnosis),
                   Gap(8),
                 ],
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+              mypush(context, MyRoutes.patientDetails, model);
+                            },
               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
             ),
           ],

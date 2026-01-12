@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/pages/add_edit_patient.dart';
@@ -69,7 +70,11 @@ class MyRoutes {
       ),
       GoRoute(
         path: patientDetails,
-        builder: (context, state) => const PateintDetails(),
+        builder: (context, state) {
+          final model =
+              state.extra as PatientModel; // Ensure you cast it correctly
+          return PateintDetails(model: model);
+        },
       ),
       //add patient
       GoRoute(
