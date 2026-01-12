@@ -38,14 +38,14 @@ class DoctorsModel {
     image = json['image'];
     speciality = json['speciality'];
     address = json['address'];
-    phone = json['phone'].cast<String>();
+    phone = json['phone'];
     email = json['email'];
     id = json['id'];
     password = json['password'];
     position = json['position'];
-    qualification = json['qualification'].cast<String>();
+    qualification = json['qualification'];
     about = json['about'];
-    patientsIds = json['patientsIds'].cast<String>();
+    patientsIds = json['patientsIds'];
     salary = json['salary'];
     fromHour = json['fromHour'];
     toHour = json['toHour'];

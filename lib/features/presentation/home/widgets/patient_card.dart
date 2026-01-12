@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:my_graduation/core/const/my_images.dart';
@@ -18,6 +20,7 @@ class PatientCard extends StatelessWidget {
     final String diagnosis = model.diagnosis ?? "no diagnosis";
     return GestureDetector(
       onTap: () {
+        log(model.toJson().toString());
         mypush(context, MyRoutes.patientDetails, model);
       },
       child: Container(
@@ -49,8 +52,8 @@ class PatientCard extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-              mypush(context, MyRoutes.patientDetails, model);
-                            },
+                mypush(context, MyRoutes.patientDetails, model);
+              },
               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
             ),
           ],

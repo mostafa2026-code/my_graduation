@@ -35,7 +35,7 @@ class PatientTherapueticHistory {
   //fromJson method
   factory PatientTherapueticHistory.fromJson(Map<String, dynamic> json) {
     return PatientTherapueticHistory(
-      id: json['id'],
+      id: json['id']  ,
       name: json['name'],
       doctorId: json['doctorId'],
       doctorName: json['doctorName'],

@@ -165,8 +165,8 @@ class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
 
                       doctorId: FirebaseHelper.getUserId(),
                       doctorName: FirebaseHelper.getUserName(),
-                      onset: onset,
-                      course: course,
+                      onset: onset.toString(),
+                      course: course.toString(),
                       duration: durationController.text,
                       complain: complaintController.text,
                       reliefFactors: releivingFactorController.text,

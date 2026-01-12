@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:my_graduation/core/enums/my_enums.dart';
 
 class PatientcomplainAnalysis {
   String? id;
@@ -7,9 +6,9 @@ class PatientcomplainAnalysis {
   String? doctorId;
   String? doctorName;
   String? complain;
-  Onset? onset;
+  String? onset;
   String? duration;
-  Course? course;
+  String? course;
   String? associatedSymptoms;
   String? reliefFactors;
   String? aggravatingFactors;
@@ -36,14 +35,14 @@ class PatientcomplainAnalysis {
     name = json['name'];
     doctorId = json['doctorId'];
     doctorName = json['doctorName'];
-    complain = json['complain'].cast<String>();
+    complain = json['complain'];
     onset = json['onset'];
     duration = json['duration'];
     course = json['course'];
-    associatedSymptoms = json['associatedSymptoms'].cast<String>();
-    reliefFactors = json['reliefFactors'].cast<String>();
-    aggravatingFactors = json['aggravatingFactors'].cast<String>();
-    specialCharacteristics = json['specialCharacteristics'].cast<String>();
+    associatedSymptoms = json['associatedSymptoms'];
+    reliefFactors = json['reliefFactors'];
+    aggravatingFactors = json['aggravatingFactors'];
+    specialCharacteristics = json['specialCharacteristics'];
   }
 
   //to json
@@ -77,9 +76,9 @@ class PatientcomplainAnalysis {
     String? doctorId,
     String? doctorName,
     String? complain,
-    Onset? onset,
+    String? onset,
     String? duration,
-    Course? course,
+    String? course,
     String? associatedSymptoms,
     String? reliefFactors,
     String? aggravatingFactors,

@@ -32,13 +32,12 @@ class PatientPastMedicalHistory {
     name = json['name'];
     doctorId = json['doctorId'];
     doctorName = json['doctorName'];
-    similarCondition = json['similarCondition'].cast<String>();
-    previousHospitalizationCondition = json['previousHospitalizationCondition']
-        .cast<String>();
-    previousOperations = json['previousOperations'].cast<String>();
-    previousChronicDiseases = json['previousChronicDiseases'].cast<String>();
-    bloodTransfusion = json['bloodTransfusion'].cast<String>();
-    foodAllergy = json['foodAllergy'].cast<String>();
+    similarCondition = json['similarCondition'];
+    previousHospitalizationCondition = json['previousHospitalizationCondition'];
+    previousOperations = json['previousOperations'];
+    previousChronicDiseases = json['previousChronicDiseases'];
+    bloodTransfusion = json['bloodTransfusion'];
+    foodAllergy = json['foodAllergy'];
   }
 
   Map<String, dynamic> toJson() {

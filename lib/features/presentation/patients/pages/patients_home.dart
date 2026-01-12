@@ -51,42 +51,43 @@ class PatientsHome extends StatelessWidget {
 
   FutureBuilder<QuerySnapshot<Map<String, dynamic>>> myFutureBiulder() {
     return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              future: FirestoreHelper.getAllPatient(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text(snapshot.error.toString()));
-                } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Center(child: Text("you haven't patient yet "));
-                }
+      future: FirestoreHelper.getAllPatient(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text(snapshot.error.toString()));
+        } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return Center(child: Text("you haven't patient yet "));
+        }
 
-                List<PatientModel> models = snapshot.data!.docs
-                    .map((e) => PatientModel.fromJson(e.data()))
-                    .toList();
+        List<PatientModel> models = snapshot.data!.docs
+            .map((e) => PatientModel.fromJson(e.data()))
+            .toList();
 
-                log(models.toString());
-                return PatientsListView(patients: models);
-              },
-            );
+        log(models.toString());
+        return PatientsListView(patients: models);
+      },
+    );
   }
 }
 
 class PatientsListView extends StatelessWidget {
   const PatientsListView({super.key, required this.patients});
-  final List<PatientModel> patients;
+  final List<PatientModel>? patients;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: patients.length,
+      itemCount: patients?.length ?? 0,
       separatorBuilder: (BuildContext context, int index) {
         return Gap(8);
       },
       itemBuilder: (BuildContext context, int index) {
-        return PatientCard(model: patients[index]);
+        log(patients.toString());
+        return PatientCard(model: patients![index]);
       },
     );
   }
