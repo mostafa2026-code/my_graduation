@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
+import 'package:my_graduation/features/data/models/patient_model.dart';
 
 class PatientCard extends StatelessWidget {
-  const PatientCard({super.key});
+  const PatientCard({super.key, required this.model});
+
+  final PatientModel model;
 
   @override
   Widget build(BuildContext context) {

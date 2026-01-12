@@ -42,7 +42,7 @@ class FirestoreHelper {
 
   static saveCompletePatientData(PatientModel patient) {
     _firestore.collection(kpatientsCollection).doc(patient.id).set({
-      'name': patient.name,
+      
       'email': patient.email,
       'phone': patient.phone,
       'personalHistory': patient.personalHistory,

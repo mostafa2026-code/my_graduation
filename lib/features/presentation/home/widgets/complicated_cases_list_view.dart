@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/presentation/home/widgets/patient_card.dart';
 
 class ComplicatedCasesListView extends StatelessWidget {
@@ -12,7 +13,7 @@ class ComplicatedCasesListView extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
-        return PatientCard();
+        return PatientCard(model:PatientModel());
       },
       separatorBuilder: (context, index) {
         return Gap(8);

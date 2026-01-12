@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_graduation/component/my_main_botton.dart';
+import 'package:my_graduation/component/my_text_feild.dart';
 import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
-import 'package:my_graduation/features/presentation/add_edit_patient/widgets/chest/chest_inpection_form.dart';
+
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/complain_analysis_form.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/history_grid_view.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/past_medical_history_form.dart';
@@ -19,6 +20,11 @@ class AddEditPatient extends StatefulWidget {
 
 class _AddEditPatientState extends State<AddEditPatient> {
   late final AddEditPatientCubit cubit;
+  TextEditingController examinationAbnormalitiesController =
+      TextEditingController();
+  TextEditingController neededInvestigationsController =
+      TextEditingController();
+  TextEditingController diagnosisController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -42,6 +48,21 @@ class _AddEditPatientState extends State<AddEditPatient> {
                   cubit: cubit,
                   patientModel: cubit.currentPatient,
                 ),
+                MyTextFeild(
+                  hint: "Examination Abnormalities",
+                  controller: examinationAbnormalitiesController,
+                  maxline: 10,
+                ),
+                MyTextFeild(
+                  hint: "Needed Investigations ",
+                  controller: neededInvestigationsController,
+                  maxline: 3,
+                ),
+                MyTextFeild(
+                  hint: "Diagnosis",
+                  controller: diagnosisController,
+                  maxline: 1,
+                ),
               ],
             ),
           ),
@@ -49,9 +70,12 @@ class _AddEditPatientState extends State<AddEditPatient> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20),
-        child: MyMainBotton(title: "Save", onTap: () {
-          cubit.updatePatient();
-        }),
+        child: MyMainBotton(
+          title: "Save",
+          onTap: () {
+            cubit.updatePatient();
+          },
+        ),
       ),
     );
   }
@@ -119,13 +143,13 @@ List<HistoryItemBuilder> historyCardList = [
     bottomSheet: (cubit, model) =>
         FamilyHistoryForm(cubit: cubit, model: model),
   ),
-  HistoryItemBuilder(
-    title: "Chest Inspection",
-    image: MyImages.familyHistory,
-    color: ColorsPalette.lightPurple,
-    bottomSheet: (cubit, model) =>
-        ChestInpectionForm(cubit: cubit, model: model),
-  ),
+  // HistoryItemBuilder(
+  //   title: "Chest Inspection",
+  //   image: MyImages.familyHistory,
+  //   color: ColorsPalette.lightPurple,
+  //   bottomSheet: (cubit, model) =>
+  //       // ChestInpectionForm(cubit: cubit, model: model),
+  // )
 ];
 
 class FamilyHistoryForm extends StatelessWidget {
