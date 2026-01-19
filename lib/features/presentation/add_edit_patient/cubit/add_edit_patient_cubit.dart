@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/core/services/firebsase/firestore_helper.dart';
+import 'package:my_graduation/core/services/shared_prefrences/shared_helper.dart';
 
 import 'package:my_graduation/features/data/models/patient_model.dart';
 
@@ -18,8 +18,8 @@ class AddEditPatientCubit extends Cubit<AddEditPatientState> {
     String id = generateId();
     PatientModel patient = PatientModel(
       id: id,
-      doctorId: FirebaseHelper.getUserId(),
-      doctorName: FirebaseHelper.getUserName(),
+      doctorId: SharedHelper.getUserInfo()?.id,
+      doctorName: SharedHelper.getUserInfo()?.name,
     );
     currentPatient = patient;
     return currentPatient;
@@ -37,27 +37,6 @@ class AddEditPatientCubit extends Cubit<AddEditPatientState> {
 
   Future<void> generateDoc(PatientModel patientModel) async {
     await FirestoreHelper.createPatientDocWithId(patientModel);
-  }
-
-  PatientModel? updatePersonalHistory(Map<String, dynamic> history) {
-    currentPatient = currentPatient.copyWith(personalHistory: history);
-    return currentPatient;
-  }
-
-  void updatePresentIllness(Map<String, dynamic> history) {
-    currentPatient = currentPatient.copyWith(analysisofcomplains: history);
-  }
-
-  void updatePastMedicalHistory(Map<String, dynamic> history) {
-    currentPatient = currentPatient.copyWith(pastMedicalHistory: history);
-  }
-
-  void updateTherapeuticHistory(Map<String, dynamic> history) {
-    currentPatient = currentPatient.copyWith(theraputicHistory: history);
-  }
-
-  void updateChestInspection(Map<String, dynamic> history) {
-    currentPatient = currentPatient.copyWith(chestInspection: history);
   }
 
   updatePatient(PatientModel patient) async {
