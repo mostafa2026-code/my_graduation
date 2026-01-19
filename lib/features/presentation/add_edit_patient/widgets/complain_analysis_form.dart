@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -11,11 +9,11 @@ import 'package:my_graduation/core/dialogs/loading_dialog.dart';
 import 'package:my_graduation/core/dialogs/massage_dialog.dart';
 import 'package:my_graduation/core/enums/my_enums.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
-import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/data/models/patientcomplain_analysis.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/widgets/past_medical_history_form.dart';
 
 class ComplainAnalysisForm extends StatefulWidget {
   const ComplainAnalysisForm({
@@ -161,10 +159,7 @@ class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
                   title: "save",
                   onTap: () {
                     patientcomplainAnalysis = PatientcomplainAnalysis(
-                      id: widget.patientModel.id,
-
-                      doctorId: FirebaseHelper.getUserId(),
-                      doctorName: FirebaseHelper.getUserName(),
+                      
                       onset: onset.toString(),
                       course: course.toString(),
                       duration: durationController.text,
@@ -174,12 +169,12 @@ class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
                       specialCharacteristics: specialCharacter.text,
                       associatedSymptoms: associatedSymptomsController.text,
                     );
-
-                    widget.cubit.updatePresentIllness(
-                      patientcomplainAnalysis!.toJson(),
+                    PatientModel patient = widget.patientModel.copyWith(
+                      analysisofcomplains:
+                          patientcomplainAnalysis?.toJson() ?? {},
                     );
-                    widget.cubit.updatePatient();
-                    log(patientcomplainAnalysis!.toJson().toString());
+                    widget.cubit.updatePatient(patient);
+                    logMyData(patient);
                   },
                 ),
               ],

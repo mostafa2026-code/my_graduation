@@ -73,7 +73,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
         child: MyMainBotton(
           title: "Save",
           onTap: () {
-            cubit.updatePatient();
+            // cubit.updatePatient();
           },
         ),
       ),

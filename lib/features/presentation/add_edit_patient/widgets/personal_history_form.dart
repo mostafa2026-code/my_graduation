@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -11,11 +9,11 @@ import 'package:my_graduation/core/dialogs/loading_dialog.dart';
 import 'package:my_graduation/core/dialogs/massage_dialog.dart';
 import 'package:my_graduation/core/enums/my_enums.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
-import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/data/models/patient_personal_history.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/widgets/past_medical_history_form.dart';
 
 class PersonalHistoryForm extends StatefulWidget {
   const PersonalHistoryForm({
@@ -191,22 +189,23 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
                 title: "Save",
                 onTap: () {
                   patientPersonalHistory = PatientPersonalHistory(
-                    id: widget.model.id,
+                   
                     name: nameController.text,
                     age: ageController.text,
                     address: addressControllor.text,
                     occupation: occupationController.text,
                     gender: gender,
-                    doctorId: FirebaseHelper.getUserId(),
-                    doctorName: FirebaseHelper.getUserName(),
+
                     martialStatus: martialStatus,
                     childrenNumber: int.tryParse(childrenNumberController.text),
                     specialHabits: specailHabitController.text,
                   );
 
-                  widget.cubit.updatePersonalHistory(patientPersonalHistory!.toJson());
-                  widget.cubit.updatePatient();
-                  log(patientPersonalHistory.toString());
+                  PatientModel? patient = widget.model.copyWith(
+                    personalHistory: patientPersonalHistory!.toJson(),
+                  );
+                  widget.cubit.updatePatient(patient);
+                  logMyData(patient);
                 },
               ),
             ],

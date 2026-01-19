@@ -2,8 +2,6 @@ class PatientModel {
   String? id;
   String? doctorName;
   String? doctorId;
-
-  String? email;
   String? phone;
   Map<String, dynamic>? personalHistory;
   Map<String, dynamic>? analysisofcomplains;
@@ -14,8 +12,8 @@ class PatientModel {
 
   PatientModel({
     this.id,
-
-    this.email,
+    this.doctorId,
+    this.doctorName,
     this.phone,
     this.personalHistory,
     this.analysisofcomplains,
@@ -27,8 +25,10 @@ class PatientModel {
 
   //to Json
   Map<String, dynamic> toJson() => {
-    'email': email,
+    'doctorName': doctorName,
+    'doctorId': doctorId,
     'phone': phone,
+    'id':id,
     'personalHistory': personalHistory,
     'analysisofcomplains': analysisofcomplains,
     'pastMedicalHistory': pastMedicalHistory,
@@ -40,8 +40,8 @@ class PatientModel {
   //fromJson
   factory PatientModel.fromJson(Map<String, dynamic> json) => PatientModel(
     id: json['id'],
-
-    email: json['email'],
+    doctorId: json['doctorId'],
+    doctorName: json['doctorName'],
     phone: json['phone'],
     personalHistory: json['personalHistory'],
     analysisofcomplains: json['analysisofcomplains'],
@@ -54,6 +54,8 @@ class PatientModel {
   //edit
   PatientModel copyWith({
     String? id,
+    String? doctorName,
+    String? doctorId,
 
     String? email,
     String? phone,
@@ -65,8 +67,9 @@ class PatientModel {
     Map<String, dynamic>? chestInspection,
   }) => PatientModel(
     id: id ?? this.id,
+    doctorId: doctorId ?? this.doctorId,
+    doctorName: doctorName ?? doctorName,
 
-    email: email ?? this.email,
     phone: phone ?? this.phone,
     personalHistory: personalHistory ?? this.personalHistory,
     analysisofcomplains: analysisofcomplains ?? this.analysisofcomplains,

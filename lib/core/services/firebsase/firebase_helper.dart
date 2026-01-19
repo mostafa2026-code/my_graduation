@@ -32,16 +32,16 @@ class FirebaseHelper {
     return _auth.currentUser?.displayName;
   }
 
-  static Future<void> logout() async {
+  static Future<void> mylogout() async {
     await _auth.signOut();
   }
 
-  static String getUserId() {
-    return _auth.currentUser!.uid;
+  static String? getUserId() {
+    return _auth.currentUser?.uid;
   }
 
   static String? getuserEmail() {
-    return _auth.currentUser!.email;
+    return _auth.currentUser?.email;
   }
 
   static Future<bool?> resetPassword(String newPassword) async {

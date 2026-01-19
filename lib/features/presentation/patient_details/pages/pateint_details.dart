@@ -3,10 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
-import 'package:my_graduation/features/data/models/patient_past_medical_history.dart';
-import 'package:my_graduation/features/data/models/patient_personal_history.dart';
-import 'package:my_graduation/features/data/models/patient_therapuetic_history.dart';
-import 'package:my_graduation/features/data/models/patientcomplain_analysis.dart';
 
 class PateintDetails extends StatelessWidget {
   const PateintDetails({super.key, required this.model});
@@ -140,8 +136,6 @@ class PateintDetails extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildInfoRow(Icons.email_outlined, "Email", model?.email ?? "N/A"),
-            const Divider(),
             _buildInfoRow(Icons.phone_outlined, "Phone", model?.phone ?? "N/A"),
           ],
         ),

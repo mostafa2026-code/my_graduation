@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/core/services/firebsase/firestore_helper.dart';
 
 import 'package:my_graduation/features/data/models/patient_model.dart';
@@ -12,10 +13,14 @@ import 'package:uuid/uuid.dart';
 class AddEditPatientCubit extends Cubit<AddEditPatientState> {
   AddEditPatientCubit() : super(AddEditPatientInitial());
   String? id;
-late   PatientModel currentPatient;
+  late PatientModel currentPatient;
   PatientModel? generatePatient() {
     String id = generateId();
-    PatientModel patient = PatientModel(id: id);
+    PatientModel patient = PatientModel(
+      id: id,
+      doctorId: FirebaseHelper.getUserId(),
+      doctorName: FirebaseHelper.getUserName(),
+    );
     currentPatient = patient;
     return currentPatient;
   }
@@ -34,9 +39,9 @@ late   PatientModel currentPatient;
     await FirestoreHelper.createPatientDocWithId(patientModel);
   }
 
-  
-  void updatePersonalHistory(Map<String, dynamic> history) {
+  PatientModel? updatePersonalHistory(Map<String, dynamic> history) {
     currentPatient = currentPatient.copyWith(personalHistory: history);
+    return currentPatient;
   }
 
   void updatePresentIllness(Map<String, dynamic> history) {
@@ -55,12 +60,11 @@ late   PatientModel currentPatient;
     currentPatient = currentPatient.copyWith(chestInspection: history);
   }
 
-
-  updatePatient() async {
+  updatePatient(PatientModel patient) async {
     try {
       emit(AddEditPatientLoading());
 
-      String result = await FirestoreHelper.updatePatientData(currentPatient);
+      String result = await FirestoreHelper.updatePatientData(patient);
       if (result == "success") {
         emit(AddEditPatientSuccess());
       } else {

@@ -1,10 +1,7 @@
 import 'dart:developer';
 
 class PatientPastMedicalHistory {
-  String? id;
-  String? name;
-  String? doctorId;
-  String? doctorName;
+ 
   String? similarCondition;
   String ?previousHospitalizationCondition;
   String? previousOperations;
@@ -13,10 +10,7 @@ class PatientPastMedicalHistory {
   String ?foodAllergy;
 
   PatientPastMedicalHistory({
-    this.id,
-    this.name,
-    this.doctorId,
-    this.doctorName,
+    
     this.similarCondition,
     this.previousHospitalizationCondition,
     this.previousOperations,
@@ -28,10 +22,7 @@ class PatientPastMedicalHistory {
   //tojson
 
   PatientPastMedicalHistory.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    doctorId = json['doctorId'];
-    doctorName = json['doctorName'];
+   
     similarCondition = json['similarCondition'];
     previousHospitalizationCondition = json['previousHospitalizationCondition'];
     previousOperations = json['previousOperations'];
@@ -43,10 +34,7 @@ class PatientPastMedicalHistory {
   Map<String, dynamic> toJson() {
     try {
       final Map<String, dynamic> data = {
-        'id': id,
-        'name': name,
-        'doctorId': doctorId,
-        'doctorName': doctorName,
+        
         'similarCondition': similarCondition,
         'previousHospitalizationCondition': previousHospitalizationCondition,
         'previousOperations': previousOperations,
@@ -62,10 +50,7 @@ class PatientPastMedicalHistory {
   }
 
   PatientPastMedicalHistory copyWith({
-    String? id,
-    String? name,
-    String? doctorId,
-    String? doctorName,
+   
     String? similarCondition,
     String? previousHospitalizationCondition,
     String? previousOperations,
@@ -74,10 +59,7 @@ class PatientPastMedicalHistory {
     String? foodAllergy,
   }) {
     return PatientPastMedicalHistory(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      doctorId: doctorId ?? this.doctorId,
-      doctorName: doctorName ?? this.doctorName,
+      
       similarCondition: similarCondition ?? this.similarCondition,
       previousHospitalizationCondition:
           previousHospitalizationCondition ??

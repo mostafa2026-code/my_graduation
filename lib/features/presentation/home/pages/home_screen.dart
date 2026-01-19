@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:my_graduation/core/navigation/my_routes.dart';
 import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/features/presentation/home/widgets/complicated_cases_list_view.dart';
 import 'package:my_graduation/features/presentation/home/widgets/disease_category_list_view.dart';
@@ -62,37 +61,22 @@ class HomeScreen extends StatelessWidget {
 class DrawerItemModel {
   final String title;
   final IconData iconData;
-  final String to;
 
-  DrawerItemModel({
-    required this.title,
-    required this.iconData,
-    required this.to,
-  });
+  final Function? ontap;
+
+  DrawerItemModel({required this.title, required this.iconData, this.ontap});
 }
 
 List<DrawerItemModel> drawerItems = [
-  DrawerItemModel(
-    title: "Profile",
-    iconData: Icons.person,
-    to: MyRoutes.profile,
-  ),
-  DrawerItemModel(
-    title: "Settings",
-    iconData: Icons.settings,
-    to: MyRoutes.settings,
-  ),
+  DrawerItemModel(title: "Profile", iconData: Icons.person),
+  DrawerItemModel(title: "Settings", iconData: Icons.settings),
 
+  DrawerItemModel(title: "Notifications", iconData: Icons.notifications),
+  DrawerItemModel(title: "About", iconData: Icons.info),
+  DrawerItemModel(title: "Q&A", iconData: Icons.question_mark),
   DrawerItemModel(
-    title: "Notifications",
-    iconData: Icons.notifications,
-    to: MyRoutes.notifications,
+    title: "Logout",
+    iconData: Icons.logout,
+    ontap: FirebaseHelper.mylogout,
   ),
-  DrawerItemModel(title: "About", iconData: Icons.info, to: MyRoutes.about),
-  DrawerItemModel(
-    title: "Q&A",
-    iconData: Icons.question_mark,
-    to: MyRoutes.qAndA,
-  ),
-  DrawerItemModel(title: "Logout", iconData: Icons.logout, to: MyRoutes.login),
 ];

@@ -7,11 +7,11 @@ import 'package:my_graduation/core/dialogs/error_dialog.dart';
 import 'package:my_graduation/core/dialogs/loading_dialog.dart';
 import 'package:my_graduation/core/dialogs/massage_dialog.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
-import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/data/models/patient_therapuetic_history.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/widgets/past_medical_history_form.dart';
 
 class TnerapeuticHistoryForm extends StatelessWidget {
   TnerapeuticHistoryForm({super.key, required this.cubit, required this.model});
@@ -68,18 +68,17 @@ class TnerapeuticHistoryForm extends StatelessWidget {
                 onTap: () {
                   PatientTherapueticHistory patientTherapeuticHistory =
                       PatientTherapueticHistory(
-                        id: model.id,
-                        doctorId: FirebaseHelper.getUserId(),
-                        doctorName: FirebaseHelper.getUserName(),
                         drugTherapy: drugs.text,
                         allergyToDrugs: drugsAllergy.text,
                         recentPrescribedDrugs: recentPrescribedDrugs.text,
                       );
-
-                  cubit.updateTherapeuticHistory(
-                    patientTherapeuticHistory.toJson(),
+                  PatientModel patient = model.copyWith(
+                    theraputicHistory: patientTherapeuticHistory.toJson(),
                   );
-                  cubit.updatePatient();
+
+                  cubit.updatePatient(patient);
+
+                  logMyData(patient);
                 },
               ),
             ],

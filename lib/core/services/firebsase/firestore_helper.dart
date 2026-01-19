@@ -1,15 +1,14 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/features/data/models/doctors_model.dart';
 
 import 'package:my_graduation/features/data/models/patient_model.dart';
-
 
 class FirestoreHelper {
   static const String kpatientsCollection = 'patients';
   static const String doctorCollection = 'doctors';
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
 
   static CollectionReference<Map<String, dynamic>> getPatientsCollection() {
     return _firestore.collection(kpatientsCollection);
@@ -22,10 +21,11 @@ class FirestoreHelper {
         .set(patientModel.toJson());
   }
 
-
-  static Future<String> updatePatientData(PatientModel patient) async {
+  static Future<String> updatePatientData( PatientModel patient) async {
     try {
-      await getPatientsCollection().doc(patient.id).set(patient.toJson(), SetOptions(merge: true));
+      await getPatientsCollection()
+          .doc(patient.id)
+          .set(patient.toJson(), SetOptions(merge: true));
 
       return "success";
     } on FirebaseException catch (e) {
@@ -34,16 +34,14 @@ class FirestoreHelper {
     }
   }
 
-  
-
   static saveDoctorData(DoctorsModel doctor) {
     _firestore.collection(doctorCollection).doc(doctor.id).set(doctor.toJson());
   }
 
   static saveCompletePatientData(PatientModel patient) {
     _firestore.collection(kpatientsCollection).doc(patient.id).set({
-      
-      'email': patient.email,
+      'doctorId': patient.doctorId,
+      'doctorName': patient.doctorName,
       'phone': patient.phone,
       'personalHistory': patient.personalHistory,
       'analysisofcomplains': patient.analysisofcomplains,
@@ -53,7 +51,14 @@ class FirestoreHelper {
   }
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getAllPatient() {
-    return _firestore.collection(kpatientsCollection).get();
+    return _firestore
+        .collection(kpatientsCollection)
+        .where("doctorId ", isEqualTo: FirebaseHelper.getUserId())
+        .get();
+  }
+
+  static DocumentReference<Map<String, dynamic>> getPatientById(String? id) {
+    return _firestore.collection(kpatientsCollection).doc(id);
   }
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getPatientByDisease(

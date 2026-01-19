@@ -1,10 +1,7 @@
 import 'dart:developer';
 
 class PatientcomplainAnalysis {
-  String? id;
-  String? name;
-  String? doctorId;
-  String? doctorName;
+  
   String? complain;
   String? onset;
   String? duration;
@@ -15,10 +12,7 @@ class PatientcomplainAnalysis {
   String? specialCharacteristics;
 
   PatientcomplainAnalysis({
-    this.id,
-    this.name,
-    this.doctorId,
-    this.doctorName,
+   
     this.complain,
     this.onset,
     this.duration,
@@ -31,10 +25,7 @@ class PatientcomplainAnalysis {
 
   /// from json
   PatientcomplainAnalysis.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    doctorId = json['doctorId'];
-    doctorName = json['doctorName'];
+    
     complain = json['complain'];
     onset = json['onset'];
     duration = json['duration'];
@@ -50,10 +41,7 @@ class PatientcomplainAnalysis {
   Map<String, dynamic> toJson() {
     try {
       final Map<String, dynamic> data = {
-        'id': id,
-        'name': name,
-        'doctorId': doctorId,
-        'doctorName': doctorName,
+        
         'complain': complain,
         'onset': onset,
         'duration': duration,
@@ -71,10 +59,7 @@ class PatientcomplainAnalysis {
   }
 
   PatientcomplainAnalysis copyWith({
-    String? id,
-    String? name,
-    String? doctorId,
-    String? doctorName,
+    
     String? complain,
     String? onset,
     String? duration,
@@ -85,10 +70,7 @@ class PatientcomplainAnalysis {
     String? specialCharacteristics,
   }) {
     return PatientcomplainAnalysis(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      doctorId: doctorId ?? this.doctorId,
-      doctorName: doctorName ?? this.doctorName,
+    
       complain: complain ?? this.complain,
       onset: onset ?? this.onset,
       duration: duration ?? this.duration,

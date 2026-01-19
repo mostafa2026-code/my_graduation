@@ -9,9 +9,10 @@ import 'package:my_graduation/core/dialogs/error_dialog.dart';
 import 'package:my_graduation/core/dialogs/loading_dialog.dart';
 import 'package:my_graduation/core/dialogs/massage_dialog.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
-import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/data/models/patient_past_medical_history.dart';
+import 'package:my_graduation/features/data/models/patient_personal_history.dart';
+import 'package:my_graduation/features/data/models/patient_therapuetic_history.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
 
@@ -96,9 +97,7 @@ class PastMedicalHistoryForm extends StatelessWidget {
                   title: "save",
                   onTap: () {
                     patientPastMedicalHistory = PatientPastMedicalHistory(
-                      id: model.id,
-                      doctorId: FirebaseHelper.getUserId(),
-                      doctorName: FirebaseHelper.getUserName(),
+                     
 
                       bloodTransfusion: bloodTransfusionController.text,
                       foodAllergy: foodAllergyController.text,
@@ -109,10 +108,12 @@ class PastMedicalHistoryForm extends StatelessWidget {
 
                       similarCondition: similarConditionController.text,
                     );
-                   
-                    cubit.updatePastMedicalHistory(patientPastMedicalHistory!.toJson());
-    cubit.updatePatient();
-                    log(patientPastMedicalHistory!.toJson().toString());
+                    PatientModel patient = model.copyWith(
+                      pastMedicalHistory:
+                          patientPastMedicalHistory?.toJson() ?? {},
+                    );
+
+                    cubit.updatePatient(patient);
                   },
                 ),
               ],
@@ -122,4 +123,50 @@ class PastMedicalHistoryForm extends StatelessWidget {
       ),
     );
   }
+}
+
+logMyData(PatientModel model) {
+  log(model.toString());
+  log(model.id.toString());
+  log(model.doctorId.toString());
+  log(model.doctorName.toString());
+  log(model.diagnosis.toString());
+  log(model.personalHistory.toString());
+  log(model.analysisofcomplains.toString());
+  log(model.pastMedicalHistory.toString());
+  log(model.phone.toString());
+  PatientPersonalHistory personalHistory = PatientPersonalHistory.fromJson(
+    model.personalHistory ?? {},
+  );
+
+  log(personalHistory.toString());
+
+  log(personalHistory.address.toString());
+
+  log(personalHistory.age.toString());
+
+  log(personalHistory.martialStatus.toString());
+
+  log(personalHistory.childrenNumber.toString());
+
+  log(personalHistory.occupation.toString());
+
+  log(personalHistory.occupation.toString());
+
+  PatientTherapueticHistory therapeutic = PatientTherapueticHistory.fromJson(
+    model.personalHistory ?? {},
+  );
+  log(therapeutic.toString());
+
+  log(therapeutic.allergyToDrugs.toString());
+
+  log(therapeutic.drugTherapy.toString());
+
+  log(therapeutic.recentPrescribedDrugs.toString());
+
+  
+
+
+  
+  
 }
