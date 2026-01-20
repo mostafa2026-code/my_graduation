@@ -69,7 +69,7 @@ class FirestoreHelper {
     return _firestore
         .collection(kpatientsCollection)
         .where("diagnosis", isEqualTo: diagnosis)
-        .where("doctorId ", isEqualTo: uid)
+        .where("doctorId", isEqualTo: uid)
         .get();
   }
 

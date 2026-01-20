@@ -11,6 +11,7 @@ import 'package:my_graduation/features/presentation/auth/reset_password/pages/re
 import 'package:my_graduation/features/presentation/auth/reset_password/pages/verify_email_for_reset_password.dart';
 import 'package:my_graduation/features/presentation/home/pages/home_screen.dart';
 import 'package:my_graduation/features/presentation/home/pages/main_screen.dart';
+import 'package:my_graduation/features/presentation/home/pages/patients_by_disease_screen.dart';
 import 'package:my_graduation/features/presentation/patient_details/pages/pateint_details.dart';
 import 'package:my_graduation/features/presentation/patients/pages/patients_home.dart';
 import 'package:my_graduation/features/presentation/profile/pages/profile_screen.dart';
@@ -39,6 +40,7 @@ class MyRoutes {
   static const String resetPassword = '/resetPassword';
   static const String verifyemailForResetPassword =
       '/verifyemailForResetPassword';
+  static const String patientsByDisease = '/patientsByDisease';
 
   static final GoRouter routes = GoRouter(
     initialLocation: splash,
@@ -113,6 +115,10 @@ class MyRoutes {
       GoRoute(
         path: resetPassword,
         builder: (context, state) => const ResetPasswordScreen(),
+      ),
+      GoRoute(
+        path: patientsByDisease,
+        builder: (context, state) =>  PatientsByDiseaseScreen(diseaseName: state.extra as String,),
       ),
     ],
   );
