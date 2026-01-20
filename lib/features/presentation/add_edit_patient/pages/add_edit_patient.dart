@@ -73,7 +73,13 @@ class _AddEditPatientState extends State<AddEditPatient> {
         child: MyMainBotton(
           title: "Save",
           onTap: () {
-            // cubit.updatePatient();
+            PatientModel patientModel = cubit.currentPatient.copyWith(
+              diagnosis: diagnosisController.text.trim(),
+              examinationAbnormalities: examinationAbnormalitiesController.text
+                  .trim(),
+              neededInvestigation: neededInvestigationsController.text.trim(),
+            );
+            cubit.updatePatient(patientModel);
           },
         ),
       ),

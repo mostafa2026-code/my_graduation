@@ -7,8 +7,10 @@ class PatientModel {
   Map<String, dynamic>? analysisofcomplains;
   Map<String, dynamic>? pastMedicalHistory;
   Map<String, dynamic>? theraputicHistory;
+  String? examinationAbnormalities;
+  String? neededInvestigation;
+
   String? diagnosis;
-  Map<String, dynamic>? chestInspection;
 
   PatientModel({
     this.id,
@@ -20,7 +22,8 @@ class PatientModel {
     this.pastMedicalHistory,
     this.theraputicHistory,
     this.diagnosis,
-    this.chestInspection,
+    this.examinationAbnormalities,
+    this.neededInvestigation,
   });
 
   //to Json
@@ -28,13 +31,14 @@ class PatientModel {
     'doctorName': doctorName,
     'doctorId': doctorId,
     'phone': phone,
-    'id':id,
+    'id': id,
     'personalHistory': personalHistory,
     'analysisofcomplains': analysisofcomplains,
     'pastMedicalHistory': pastMedicalHistory,
     'theraputicHistory': theraputicHistory,
     'diagnosis': diagnosis,
-    'chestInspection': chestInspection,
+    'examinationAbnormalities': examinationAbnormalities,
+    'neededInvestigation': neededInvestigation,
   };
 
   //fromJson
@@ -48,7 +52,8 @@ class PatientModel {
     pastMedicalHistory: json['pastMedicalHistory'],
     theraputicHistory: json['theraputicHistory'],
     diagnosis: json['diagnosis'],
-    chestInspection: json['chestInspection'],
+    examinationAbnormalities: json['examinationAbnormalities'],
+    neededInvestigation: json['neededInvestigation'],
   );
 
   //edit
@@ -63,12 +68,13 @@ class PatientModel {
     Map<String, dynamic>? analysisofcomplains,
     Map<String, dynamic>? pastMedicalHistory,
     Map<String, dynamic>? theraputicHistory,
+    String? examinationAbnormalities,
+    String? neededInvestigation,
     String? diagnosis,
-    Map<String, dynamic>? chestInspection,
   }) => PatientModel(
     id: id ?? this.id,
     doctorId: doctorId ?? this.doctorId,
-    doctorName: doctorName ?? doctorName,
+    doctorName: doctorName ?? this.doctorName,
 
     phone: phone ?? this.phone,
     personalHistory: personalHistory ?? this.personalHistory,
@@ -76,6 +82,8 @@ class PatientModel {
     pastMedicalHistory: pastMedicalHistory ?? this.pastMedicalHistory,
     theraputicHistory: theraputicHistory ?? this.theraputicHistory,
     diagnosis: diagnosis ?? this.diagnosis,
-    chestInspection: chestInspection ?? this.chestInspection,
+    examinationAbnormalities:
+        examinationAbnormalities ?? this.examinationAbnormalities,
+    neededInvestigation: neededInvestigation ?? this.neededInvestigation,
   );
 }

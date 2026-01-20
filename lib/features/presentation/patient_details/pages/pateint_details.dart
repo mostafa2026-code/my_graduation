@@ -54,11 +54,17 @@ class PateintDetails extends StatelessWidget {
               icon: Icons.medication_outlined,
             ),
             const Gap(10),
-            _buildExpandableSection(
-              title: "Chest Inspection",
-              data: model?.chestInspection,
-              icon: Icons.monitor_heart_outlined,
-            ),
+            // _buildExpandableSection(
+            //   title: "Examination Abnormalities",
+            //   data: model?.examinationAbnormalities.to,
+            //   icon: Icons.monitor_heart_outlined,
+            // ),
+            // const Gap(10),
+            // _buildExpandableSection(
+            //   title: "Needed Investigations",
+            //   data: model?.neededInvestigation,
+            //   icon: Icons.monitor_heart_outlined,
+            // ),
             const Gap(10),
             if (model?.diagnosis != null && model!.diagnosis!.isNotEmpty)
               _buildDiagnosisCard(),
