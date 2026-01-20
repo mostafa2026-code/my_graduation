@@ -6,13 +6,14 @@ import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
 
 class DiseaseCategoryContainer extends StatelessWidget {
-  const DiseaseCategoryContainer({super.key});
+  const DiseaseCategoryContainer({super.key, required this.title});
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        mypush(context, MyRoutes.patientsByDisease, "mmmmmmmmmmmmm");
+        mypush(context, MyRoutes.patientsByDisease, title);
       },
       child: Container(
         width: 135,
@@ -25,11 +26,11 @@ class DiseaseCategoryContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(MyImages.heartFailure, height: 70, fit: BoxFit.cover),
+            Gap(20),
+            Image.asset(MyImages.sickness, height: 100, fit: BoxFit.cover),
             Gap(8),
-            Text("Heart Failure"),
-            Gap(8),
-            Text("number"),
+            Expanded(child: Text(title, textAlign: TextAlign.center)),
+            Gap(20),
           ],
         ),
       ),

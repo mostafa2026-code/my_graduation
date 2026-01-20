@@ -53,7 +53,7 @@ class PateintDetails extends StatelessWidget {
               data: model?.theraputicHistory,
               icon: Icons.medication_outlined,
             ),
-            const Gap(10),
+            // const Gap(10),
             // _buildExpandableSection(
             //   title: "Examination Abnormalities",
             //   data: model?.examinationAbnormalities.to,

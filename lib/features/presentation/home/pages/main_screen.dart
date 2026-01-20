@@ -4,12 +4,13 @@ import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/features/presentation/home/pages/home_screen.dart';
 import 'package:my_graduation/features/presentation/patients/pages/patients_home.dart';
 import 'package:my_graduation/features/presentation/profile/pages/profile_screen.dart';
+import 'package:my_graduation/features/presentation/search/search_screen.dart';
 
 List<Widget> pages = [
   HomeScreen(),
   PatientsHome(),
 
-  Center(child: Text('Profile Page')),
+  SearchScreen(),
   ProfileScreen(),
 ];
 
