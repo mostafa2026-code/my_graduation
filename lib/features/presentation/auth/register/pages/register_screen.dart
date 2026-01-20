@@ -66,12 +66,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const Text("Welcome to Dr.record"),
                 const Gap(10),
                 MyTextFeild(
+                  
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Name is required";
                     }
                     return null;
                   },
+                  
                   hint: "Enter your name",
                   controller: cubitReg.nameReg,
                 ),

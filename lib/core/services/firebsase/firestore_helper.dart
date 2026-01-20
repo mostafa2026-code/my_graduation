@@ -59,7 +59,7 @@ class FirestoreHelper {
   static Future<QuerySnapshot<Map<String, dynamic>>> getAllPatient() {
     return _firestore
         .collection(kpatientsCollection)
-        .where("doctorId ", isEqualTo: uid)
+        .where("doctorId", isEqualTo: uid)
         .get();
   }
 

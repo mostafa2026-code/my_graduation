@@ -3,8 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/presentation/home/widgets/patient_card.dart';
 
-class ComplicatedCasesListView extends StatelessWidget {
-  const ComplicatedCasesListView({super.key});
+class UnDiagnosedCasesListView extends StatelessWidget {
+  const UnDiagnosedCasesListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class ComplicatedCasesListView extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
-        return PatientCard(model:PatientModel());
+        return PatientCard(model: PatientModel());
       },
       separatorBuilder: (context, index) {
         return Gap(8);

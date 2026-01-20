@@ -14,7 +14,6 @@ void main() async {
   DoctorsModel? doctorsModel = SharedHelper.getUserInfo();
   log(doctorsModel?.name.toString() ?? 'حماصة مخزنش بيانات الدكتور');
   log(doctorsModel?.email.toString() ?? 'حماصة مخزنش بيانات الدكتور');
-  log(doctorsModel?.address.toString() ?? 'حماصة مخزنش بيانات الدكتور');
   log(doctorsModel?.id.toString() ?? 'حماصة مخزنش بيانات الدكتور');
   runApp(const MainApp());
 }

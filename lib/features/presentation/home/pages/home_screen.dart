@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:my_graduation/core/functions/my_future_builder.dart';
 import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
-import 'package:my_graduation/features/presentation/home/widgets/complicated_cases_list_view.dart';
+import 'package:my_graduation/core/services/firebsase/firestore_helper.dart';
 import 'package:my_graduation/features/presentation/home/widgets/disease_category_list_view.dart';
 import 'package:my_graduation/features/presentation/home/widgets/my_drawer.dart';
 
@@ -43,9 +44,9 @@ class HomeScreen extends StatelessWidget {
                   child: DiseaseCategoryListView(),
                 ),
                 const Gap(24),
-                Text("Compilcated Cases", style: headlineTextStyle()),
+                Text("Undiagnosed Cases", style: headlineTextStyle()),
                 const Gap(16),
-                ComplicatedCasesListView(),
+                myFutureBuilder(future: FirestoreHelper.getAllPatient()),
               ],
             ),
           ),

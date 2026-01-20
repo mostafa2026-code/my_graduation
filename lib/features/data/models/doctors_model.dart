@@ -14,6 +14,7 @@ class DoctorsModel {
   double? salary;
   String? fromHour;
   String? toHour;
+  
 
   DoctorsModel({
     this.name,
