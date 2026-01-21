@@ -10,50 +10,29 @@ import 'package:my_graduation/core/dialogs/massage_dialog.dart';
 import 'package:my_graduation/core/enums/my_enums.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
-import 'package:my_graduation/features/data/models/patient_personal_history.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
-import 'package:my_graduation/features/presentation/add_edit_patient/widgets/past_medical_history_form.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/cubit/personal_history_form_cubit.dart';
 
-class PersonalHistoryForm extends StatefulWidget {
+class PersonalHistoryForm extends StatelessWidget {
   const PersonalHistoryForm({
     super.key,
     required this.cubit,
     required this.model,
+    required this.formCubit,
   });
+  final PersonalHistoryFormCubit formCubit;
   final PatientModel model;
   final AddEditPatientCubit cubit;
 
   @override
-  State<PersonalHistoryForm> createState() => _PersonalHistoryFormState();
-}
-
-class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
-  final TextEditingController nameController = TextEditingController();
-
-  final TextEditingController ageController = TextEditingController();
-
-  Gender? gender;
-
-  final TextEditingController addressControllor = TextEditingController();
-
-  final TextEditingController occupationController = TextEditingController();
-
-  final TextEditingController childrenNumberController =
-      TextEditingController();
-
-  final TextEditingController specailHabitController = TextEditingController();
-
-  SmokingStatus? smokingStatus;
-
-  PatientPersonalHistory? patientPersonalHistory;
-
-  MartialStatus? martialStatus;
-
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: widget.cubit,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: cubit),
+        BlocProvider.value(value: formCubit),
+      ],
+
       child: BlocListener<AddEditPatientCubit, AddEditPatientState>(
         listener: (context, state) {
           if (state is AddEditPatientLoading) {
@@ -76,66 +55,99 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Gap(16),
-              MyTextFeild(hint: "Name", controller: nameController),
+              MyTextFeild(hint: "Name", controller: formCubit.nameController),
               const Gap(8),
-              MyTextFeild(hint: "Age", controller: ageController),
+              MyTextFeild(hint: "Age", controller: formCubit.ageController),
               const Gap(8),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const Text("Gender"),
                   const Gap(16),
-                  Wrap(
-                    spacing: 5,
-                    children: [
-                      MyChip(
-                        label: "Male",
-                        onselected: () {
-                          gender = Gender.male;
-                        },
-                      ),
-                      MyChip(
-                        label: "Female",
-                        onselected: () {
-                          gender = Gender.female;
-                        },
-                      ),
-                    ],
+                  BlocBuilder<
+                    PersonalHistoryFormCubit,
+                    PersonalHistoryFormState
+                  >(
+                    bloc: formCubit,
+                    builder: (context, state) {
+                      return Wrap(
+                        spacing: 5,
+                        children: [
+                          MyChip(
+                            label: "Male",
+                            isSelected: formCubit.gender == Gender.male,
+                            onselected: (_) {
+                              formCubit.selectGender(Gender.male);
+                            },
+                          ),
+                          MyChip(
+                            label: "Female",
+                            isSelected: formCubit.gender == Gender.female,
+                            onselected: (_) {
+                              formCubit.selectGender(Gender.female);
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
               const Gap(8),
-              MyTextFeild(hint: "Address", controller: addressControllor),
+              MyTextFeild(
+                hint: "Address",
+                controller: formCubit.addressControllor,
+              ),
               const Gap(8),
-              MyTextFeild(hint: "Occupation", controller: occupationController),
+              MyTextFeild(
+                hint: "Occupation",
+                controller: formCubit.occupationController,
+              ),
               const Gap(8),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const Text("Martial Status"),
                   const Gap(16),
-                  Wrap(
-                    children: [
-                      MyChip(
-                        label: "Single ",
-                        onselected: () {
-                          martialStatus = MartialStatus.single;
-                        },
-                      ),
-                      MyChip(
-                        label: "Married",
-                        onselected: () {
-                          martialStatus = MartialStatus.married;
-                        },
-                      ),
-                    ],
+                  BlocBuilder<
+                    PersonalHistoryFormCubit,
+                    PersonalHistoryFormState
+                  >(
+                    bloc: formCubit,
+                    builder: (context, state) {
+                      return Wrap(
+                        children: [
+                          MyChip(
+                            isSelected:
+                                formCubit.martialStatus == MartialStatus.single,
+                            label: "Single ",
+                            onselected: (_) {
+                              formCubit.selectMartialStatus(
+                                MartialStatus.single,
+                              );
+                            },
+                          ),
+                          MyChip(
+                            isSelected:
+                                formCubit.martialStatus ==
+                                MartialStatus.married,
+                            label: "Married",
+                            onselected: (_) {
+                              formCubit.selectMartialStatus(
+                                MartialStatus.married,
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
-              if (martialStatus == MartialStatus.married)
+              if (formCubit.martialStatus == MartialStatus.married)
                 MyTextFeild(
                   hint: "Number of Childern",
-                  controller: childrenNumberController,
+                  controller: formCubit.childrenNumberController,
                 ),
               const Gap(8),
               Column(
@@ -144,68 +156,80 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
                   const Text("Smoking Status"),
                   const Gap(16),
 
-                  Wrap(
-                    spacing: 8,
-                    children: [
-                      MyChip(
-                        label: "Non Smoker",
-                        onselected: () {
-                          smokingStatus = SmokingStatus.nonSmoker;
-                        },
-                      ),
+                  BlocBuilder(
+                    bloc: formCubit,
+                    builder: (context, state) {
+                      return Wrap(
+                        spacing: 8,
+                        children: [
+                          MyChip(
+                            isSelected:
+                                formCubit.smokingStatus ==
+                                SmokingStatus.nonSmoker,
+                            label: "Non Smoker",
+                            onselected: (_) {
+                              formCubit.selectSmokingStatus(
+                                SmokingStatus.nonSmoker,
+                              );
+                            },
+                          ),
 
-                      MyChip(
-                        label: "Ex Smoker",
-                        onselected: () {
-                          smokingStatus = SmokingStatus.exSmoker;
-                        },
-                      ),
+                          MyChip(
+                            isSelected:
+                                formCubit.smokingStatus ==
+                                SmokingStatus.exSmoker,
+                            label: "Ex Smoker",
+                            onselected: (_) {
+                              formCubit.selectSmokingStatus(
+                                SmokingStatus.exSmoker,
+                              );
+                            },
+                          ),
 
-                      MyChip(
-                        label: "Heavy Smoker",
-                        onselected: () {
-                          smokingStatus = SmokingStatus.heavySmoker;
-                        },
-                      ),
+                          MyChip(
+                            isSelected:
+                                formCubit.smokingStatus ==
+                                SmokingStatus.heavySmoker,
+                            label: "Heavy Smoker",
+                            onselected: (_) {
+                              formCubit.selectSmokingStatus(
+                                SmokingStatus.heavySmoker,
+                              );
+                            },
+                          ),
 
-                      MyChip(
-                        label: "light Smoker",
-                        onselected: () {
-                          smokingStatus = SmokingStatus.lightSmoker;
-                        },
-                      ),
-                    ],
+                          MyChip(
+                            isSelected:
+                                formCubit.smokingStatus ==
+                                SmokingStatus.lightSmoker,
+                            label: "light Smoker",
+                            onselected: (_) {
+                              formCubit.selectSmokingStatus(
+                                SmokingStatus.lightSmoker,
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
               const Gap(8),
               MyTextFeild(
                 hint: "Specail Habits",
-                controller: specailHabitController,
+                controller: formCubit.specailHabitController,
               ),
 
               const Gap(8),
               MyMainBotton(
                 title: "Save",
                 onTap: () {
-                  patientPersonalHistory = PatientPersonalHistory(
-                   
-                    name: nameController.text,
-                    age: ageController.text,
-                    address: addressControllor.text,
-                    occupation: occupationController.text,
-                    gender: gender,
-
-                    martialStatus: martialStatus,
-                    childrenNumber: int.tryParse(childrenNumberController.text),
-                    specialHabits: specailHabitController.text,
+                  PatientModel patient = formCubit.setPersonalHistoryData(
+                    model,
                   );
 
-                  PatientModel? patient = widget.model.copyWith(
-                    personalHistory: patientPersonalHistory!.toJson(),
-                  );
-                  widget.cubit.updatePatient(patient);
-                  logMyData(patient);
+                  cubit.updatePatient(patient);
                 },
               ),
             ],

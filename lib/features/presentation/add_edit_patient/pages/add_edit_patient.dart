@@ -4,6 +4,7 @@ import 'package:my_graduation/component/my_text_feild.dart';
 import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/cubit/personal_history_form_cubit.dart';
 
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/complain_analysis_form.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/history_grid_view.dart';
@@ -118,8 +119,11 @@ List<HistoryItemBuilder> historyCardList = [
     title: "Personal History",
     image: MyImages.personalHistory,
     color: ColorsPalette.lightBlue,
-    bottomSheet: (cubit, model) =>
-        PersonalHistoryForm(model: model, cubit: cubit),
+    bottomSheet: (cubit, model) => PersonalHistoryForm(
+      model: model,
+      cubit: cubit,
+      formCubit: PersonalHistoryFormCubit(),
+    ),
   ),
   HistoryItemBuilder(
     title: "History of Present Illness",

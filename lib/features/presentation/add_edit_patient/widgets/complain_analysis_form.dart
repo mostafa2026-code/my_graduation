@@ -84,14 +84,16 @@ class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
 
                   children: [
                     MyChip(
+                      isSelected: onset == Onset.sudden_onset,
                       label: "Acute",
-                      onselected: () {
+                      onselected: (_) {
                         onset = Onset.sudden_onset;
                       },
                     ),
                     MyChip(
+                      isSelected:onset==Onset.gradual_onset ,
                       label: "Gradual",
-                      onselected: () {
+                      onselected: (_) {
                         onset = Onset.gradual_onset;
                       },
                     ),
@@ -104,26 +106,30 @@ class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
                   spacing: 8,
                   children: [
                     MyChip(
+                      isSelected:  course == Course.progressive,
                       label: "Progressive",
-                      onselected: () {
+                      onselected: (_) {
                         course = Course.progressive;
                       },
                     ),
                     MyChip(
+                      isSelected:  course == Course.regressive,
                       label: "Regressive",
-                      onselected: () {
+                      onselected: (_) {
                         course = Course.regressive;
                       },
                     ),
                     MyChip(
+                      isSelected: course == Course.intermetent ,
                       label: "Intermetent",
-                      onselected: () {
+                      onselected: (_) {
                         course = Course.intermetent;
                       },
                     ),
                     MyChip(
+                      isSelected:  course ==Course.stationary,
                       label: "Stationary",
-                      onselected: () {
+                      onselected: (_) {
                         course = Course.stationary;
                       },
                     ),

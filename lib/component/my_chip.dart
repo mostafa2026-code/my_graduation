@@ -3,27 +3,28 @@ import 'package:my_graduation/core/utils/my_colors.dart';
 
 class MyChip extends StatefulWidget {
   final String label;
-  final Function() onselected;
+  final void Function(bool) onselected;
+  final bool isSelected;
 
-  const MyChip({super.key, required this.label, required this.onselected});
+  const MyChip({
+    super.key,
+    required this.label,
+    required this.onselected,
+    required this.isSelected,
+  });
 
   @override
   State<MyChip> createState() => _MyChipState();
 }
 
 class _MyChipState extends State<MyChip> {
-  bool isSelected = false;
+ 
 
   @override
   Widget build(BuildContext context) {
     return FilterChip(
-      onSelected: (value) {
-        setState(() {
-          isSelected = !isSelected;
-        });
-        widget.onselected;
-      },
-      selected: isSelected,
+      onSelected: widget.onselected,
+      selected: widget.isSelected,
       selectedColor: MyColors.primary,
       checkmarkColor: Colors.white,
 
