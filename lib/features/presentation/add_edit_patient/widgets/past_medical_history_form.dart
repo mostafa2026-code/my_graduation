@@ -19,31 +19,25 @@ import 'package:my_graduation/features/presentation/add_edit_patient/cubit/past_
 
 // ignore: must_be_immutable
 class PastMedicalHistoryForm extends StatelessWidget {
-  PastMedicalHistoryForm({super.key, required this.cubit, required this.model});
+  const PastMedicalHistoryForm({
+    super.key,
+    required this.cubit,
+    required this.model,
+    required this.pastMedicalHistoryCubit,
+  });
   final PatientModel model;
 
   final AddEditPatientCubit cubit;
 
-  final PastMedicalHistoryCubit pastMedicalHistoryCubit = PastMedicalHistoryCubit();
-
-  PatientPastMedicalHistory? patientPastMedicalHistory;
-
- final  TextEditingController similarConditionController = TextEditingController();
-
- final  TextEditingController previosChronicDiseasesController =
-      TextEditingController();
-
-  final TextEditingController previousHospitalizationController =
-      TextEditingController();
-
-  final TextEditingController bloodTransfusionController = TextEditingController();
-
- final  TextEditingController foodAllergyController = TextEditingController();
+  final PastMedicalHistoryCubit pastMedicalHistoryCubit;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: cubit,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: cubit),
+        BlocProvider.value(value: pastMedicalHistoryCubit),
+      ],
 
       child: BlocListener<AddEditPatientCubit, AddEditPatientState>(
         listener: (context, state) {
@@ -71,52 +65,44 @@ class PastMedicalHistoryForm extends StatelessWidget {
                 const Gap(16),
                 MyTextFeild(
                   hint: "Similar condition",
-                  controller: similarConditionController,
+                  controller:
+                      pastMedicalHistoryCubit.similarConditionController,
                 ),
                 const Gap(8),
 
                 MyTextFeild(
                   hint: "Previous hospitalization",
-                  controller: previousHospitalizationController,
+                  controller:
+                      pastMedicalHistoryCubit.previousHospitalizationController,
                 ),
                 const Gap(8),
                 MyTextFeild(
                   hint: "Previous chronic diseases",
-                  controller: previosChronicDiseasesController,
+                  controller:
+                      pastMedicalHistoryCubit.previosChronicDiseasesController,
                 ),
                 const Gap(8),
 
                 MyTextFeild(
                   hint: "Blood transfusion",
-                  controller: bloodTransfusionController,
+                  controller:
+                      pastMedicalHistoryCubit.bloodTransfusionController,
                 ),
                 const Gap(8),
                 MyTextFeild(
                   hint: "Food allergy",
-                  controller: foodAllergyController,
+                  controller: pastMedicalHistoryCubit.foodAllergyController,
                 ),
                 const Gap(8),
                 MyMainBotton(
                   title: "save",
                   onTap: () {
-                    patientPastMedicalHistory = PatientPastMedicalHistory(
-                     
+                    PatientModel? patientModel = pastMedicalHistoryCubit
+                        .savePastMedicalHistoryModel(model);
 
-                      bloodTransfusion: bloodTransfusionController.text,
-                      foodAllergy: foodAllergyController.text,
-                      previousChronicDiseases:
-                          previosChronicDiseasesController.text,
-                      previousHospitalizationCondition:
-                          previousHospitalizationController.text,
-
-                      similarCondition: similarConditionController.text,
-                    );
-                    PatientModel patient = model.copyWith(
-                      pastMedicalHistory:
-                          patientPastMedicalHistory?.toJson() ?? {},
-                    );
-
-                    cubit.updatePatient(patient);
+                    if (patientModel != null) {
+                      cubit.updatePatient(patientModel);
+                    }
                   },
                 ),
               ],
@@ -166,10 +152,4 @@ logMyData(PatientModel model) {
   log(therapeutic.drugTherapy.toString());
 
   log(therapeutic.recentPrescribedDrugs.toString());
-
-  
-
-
-  
-  
 }

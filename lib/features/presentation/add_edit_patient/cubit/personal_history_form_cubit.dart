@@ -50,14 +50,14 @@ class PersonalHistoryFormCubit extends Cubit<PersonalHistoryFormState> {
 
   PatientModel setPersonalHistoryData(PatientModel currentPatient) {
     patientPersonalHistory = PatientPersonalHistory(
-      name: nameController.text,
-      age: ageController.text,
-      address: addressControllor.text,
-      occupation: occupationController.text,
+      name: nameController.text.trim(),
+      age: ageController.text.trim(),
+      address: addressControllor.text.trim(),
+      occupation: occupationController.text.trim(),
       gender: gender,
       martialStatus: martialStatus,
       childrenNumber: int.tryParse(childrenNumberController.text),
-      specialHabits: specailHabitController.text,
+      specialHabits: specailHabitController.text.trim(),
     );
 
     PatientModel patient = currentPatient.copyWith(

@@ -40,14 +40,14 @@ class ComplainAnalysisCubit extends Cubit<ComplainAnalysisState> {
 
   PatientModel? saveComplainAnalysisModel(PatientModel model) {
     PatientcomplainAnalysis patientComplainAnalysis = PatientcomplainAnalysis(
-      aggravatingFactors: exaeratingFactorController.text,
-      reliefFactors: releivingFactorController.text,
-      associatedSymptoms: associatedSymptomsController.text,
+      aggravatingFactors: exaeratingFactorController.text.trim(),
+      reliefFactors: releivingFactorController.text.trim(),
+      associatedSymptoms: associatedSymptomsController.text.trim(),
       onset: onset.toString(),
       course: course.toString(),
-      duration: durationController.text,
-      specialCharacteristics: specialCharacter.text,
-      complain: complaintController.text,
+      duration: durationController.text.trim(),
+      specialCharacteristics: specialCharacter.text.trim(),
+      complain: complaintController.text.trim(),
     );
     PatientModel patient = model.copyWith(
       analysisofcomplains: patientComplainAnalysis.toJson(),

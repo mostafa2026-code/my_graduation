@@ -22,12 +22,12 @@ class PastMedicalHistoryCubit extends Cubit<PastMedicalHistoryState> {
   PatientModel? savePastMedicalHistoryModel(PatientModel model) {
     PatientPastMedicalHistory patientPastMedicalHistory =
         PatientPastMedicalHistory(
-          similarCondition: similarConditionController.text,
-          previousChronicDiseases: previosChronicDiseasesController.text,
+          similarCondition: similarConditionController.text.trim(),
+          previousChronicDiseases: previosChronicDiseasesController.text.trim(),
           previousHospitalizationCondition:
-              previousHospitalizationController.text,
-          bloodTransfusion: bloodTransfusionController.text,
-          foodAllergy: foodAllergyController.text,
+              previousHospitalizationController.text.trim(),
+          bloodTransfusion: bloodTransfusionController.text.trim(),
+          foodAllergy: foodAllergyController.text.trim(),
         );
     PatientModel patient = model.copyWith(
       pastMedicalHistory: patientPastMedicalHistory.toJson(),

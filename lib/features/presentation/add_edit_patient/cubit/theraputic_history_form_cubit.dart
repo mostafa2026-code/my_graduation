@@ -19,9 +19,9 @@ class TheraputicHistoryFormCubit extends Cubit<TheraputicHistoryFormState> {
 
  PatientModel ?saveTheraputicHistoryModel( PatientModel model){
     PatientTherapueticHistory patientTherapueticHistory = PatientTherapueticHistory(
-      drugTherapy: drugs.text,
-      allergyToDrugs: drugsAllergy.text,
-      recentPrescribedDrugs: recentPrescribedDrugs.text,
+      drugTherapy: drugs.text.trim(),
+      allergyToDrugs: drugsAllergy.text.trim(),
+      recentPrescribedDrugs: recentPrescribedDrugs.text.trim(),
     );
     PatientModel patientModel =model.copyWith(
       theraputicHistory: patientTherapueticHistory.toJson(),

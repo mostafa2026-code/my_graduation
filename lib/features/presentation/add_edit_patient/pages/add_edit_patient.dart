@@ -5,6 +5,7 @@ import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/complain_analysis_cubit.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/cubit/past_medical_history_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/personal_history_form_cubit.dart';
 
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/complain_analysis_form.dart';
@@ -130,15 +131,21 @@ List<HistoryItemBuilder> historyCardList = [
     title: "History of Present Illness",
     image: MyImages.presentillness,
     color: ColorsPalette.lightPurple,
-    bottomSheet: (cubit, model) =>
-        ComplainAnalysisForm(cubit: cubit, patientModel: model, complainAnalysisCubit: ComplainAnalysisCubit(),),
+    bottomSheet: (cubit, model) => ComplainAnalysisForm(
+      cubit: cubit,
+      patientModel: model,
+      complainAnalysisCubit: ComplainAnalysisCubit(),
+    ),
   ),
   HistoryItemBuilder(
     title: "Past Medical History ",
     image: MyImages.pastHistory,
     color: ColorsPalette.lightGreen,
-    bottomSheet: (cubit, model) =>
-        PastMedicalHistoryForm(model: model, cubit: cubit),
+    bottomSheet: (cubit, model) => PastMedicalHistoryForm(
+      model: model,
+      cubit: cubit,
+      pastMedicalHistoryCubit: PastMedicalHistoryCubit(),
+    ),
   ),
   HistoryItemBuilder(
     title: "Therapeutic History",
