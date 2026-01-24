@@ -12,27 +12,61 @@ import 'package:my_graduation/core/dialogs/massage_dialog.dart';
 import 'package:my_graduation/core/enums/my_enums.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
+import 'package:my_graduation/features/data/models/patient_personal_history.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/personal_history_form_cubit.dart';
 
-class PersonalHistoryForm extends StatelessWidget {
+class PersonalHistoryForm extends StatefulWidget {
   const PersonalHistoryForm({
     super.key,
     required this.cubit,
-    
+
     required this.formCubit,
+    this.patientModelToedit,
   });
   final PersonalHistoryFormCubit formCubit;
- 
+  final PatientModel? patientModelToedit;
+
   final AddEditPatientCubit cubit;
+
+  @override
+  State<PersonalHistoryForm> createState() => _PersonalHistoryFormState();
+}
+
+class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.patientModelToedit != null) {
+      Map<String, dynamic>? personalHistory =
+          widget.patientModelToedit!.personalHistory;
+      PatientPersonalHistory patientPersonalHistory =
+          PatientPersonalHistory.fromJson(personalHistory!);
+      widget.formCubit.nameController.text = patientPersonalHistory.name ?? "";
+      widget.formCubit.ageController.text = patientPersonalHistory.age ?? "";
+      widget.formCubit.addressController.text =
+          patientPersonalHistory.address ?? "";
+      widget.formCubit.occupationController.text =
+          patientPersonalHistory.occupation ?? "";
+      widget.formCubit.gender = patientPersonalHistory.gender;
+      widget.formCubit.martialStatus = patientPersonalHistory.martialStatus;
+
+      widget.formCubit.childrenNumberController.text = patientPersonalHistory
+          .childrenNumber
+          .toString();
+      widget.formCubit.specailHabitController.text =
+          patientPersonalHistory.specialHabits ?? "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: cubit),
-        BlocProvider.value(value: formCubit),
+        BlocProvider.value(value: widget.cubit),
+        BlocProvider.value(value: widget.formCubit),
       ],
 
       child: BlocListener<AddEditPatientCubit, AddEditPatientState>(
@@ -57,9 +91,15 @@ class PersonalHistoryForm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Gap(16),
-              MyTextFeild(hint: "Name", controller: formCubit.nameController),
+              MyTextFeild(
+                hint: "Name",
+                controller: widget.formCubit.nameController,
+              ),
               const Gap(8),
-              MyTextFeild(hint: "Age", controller: formCubit.ageController),
+              MyTextFeild(
+                hint: "Age",
+                controller: widget.formCubit.ageController,
+              ),
               const Gap(8),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -70,23 +110,25 @@ class PersonalHistoryForm extends StatelessWidget {
                     PersonalHistoryFormCubit,
                     PersonalHistoryFormState
                   >(
-                    bloc: formCubit,
+                    bloc: widget.formCubit,
                     builder: (context, state) {
                       return Wrap(
                         spacing: 5,
                         children: [
                           MyChip(
                             label: "Male",
-                            isSelected: formCubit.gender == Gender.male,
+                            isSelected:
+                                widget.formCubit.gender == Gender.male.name,
                             onselected: (_) {
-                              formCubit.selectGender(Gender.male);
+                              widget.formCubit.selectGender(Gender.male);
                             },
                           ),
                           MyChip(
                             label: "Female",
-                            isSelected: formCubit.gender == Gender.female,
+                            isSelected:
+                                widget.formCubit.gender == Gender.female.name,
                             onselected: (_) {
-                              formCubit.selectGender(Gender.female);
+                              widget.formCubit.selectGender(Gender.female);
                             },
                           ),
                         ],
@@ -98,12 +140,12 @@ class PersonalHistoryForm extends StatelessWidget {
               const Gap(8),
               MyTextFeild(
                 hint: "Address",
-                controller: formCubit.addressController,
+                controller: widget.formCubit.addressController,
               ),
               const Gap(8),
               MyTextFeild(
                 hint: "Occupation",
-                controller: formCubit.occupationController,
+                controller: widget.formCubit.occupationController,
               ),
               const Gap(8),
               Column(
@@ -115,27 +157,28 @@ class PersonalHistoryForm extends StatelessWidget {
                     PersonalHistoryFormCubit,
                     PersonalHistoryFormState
                   >(
-                    bloc: formCubit,
+                    bloc: widget.formCubit,
                     builder: (context, state) {
                       return Wrap(
                         children: [
                           MyChip(
                             isSelected:
-                                formCubit.martialStatus == MartialStatus.single,
+                                widget.formCubit.martialStatus ==
+                                MartialStatus.single.name,
                             label: "Single ",
                             onselected: (_) {
-                              formCubit.selectMartialStatus(
+                              widget.formCubit.selectMartialStatus(
                                 MartialStatus.single,
                               );
                             },
                           ),
                           MyChip(
                             isSelected:
-                                formCubit.martialStatus ==
-                                MartialStatus.married,
+                                widget.formCubit.martialStatus ==
+                                MartialStatus.married.name,
                             label: "Married",
                             onselected: (_) {
-                              formCubit.selectMartialStatus(
+                              widget.formCubit.selectMartialStatus(
                                 MartialStatus.married,
                               );
                             },
@@ -146,10 +189,10 @@ class PersonalHistoryForm extends StatelessWidget {
                   ),
                 ],
               ),
-              if (formCubit.martialStatus == MartialStatus.married)
+              if (widget.formCubit.martialStatus == MartialStatus.married.name)
                 MyTextFeild(
                   hint: "Number of Childern",
-                  controller: formCubit.childrenNumberController,
+                  controller: widget.formCubit.childrenNumberController,
                 ),
               const Gap(8),
               Column(
@@ -159,18 +202,18 @@ class PersonalHistoryForm extends StatelessWidget {
                   const Gap(16),
 
                   BlocBuilder(
-                    bloc: formCubit,
+                    bloc: widget.formCubit,
                     builder: (context, state) {
                       return Wrap(
                         spacing: 8,
                         children: [
                           MyChip(
                             isSelected:
-                                formCubit.smokingStatus ==
-                                SmokingStatus.nonSmoker,
+                                widget.formCubit.smokingStatus ==
+                                SmokingStatus.nonSmoker.name,
                             label: "Non Smoker",
                             onselected: (_) {
-                              formCubit.selectSmokingStatus(
+                              widget.formCubit.selectSmokingStatus(
                                 SmokingStatus.nonSmoker,
                               );
                             },
@@ -178,11 +221,11 @@ class PersonalHistoryForm extends StatelessWidget {
 
                           MyChip(
                             isSelected:
-                                formCubit.smokingStatus ==
-                                SmokingStatus.exSmoker,
+                                widget.formCubit.smokingStatus ==
+                                SmokingStatus.exSmoker.name,
                             label: "Ex Smoker",
                             onselected: (_) {
-                              formCubit.selectSmokingStatus(
+                              widget.formCubit.selectSmokingStatus(
                                 SmokingStatus.exSmoker,
                               );
                             },
@@ -190,11 +233,11 @@ class PersonalHistoryForm extends StatelessWidget {
 
                           MyChip(
                             isSelected:
-                                formCubit.smokingStatus ==
-                                SmokingStatus.heavySmoker,
+                                widget.formCubit.smokingStatus ==
+                                SmokingStatus.heavySmoker.name,
                             label: "Heavy Smoker",
                             onselected: (_) {
-                              formCubit.selectSmokingStatus(
+                              widget.formCubit.selectSmokingStatus(
                                 SmokingStatus.heavySmoker,
                               );
                             },
@@ -202,11 +245,11 @@ class PersonalHistoryForm extends StatelessWidget {
 
                           MyChip(
                             isSelected:
-                                formCubit.smokingStatus ==
-                                SmokingStatus.lightSmoker,
+                                widget.formCubit.smokingStatus ==
+                                SmokingStatus.lightSmoker.name,
                             label: "light Smoker",
                             onselected: (_) {
-                              formCubit.selectSmokingStatus(
+                              widget.formCubit.selectSmokingStatus(
                                 SmokingStatus.lightSmoker,
                               );
                             },
@@ -220,30 +263,32 @@ class PersonalHistoryForm extends StatelessWidget {
               const Gap(8),
               MyTextFeild(
                 hint: "Specail Habits",
-                controller: formCubit.specailHabitController,
+                controller: widget.formCubit.specailHabitController,
               ),
 
               const Gap(8),
               MyMainBotton(
                 title: "Save",
                 onTap: () {
-                  PatientModel patient = cubit.currentPatient.copyWith(
-                    personalHistory: formCubit.setPersonalHistoryData(),
+                  PatientModel patient = widget.cubit.currentPatient.copyWith(
+                    personalHistory: widget.formCubit.setPersonalHistoryData(),
                   );
-                  log('Name: ${formCubit.nameController.text}');
-                  log('Age: ${formCubit.ageController.text}');
-                  log('Address: ${formCubit.addressController.text}');
-                  log('Occupation: ${formCubit.occupationController.text}');
-                  log('Gender: ${formCubit.gender}');
-                  log('Martial Status: ${formCubit.martialStatus}');
+                  log('Name: ${widget.formCubit.nameController.text}');
+                  log('Age: ${widget.formCubit.ageController.text}');
+                  log('Address: ${widget.formCubit.addressController.text}');
                   log(
-                    'Children Number: ${formCubit.childrenNumberController.text}',
+                    'Occupation: ${widget.formCubit.occupationController.text}',
+                  );
+                  log('Gender: ${widget.formCubit.gender}');
+                  log('Martial Status: ${widget.formCubit.martialStatus}');
+                  log(
+                    'Children Number: ${widget.formCubit.childrenNumberController.text}',
                   );
                   log(
-                    'Special Habits: ${formCubit.specailHabitController.text}',
+                    'Special Habits: ${widget.formCubit.specailHabitController.text}',
                   );
-                  cubit.currentPatient = patient;
-                  cubit.updatePatient();
+                  widget.cubit.currentPatient = patient;
+                  widget.cubit.updatePatient();
                 },
               ),
             ],

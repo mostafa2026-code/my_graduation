@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_graduation/core/enums/my_enums.dart';
@@ -15,53 +14,53 @@ class PersonalHistoryFormCubit extends Cubit<PersonalHistoryFormState> {
       TextEditingController();
   final TextEditingController specailHabitController = TextEditingController();
 
-  Gender? gender;
-  MartialStatus? martialStatus;
-  SmokingStatus? smokingStatus;
+  String? gender;
+  String? martialStatus;
+  String? smokingStatus;
 
   void selectGender(Gender value) {
-    if (gender == value) {
+    if (gender == value.name) {
       gender = null;
     } else {
-      gender = value;
+      gender = value.name;
     }
     emit(PersonalHistoryFormInitial());
   }
 
   void selectMartialStatus(MartialStatus value) {
-    if (martialStatus == value) {
+    if (martialStatus == value.name) {
       martialStatus = null;
     } else {
-      martialStatus = value;
+      martialStatus = value.name;
     }
     emit(PersonalHistoryFormInitial());
   }
 
   void selectSmokingStatus(SmokingStatus value) {
-    if (smokingStatus == value) {
+    if (smokingStatus == value.name) {
       smokingStatus = null;
     } else {
-      smokingStatus = value;
+      smokingStatus = value.name;
     }
     emit(PersonalHistoryFormInitial());
   }
 
-  Map<String, dynamic> setPersonalHistoryData( ) {
+  Map<String, dynamic> setPersonalHistoryData() {
     PatientPersonalHistory patientPersonalHistory = PatientPersonalHistory(
       name: nameController.text.trim(),
       age: ageController.text.trim(),
       address: addressController.text.trim(),
       occupation: occupationController.text.trim(),
-      gender: gender?.name,
-      martialStatus: martialStatus?.name,
+      gender: gender,
+      martialStatus: martialStatus,
       childrenNumber: int.tryParse(childrenNumberController.text),
       specialHabits: specailHabitController.text.trim(),
     );
 
-    
-
     return patientPersonalHistory.toJson();
   }
+
+  editPersonalHistory() {}
 }
 
 class PersonalHistoryFormState {}

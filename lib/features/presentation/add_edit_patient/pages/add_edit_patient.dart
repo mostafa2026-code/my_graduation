@@ -123,7 +123,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20),
         child: MyMainBotton(
-          title: "Save",
+          title:isEdit?"Edit":"Save",
           onTap: () {
             PatientModel patientModel = cubit.currentPatient.copyWith(
               diagnosis: diagnosisController.text.trim(),
