@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -96,7 +98,7 @@ class PersonalHistoryForm extends StatelessWidget {
               const Gap(8),
               MyTextFeild(
                 hint: "Address",
-                controller: formCubit.addressControllor,
+                controller: formCubit.addressController,
               ),
               const Gap(8),
               MyTextFeild(
@@ -225,8 +227,20 @@ class PersonalHistoryForm extends StatelessWidget {
               MyMainBotton(
                 title: "Save",
                 onTap: () {
-                  PatientModel patient = formCubit.setPersonalHistoryData(
-                    model,
+                  PatientModel patient = model.copyWith(
+                    personalHistory: formCubit.setPersonalHistoryData(),
+                  );
+                  log('Name: ${formCubit.nameController.text}');
+                  log('Age: ${formCubit.ageController.text}');
+                  log('Address: ${formCubit.addressController.text}');
+                  log('Occupation: ${formCubit.occupationController.text}');
+                  log('Gender: ${formCubit.gender}');
+                  log('Martial Status: ${formCubit.martialStatus}');
+                  log(
+                    'Children Number: ${formCubit.childrenNumberController.text}',
+                  );
+                  log(
+                    'Special Habits: ${formCubit.specailHabitController.text}',
                   );
 
                   cubit.updatePatient(patient);

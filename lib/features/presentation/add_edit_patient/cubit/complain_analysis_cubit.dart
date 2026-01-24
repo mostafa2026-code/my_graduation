@@ -15,7 +15,6 @@ class ComplainAnalysisCubit extends Cubit<ComplainAnalysisState> {
   TextEditingController complaintController = TextEditingController();
   TextEditingController specialCharacter = TextEditingController();
   TextEditingController associatedSymptomsController = TextEditingController();
-  PatientcomplainAnalysis? patientcomplainAnalysis;
 
   void selectOnset(Onset value) {
     if (onset == value) {
@@ -35,22 +34,20 @@ class ComplainAnalysisCubit extends Cubit<ComplainAnalysisState> {
     emit(ComplainAnalysisInitial());
   }
 
-  PatientModel? saveComplainAnalysisModel(PatientModel model) {
+  Map<String, dynamic>? saveComplainAnalysisModel() {
     PatientcomplainAnalysis patientComplainAnalysis = PatientcomplainAnalysis(
       aggravatingFactors: exaeratingFactorController.text.trim(),
       reliefFactors: releivingFactorController.text.trim(),
       associatedSymptoms: associatedSymptomsController.text.trim(),
-      onset: onset.toString(),
-      course: course.toString(),
+      onset: onset?.name,
+      course: course?.name,
       duration: durationController.text.trim(),
       specialCharacteristics: specialCharacter.text.trim(),
       complain: complaintController.text.trim(),
     );
-    PatientModel patient = model.copyWith(
-      analysisofcomplains: patientComplainAnalysis.toJson(),
-    );
+
     emit(ComplainAnalysisInitial());
-    return patient;
+    return patientComplainAnalysis.toJson();
   }
 }
 

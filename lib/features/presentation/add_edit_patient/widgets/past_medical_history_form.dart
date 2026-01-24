@@ -100,8 +100,29 @@ class PastMedicalHistoryForm extends StatelessWidget {
                     PatientModel? patientModel = pastMedicalHistoryCubit
                         .savePastMedicalHistoryModel(model);
 
+                    log(
+                      pastMedicalHistoryCubit.similarConditionController
+                          .toString(),
+                    );
+                    log(
+                      pastMedicalHistoryCubit.previousHospitalizationController
+                          .toString(),
+                    );
+                    log(
+                      pastMedicalHistoryCubit.previosChronicDiseasesController
+                          .toString(),
+                    );
+                    log(
+                      pastMedicalHistoryCubit.bloodTransfusionController
+                          .toString(),
+                    );
+                    log(
+                      pastMedicalHistoryCubit.foodAllergyController.toString(),
+                    );
+
                     if (patientModel != null) {
                       cubit.updatePatient(patientModel);
+                      logMyData(patientModel);
                     }
                   },
                 ),

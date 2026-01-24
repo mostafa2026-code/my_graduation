@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -164,11 +166,28 @@ class ComplainAnalysisForm extends StatelessWidget {
                 MyMainBotton(
                   title: "save",
                   onTap: () {
-                    complainAnalysisCubit.saveComplainAnalysisModel(
-                      patientModel,
+                    PatientModel pateint = patientModel.copyWith(
+                      analysisofcomplains: complainAnalysisCubit
+                          .saveComplainAnalysisModel(),
                     );
 
-                    cubit.updatePatient(patientModel);
+                    log("personal: ${pateint.personalHistory}");
+
+                    log(
+                      " associatedSymptomsController: ${complainAnalysisCubit.associatedSymptomsController.text}",
+                    );
+                    log(
+                      " complin: ${complainAnalysisCubit.complaintController.text}",
+                    );
+                    log(" course: ${complainAnalysisCubit.course}");
+                    log(
+                      " exaeratingFactorController: ${complainAnalysisCubit.exaeratingFactorController.text}",
+                    );
+                    log(
+                      " releivingFactorController: ${complainAnalysisCubit.releivingFactorController.text}",
+                    );
+
+                    cubit.updatePatient(pateint);
                   },
                 ),
               ],

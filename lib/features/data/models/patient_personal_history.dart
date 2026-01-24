@@ -1,19 +1,15 @@
-import 'package:my_graduation/core/enums/my_enums.dart';
 
 class PatientPersonalHistory {
-
   String? name;
   String? age;
-  Gender? gender;
+  String? gender;
   String? address;
   String? occupation;
   String? specialHabits;
-  MartialStatus? martialStatus;
+  String? martialStatus;
   int? childrenNumber;
-  
 
   PatientPersonalHistory({
-    
     this.name,
     this.age,
     this.gender,
@@ -22,12 +18,10 @@ class PatientPersonalHistory {
     this.specialHabits,
     this.martialStatus,
     this.childrenNumber = 0,
-    
   });
 
   // from json
   PatientPersonalHistory.fromJson(Map<String, dynamic> json) {
-   
     name = json['name'];
     age = json['age'];
     gender = json['gender'];
@@ -36,11 +30,9 @@ class PatientPersonalHistory {
     specialHabits = json['specialHabits'];
     martialStatus = json['martialStatus'];
     childrenNumber = json['childrenNumber'];
- 
   }
 
   Map<String, dynamic> toJson() => {
- 
     'name': name,
     'age': age,
     'gender': gender,
@@ -49,23 +41,20 @@ class PatientPersonalHistory {
     'specialHabits': specialHabits,
     'martialStatus': martialStatus,
     'childrenNumber': childrenNumber,
-   
   };
 
   PatientPersonalHistory copyWith({
     String? id,
     String? name,
     String? age,
-    Gender? gender,
+    String? gender,
     String? address,
     String? occupation,
-   String? specialHabits,
-    MartialStatus? martialStatus,
+    String? specialHabits,
+    String? martialStatus,
     int? childrenNumber,
-    
   }) {
     return PatientPersonalHistory(
-      
       name: name ?? this.name,
       age: age ?? this.age,
       gender: gender ?? this.gender,
@@ -74,7 +63,6 @@ class PatientPersonalHistory {
       specialHabits: specialHabits ?? this.specialHabits,
       martialStatus: martialStatus ?? this.martialStatus,
       childrenNumber: childrenNumber ?? this.childrenNumber,
-     
     );
   }
 }

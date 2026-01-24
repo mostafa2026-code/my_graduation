@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -12,7 +14,7 @@ import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/theraputic_history_form_cubit.dart';
-
+import 'package:my_graduation/features/presentation/add_edit_patient/widgets/past_medical_history_form.dart';
 
 class TnerapeuticHistoryForm extends StatelessWidget {
   TnerapeuticHistoryForm({super.key, required this.cubit, required this.model});
@@ -71,8 +73,14 @@ class TnerapeuticHistoryForm extends StatelessWidget {
                 onTap: () {
                   PatientModel? patient = theraputicHistoryFormCubit
                       .saveTheraputicHistoryModel(model);
+                  log(theraputicHistoryFormCubit.drugs.toString());
+                  log(theraputicHistoryFormCubit.drugsAllergy.toString());
+                  log(
+                    theraputicHistoryFormCubit.recentPrescribedDrugs.toString(),
+                  );
                   if (patient != null) {
                     cubit.updatePatient(patient);
+                    logMyData(patient);
                   }
                 },
               ),

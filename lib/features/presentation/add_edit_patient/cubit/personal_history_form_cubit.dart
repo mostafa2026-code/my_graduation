@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_graduation/core/enums/my_enums.dart';
@@ -9,7 +10,7 @@ class PersonalHistoryFormCubit extends Cubit<PersonalHistoryFormState> {
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
-  final TextEditingController addressControllor = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
   final TextEditingController occupationController = TextEditingController();
   final TextEditingController childrenNumberController =
       TextEditingController();
@@ -18,8 +19,6 @@ class PersonalHistoryFormCubit extends Cubit<PersonalHistoryFormState> {
   Gender? gender;
   MartialStatus? martialStatus;
   SmokingStatus? smokingStatus;
-
-  PatientPersonalHistory? patientPersonalHistory;
 
   void selectGender(Gender value) {
     if (gender == value) {
@@ -48,22 +47,21 @@ class PersonalHistoryFormCubit extends Cubit<PersonalHistoryFormState> {
     emit(PersonalHistoryFormInitial());
   }
 
-  PatientModel setPersonalHistoryData(PatientModel currentPatient) {
-    patientPersonalHistory = PatientPersonalHistory(
+  Map<String, dynamic> setPersonalHistoryData( ) {
+    PatientPersonalHistory patientPersonalHistory = PatientPersonalHistory(
       name: nameController.text.trim(),
       age: ageController.text.trim(),
-      address: addressControllor.text.trim(),
+      address: addressController.text.trim(),
       occupation: occupationController.text.trim(),
-      gender: gender,
-      martialStatus: martialStatus,
+      gender: gender?.name,
+      martialStatus: martialStatus?.name,
       childrenNumber: int.tryParse(childrenNumberController.text),
       specialHabits: specailHabitController.text.trim(),
     );
 
-    PatientModel patient = currentPatient.copyWith(
-      personalHistory: patientPersonalHistory!.toJson(),
-    );
-    return patient;
+    
+
+    return patientPersonalHistory.toJson();
   }
 }
 

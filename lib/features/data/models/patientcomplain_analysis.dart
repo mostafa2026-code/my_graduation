@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 class PatientcomplainAnalysis {
-  
   String? complain;
   String? onset;
   String? duration;
@@ -12,7 +11,6 @@ class PatientcomplainAnalysis {
   String? specialCharacteristics;
 
   PatientcomplainAnalysis({
-   
     this.complain,
     this.onset,
     this.duration,
@@ -25,7 +23,6 @@ class PatientcomplainAnalysis {
 
   /// from json
   PatientcomplainAnalysis.fromJson(Map<String, dynamic> json) {
-    
     complain = json['complain'];
     onset = json['onset'];
     duration = json['duration'];
@@ -41,7 +38,6 @@ class PatientcomplainAnalysis {
   Map<String, dynamic> toJson() {
     try {
       final Map<String, dynamic> data = {
-        
         'complain': complain,
         'onset': onset,
         'duration': duration,
@@ -59,7 +55,6 @@ class PatientcomplainAnalysis {
   }
 
   PatientcomplainAnalysis copyWith({
-    
     String? complain,
     String? onset,
     String? duration,
@@ -70,7 +65,6 @@ class PatientcomplainAnalysis {
     String? specialCharacteristics,
   }) {
     return PatientcomplainAnalysis(
-    
       complain: complain ?? this.complain,
       onset: onset ?? this.onset,
       duration: duration ?? this.duration,
