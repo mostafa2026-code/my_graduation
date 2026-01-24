@@ -4,10 +4,17 @@ import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 
+// ignore: must_be_immutable
 class PateintDetails extends StatelessWidget {
-  const PateintDetails({super.key, required this.model});
+   PateintDetails({super.key, required this.model});
 
   final PatientModel? model;
+  late Map<String, dynamic> examinationAbnormalities = {
+    "Examination Abnormalities": model!.examinationAbnormalities,
+  };
+  late final Map<String, dynamic> neededInvestingation = {
+    "needed Investigation": model!.neededInvestigation,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -53,18 +60,22 @@ class PateintDetails extends StatelessWidget {
               data: model?.theraputicHistory,
               icon: Icons.medication_outlined,
             ),
-            // const Gap(10),
-            // _buildExpandableSection(
-            //   title: "Examination Abnormalities",
-            //   data: model?.examinationAbnormalities.to,
-            //   icon: Icons.monitor_heart_outlined,
-            // ),
-            // const Gap(10),
-            // _buildExpandableSection(
-            //   title: "Needed Investigations",
-            //   data: model?.neededInvestigation,
-            //   icon: Icons.monitor_heart_outlined,
-            // ),
+            _buildExpandableSection(
+              title: "Family History",
+              data: model?.familyHistory,
+              icon: Icons.family_restroom_rounded,
+            ),
+            _buildExpandableSection(
+              title: "Examination Abnormalities",
+              data: examinationAbnormalities,
+              icon: Icons.monitor_heart_outlined,
+            ),
+            _buildExpandableSection(
+              title: "needed Investingation",
+              data: neededInvestingation,
+              icon: Icons.monitor_heart_outlined,
+            ),
+            
             const Gap(10),
             if (model?.diagnosis != null && model!.diagnosis!.isNotEmpty)
               _buildDiagnosisCard(),

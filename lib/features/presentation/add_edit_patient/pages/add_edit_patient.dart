@@ -42,6 +42,13 @@ class _AddEditPatientState extends State<AddEditPatient> {
     super.initState();
     if (widget.patientModelToedit != null) {
       isEdit = true;
+      PatientModel patientModel = widget.patientModelToedit!;
+      examinationAbnormalitiesController.text = patientModel
+          .examinationAbnormalities
+          .toString();
+      neededInvestigationsController.text = patientModel.neededInvestigation
+          .toString();
+      diagnosisController.text = patientModel.diagnosis.toString();
     }
 
     cubit = AddEditPatientCubit();
@@ -51,11 +58,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          isEdit ? "Edit Patient" : "Add Patient",
-        ),
-      ),
+      appBar: AppBar(title: Text(isEdit ? "Edit Patient" : "Add Patient")),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SafeArea(
@@ -123,7 +126,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20),
         child: MyMainBotton(
-          title:isEdit?"Edit":"Save",
+          title: isEdit ? "Edit" : "Save",
           onTap: () {
             PatientModel patientModel = cubit.currentPatient.copyWith(
               diagnosis: diagnosisController.text.trim(),
