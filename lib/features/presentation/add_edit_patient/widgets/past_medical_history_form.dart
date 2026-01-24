@@ -15,6 +15,7 @@ import 'package:my_graduation/features/data/models/patient_personal_history.dart
 import 'package:my_graduation/features/data/models/patient_therapuetic_history.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/cubit/past_medical_history_cubit.dart';
 
 // ignore: must_be_immutable
 class PastMedicalHistoryForm extends StatelessWidget {
@@ -23,19 +24,21 @@ class PastMedicalHistoryForm extends StatelessWidget {
 
   final AddEditPatientCubit cubit;
 
+  final PastMedicalHistoryCubit pastMedicalHistoryCubit = PastMedicalHistoryCubit();
+
   PatientPastMedicalHistory? patientPastMedicalHistory;
 
-  TextEditingController similarConditionController = TextEditingController();
+ final  TextEditingController similarConditionController = TextEditingController();
 
-  TextEditingController previosChronicDiseasesController =
+ final  TextEditingController previosChronicDiseasesController =
       TextEditingController();
 
-  TextEditingController previousHospitalizationController =
+  final TextEditingController previousHospitalizationController =
       TextEditingController();
 
-  TextEditingController bloodTransfusionController = TextEditingController();
+  final TextEditingController bloodTransfusionController = TextEditingController();
 
-  TextEditingController foodAllergyController = TextEditingController();
+ final  TextEditingController foodAllergyController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

@@ -13,7 +13,7 @@ import 'package:my_graduation/features/data/models/patient_therapuetic_history.d
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/theraputic_history_form_cubit.dart';
-import 'package:my_graduation/features/presentation/add_edit_patient/widgets/past_medical_history_form.dart';
+
 
 class TnerapeuticHistoryForm extends StatelessWidget {
   TnerapeuticHistoryForm({super.key, required this.cubit, required this.model});
