@@ -8,6 +8,8 @@ class MyTextFeild extends StatelessWidget {
   final TextInputType? keyboardType;
   final int? maxline;
   final TextInputAction? textInputAction;
+  final FocusNode? focusNode;
+  final Function()? ontap;
 
   const MyTextFeild({
     super.key,
@@ -17,6 +19,8 @@ class MyTextFeild extends StatelessWidget {
     this.keyboardType,
     this.maxline,
     this.textInputAction,
+    this.focusNode,
+    this.ontap
   });
 
   @override
@@ -28,6 +32,8 @@ class MyTextFeild extends StatelessWidget {
       validator: validator,
       textInputAction: textInputAction ?? TextInputAction.next,
       controller: controller,
+      focusNode: focusNode,
+      onTap: ontap,
       decoration: InputDecoration(
         filled: true,
         fillColor: MyColors.textFieldText.withAlpha(60),

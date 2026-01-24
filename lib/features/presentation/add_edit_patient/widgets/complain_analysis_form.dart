@@ -68,68 +68,92 @@ class ComplainAnalysisForm extends StatelessWidget {
                 ),
                 const Text("Onset"),
                 const Gap(16),
-                Wrap(
-                  spacing: 8,
-                  alignment: WrapAlignment.start,
 
-                  children: [
-                    MyChip(
-                      isSelected:
-                          complainAnalysisCubit.onset == Onset.sudden_onset,
-                      label: "Acute",
-                      onselected: (_) {
-                        complainAnalysisCubit.selectOnset(Onset.sudden_onset);
-                      },
-                    ),
-                    MyChip(
-                      isSelected:
-                          complainAnalysisCubit.onset == Onset.gradual_onset,
-                      label: "Gradual",
-                      onselected: (_) {
-                        complainAnalysisCubit.selectOnset(Onset.gradual_onset);
-                      },
-                    ),
-                  ],
+                BlocBuilder<ComplainAnalysisCubit, ComplainAnalysisState>(
+                  builder: (context, state) {
+                    return Wrap(
+                      spacing: 8,
+                      alignment: WrapAlignment.start,
+
+                      children: [
+                        MyChip(
+                          isSelected:
+                              complainAnalysisCubit.onset == Onset.sudden_onset,
+                          label: "Acute",
+                          onselected: (_) {
+                            complainAnalysisCubit.selectOnset(
+                              Onset.sudden_onset,
+                            );
+                          },
+                        ),
+                        MyChip(
+                          isSelected:
+                              complainAnalysisCubit.onset ==
+                              Onset.gradual_onset,
+                          label: "Gradual",
+                          onselected: (_) {
+                            complainAnalysisCubit.selectOnset(
+                              Onset.gradual_onset,
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 const Gap(8),
                 const Text("Course"),
                 const Gap(16),
-                Wrap(
-                  spacing: 8,
-                  children: [
-                    MyChip(
-                      isSelected:
-                          complainAnalysisCubit.course == Course.progressive,
-                      label: "Progressive",
-                      onselected: (_) {
-                        complainAnalysisCubit.selectCourse(Course.progressive);
-                      },
-                    ),
-                    MyChip(
-                      isSelected:
-                          complainAnalysisCubit.course == Course.regressive,
-                      label: "Regressive",
-                      onselected: (_) {
-                        complainAnalysisCubit.selectCourse(Course.regressive);
-                      },
-                    ),
-                    MyChip(
-                      isSelected:
-                          complainAnalysisCubit.course == Course.intermetent,
-                      label: "Intermetent",
-                      onselected: (_) {
-                        complainAnalysisCubit.selectCourse(Course.intermetent);
-                      },
-                    ),
-                    MyChip(
-                      isSelected:
-                          complainAnalysisCubit.course == Course.stationary,
-                      label: "Stationary",
-                      onselected: (_) {
-                        complainAnalysisCubit.selectCourse(Course.stationary);
-                      },
-                    ),
-                  ],
+                BlocBuilder<ComplainAnalysisCubit, ComplainAnalysisState>(
+                  builder: (context, state) {
+                    return Wrap(
+                      spacing: 8,
+                      children: [
+                        MyChip(
+                          isSelected:
+                              complainAnalysisCubit.course ==
+                              Course.progressive,
+                          label: "Progressive",
+                          onselected: (_) {
+                            complainAnalysisCubit.selectCourse(
+                              Course.progressive,
+                            );
+                          },
+                        ),
+                        MyChip(
+                          isSelected:
+                              complainAnalysisCubit.course == Course.regressive,
+                          label: "Regressive",
+                          onselected: (_) {
+                            complainAnalysisCubit.selectCourse(
+                              Course.regressive,
+                            );
+                          },
+                        ),
+                        MyChip(
+                          isSelected:
+                              complainAnalysisCubit.course ==
+                              Course.intermetent,
+                          label: "Intermetent",
+                          onselected: (_) {
+                            complainAnalysisCubit.selectCourse(
+                              Course.intermetent,
+                            );
+                          },
+                        ),
+                        MyChip(
+                          isSelected:
+                              complainAnalysisCubit.course == Course.stationary,
+                          label: "Stationary",
+                          onselected: (_) {
+                            complainAnalysisCubit.selectCourse(
+                              Course.stationary,
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  },
                 ),
 
                 const Gap(8),

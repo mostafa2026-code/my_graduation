@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:my_graduation/component/my_main_botton.dart';
 import 'package:my_graduation/component/my_text_feild.dart';
 import 'package:my_graduation/core/const/my_images.dart';
+import 'package:my_graduation/core/lists/diseases_list.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/complain_analysis_cubit.dart';
@@ -18,22 +20,29 @@ import 'package:my_graduation/features/presentation/add_edit_patient/widgets/per
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/therapeutic_history_form.dart';
 
 class AddEditPatient extends StatefulWidget {
-  const AddEditPatient({super.key});
+  const AddEditPatient({super.key, this.patientModelToedit});
+  final PatientModel? patientModelToedit;
 
   @override
   State<AddEditPatient> createState() => _AddEditPatientState();
 }
 
 class _AddEditPatientState extends State<AddEditPatient> {
+  late final bool isEdit;
+
   late final AddEditPatientCubit cubit;
   TextEditingController examinationAbnormalitiesController =
       TextEditingController();
   TextEditingController neededInvestigationsController =
       TextEditingController();
   TextEditingController diagnosisController = TextEditingController();
+  String? selectedDiagnosis;
   @override
   void initState() {
     super.initState();
+    if (widget.patientModelToedit != null) {
+      isEdit = true;
+    }
 
     cubit = AddEditPatientCubit();
     cubit.generateDoc(cubit.generatePatient()!);
@@ -42,7 +51,11 @@ class _AddEditPatientState extends State<AddEditPatient> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add/Edit Patient')),
+      appBar: AppBar(
+        title: Text(
+          isEdit ? "Edit Patient" : "Add Patient",
+        ),
+      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SafeArea(
@@ -54,20 +67,53 @@ class _AddEditPatientState extends State<AddEditPatient> {
                   cubit: cubit,
                   patientModel: cubit.currentPatient,
                 ),
+                Gap(8),
                 MyTextFeild(
                   hint: "Examination Abnormalities",
                   controller: examinationAbnormalitiesController,
                   maxline: 10,
                 ),
+                Gap(8),
                 MyTextFeild(
                   hint: "Needed Investigations ",
                   controller: neededInvestigationsController,
                   maxline: 3,
                 ),
-                MyTextFeild(
-                  hint: "Diagnosis",
-                  controller: diagnosisController,
-                  maxline: 1,
+                Gap(8),
+                Autocomplete(
+                  optionsBuilder: (TextEditingValue textEditingValue) {
+                    if (textEditingValue == "") {
+                      return diseasesList;
+                    } else {
+                      return diseasesList.where(
+                        (element) => element.toLowerCase().contains(
+                          textEditingValue.text.toLowerCase(),
+                        ),
+                      );
+                    }
+                  },
+                  onSelected: (value) {
+                    setState(() {
+                      selectedDiagnosis = value.toString();
+                      diagnosisController.text = selectedDiagnosis.toString();
+                    });
+                  },
+                  fieldViewBuilder:
+                      (
+                        context,
+                        textEditingController,
+                        focusNode,
+                        onFieldSubmitted,
+                      ) {
+                        return MyTextFeild(
+                          hint: "Expected Diagnosis",
+                          controller: diagnosisController,
+                          focusNode: focusNode,
+                          ontap: () {
+                            FocusScope.of(context).requestFocus(focusNode);
+                          },
+                        );
+                      },
                 ),
               ],
             ),
@@ -167,5 +213,4 @@ List<HistoryItemBuilder> historyCardList = [
       familyHistoryFormCubit: FamilyHistoryFormCubit(),
     ),
   ),
-  
 ];
