@@ -1,10 +1,6 @@
-// ignore: file_names
-
-
-
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/data/models/patient_therapuetic_history.dart';
 
 class TheraputicHistoryFormState {}
@@ -17,18 +13,14 @@ class TheraputicHistoryFormCubit extends Cubit<TheraputicHistoryFormState> {
   final TextEditingController drugsAllergy = TextEditingController();
   final TextEditingController recentPrescribedDrugs = TextEditingController();
 
+  Map<String, dynamic>? saveTheraputicHistoryModel() {
+    PatientTherapueticHistory patientTherapueticHistory =
+        PatientTherapueticHistory(
+          drugTherapy: drugs.text.trim(),
+          allergyToDrugs: drugsAllergy.text.trim(),
+          recentPrescribedDrugs: recentPrescribedDrugs.text.trim(),
+        );
 
-
- PatientModel ?saveTheraputicHistoryModel( PatientModel model){
-    PatientTherapueticHistory patientTherapueticHistory = PatientTherapueticHistory(
-      drugTherapy: drugs.text.trim(),
-      allergyToDrugs: drugsAllergy.text.trim(),
-      recentPrescribedDrugs: recentPrescribedDrugs.text.trim(),
-    );
-    PatientModel patientModel =model.copyWith(
-      theraputicHistory: patientTherapueticHistory.toJson(),
-    );
-    return patientModel;
-
+    return patientTherapueticHistory.toJson();
   }
 }

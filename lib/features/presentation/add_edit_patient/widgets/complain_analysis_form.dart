@@ -21,11 +21,10 @@ class ComplainAnalysisForm extends StatelessWidget {
     super.key,
 
     required this.cubit,
-    required this.patientModel,
+
     required this.complainAnalysisCubit,
   });
 
-  final PatientModel patientModel;
   final ComplainAnalysisCubit complainAnalysisCubit;
   final AddEditPatientCubit cubit;
 
@@ -166,7 +165,7 @@ class ComplainAnalysisForm extends StatelessWidget {
                 MyMainBotton(
                   title: "save",
                   onTap: () {
-                    PatientModel pateint = patientModel.copyWith(
+                    PatientModel pateint = cubit.currentPatient.copyWith(
                       analysisofcomplains: complainAnalysisCubit
                           .saveComplainAnalysisModel(),
                     );
@@ -187,7 +186,8 @@ class ComplainAnalysisForm extends StatelessWidget {
                       " releivingFactorController: ${complainAnalysisCubit.releivingFactorController.text}",
                     );
 
-                    cubit.updatePatient(pateint);
+                    cubit.currentPatient = pateint;
+                    cubit.updatePatient();
                   },
                 ),
               ],

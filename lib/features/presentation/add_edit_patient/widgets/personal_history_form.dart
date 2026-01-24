@@ -20,11 +20,11 @@ class PersonalHistoryForm extends StatelessWidget {
   const PersonalHistoryForm({
     super.key,
     required this.cubit,
-    required this.model,
+    
     required this.formCubit,
   });
   final PersonalHistoryFormCubit formCubit;
-  final PatientModel model;
+ 
   final AddEditPatientCubit cubit;
 
   @override
@@ -227,7 +227,7 @@ class PersonalHistoryForm extends StatelessWidget {
               MyMainBotton(
                 title: "Save",
                 onTap: () {
-                  PatientModel patient = model.copyWith(
+                  PatientModel patient = cubit.currentPatient.copyWith(
                     personalHistory: formCubit.setPersonalHistoryData(),
                   );
                   log('Name: ${formCubit.nameController.text}');
@@ -242,8 +242,8 @@ class PersonalHistoryForm extends StatelessWidget {
                   log(
                     'Special Habits: ${formCubit.specailHabitController.text}',
                   );
-
-                  cubit.updatePatient(patient);
+                  cubit.currentPatient = patient;
+                  cubit.updatePatient();
                 },
               ),
             ],

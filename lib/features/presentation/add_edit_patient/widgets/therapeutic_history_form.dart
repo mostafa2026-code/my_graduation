@@ -17,11 +17,10 @@ import 'package:my_graduation/features/presentation/add_edit_patient/cubit/thera
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/past_medical_history_form.dart';
 
 class TnerapeuticHistoryForm extends StatelessWidget {
-  TnerapeuticHistoryForm({super.key, required this.cubit, required this.model});
+ const  TnerapeuticHistoryForm({super.key, required this.cubit, required this.theraputicHistoryFormCubit});
   final AddEditPatientCubit cubit;
-  final PatientModel model;
-  final TheraputicHistoryFormCubit theraputicHistoryFormCubit =
-      TheraputicHistoryFormCubit();
+
+  final TheraputicHistoryFormCubit theraputicHistoryFormCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -71,17 +70,18 @@ class TnerapeuticHistoryForm extends StatelessWidget {
               MyMainBotton(
                 title: "save",
                 onTap: () {
-                  PatientModel? patient = theraputicHistoryFormCubit
-                      .saveTheraputicHistoryModel(model);
+                  PatientModel? patient = cubit.currentPatient.copyWith(
+                    theraputicHistory: theraputicHistoryFormCubit
+                        .saveTheraputicHistoryModel(),
+                  );
                   log(theraputicHistoryFormCubit.drugs.toString());
                   log(theraputicHistoryFormCubit.drugsAllergy.toString());
                   log(
                     theraputicHistoryFormCubit.recentPrescribedDrugs.toString(),
                   );
-                  if (patient != null) {
-                    cubit.updatePatient(patient);
-                    logMyData(patient);
-                  }
+                  cubit.currentPatient = patient;
+                  cubit.updatePatient();
+                  logMyData(patient);
                 },
               ),
             ],

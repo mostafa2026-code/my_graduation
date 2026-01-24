@@ -7,6 +7,8 @@ class PatientModel {
   Map<String, dynamic>? analysisofcomplains;
   Map<String, dynamic>? pastMedicalHistory;
   Map<String, dynamic>? theraputicHistory;
+  Map<String, dynamic>? familyHistory;
+
   String? examinationAbnormalities;
   String? neededInvestigation;
 
@@ -24,6 +26,7 @@ class PatientModel {
     this.diagnosis,
     this.examinationAbnormalities,
     this.neededInvestigation,
+    this.familyHistory,
   });
 
   //to Json
@@ -39,6 +42,7 @@ class PatientModel {
     'diagnosis': diagnosis,
     'examinationAbnormalities': examinationAbnormalities,
     'neededInvestigation': neededInvestigation,
+    'familyHistory': familyHistory,
   };
 
   //fromJson
@@ -54,6 +58,7 @@ class PatientModel {
     diagnosis: json['diagnosis'],
     examinationAbnormalities: json['examinationAbnormalities'],
     neededInvestigation: json['neededInvestigation'],
+    familyHistory: json['familyHistory'],
   );
 
   //edit
@@ -68,6 +73,8 @@ class PatientModel {
     Map<String, dynamic>? analysisofcomplains,
     Map<String, dynamic>? pastMedicalHistory,
     Map<String, dynamic>? theraputicHistory,
+    Map<String, dynamic>? familyHistory,
+
     String? examinationAbnormalities,
     String? neededInvestigation,
     String? diagnosis,
@@ -81,6 +88,7 @@ class PatientModel {
     analysisofcomplains: analysisofcomplains ?? this.analysisofcomplains,
     pastMedicalHistory: pastMedicalHistory ?? this.pastMedicalHistory,
     theraputicHistory: theraputicHistory ?? this.theraputicHistory,
+    familyHistory: familyHistory ?? this.familyHistory,
     diagnosis: diagnosis ?? this.diagnosis,
     examinationAbnormalities:
         examinationAbnormalities ?? this.examinationAbnormalities,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_graduation/core/enums/my_enums.dart';
-import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/data/models/patientcomplain_analysis.dart';
 
 class ComplainAnalysisCubit extends Cubit<ComplainAnalysisState> {

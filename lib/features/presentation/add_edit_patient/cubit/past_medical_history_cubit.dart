@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/data/models/patient_past_medical_history.dart';
 
 class PastMedicalHistoryCubit extends Cubit<PastMedicalHistoryState> {

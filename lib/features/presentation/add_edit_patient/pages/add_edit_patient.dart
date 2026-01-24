@@ -5,10 +5,13 @@ import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/complain_analysis_cubit.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/cubit/family_history_form_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/past_medical_history_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/personal_history_form_cubit.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/cubit/theraputic_history_form_cubit.dart';
 
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/complain_analysis_form.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/widgets/family_history_form.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/history_grid_view.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/past_medical_history_form.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/personal_history_form.dart';
@@ -82,7 +85,8 @@ class _AddEditPatientState extends State<AddEditPatient> {
                   .trim(),
               neededInvestigation: neededInvestigationsController.text.trim(),
             );
-            cubit.updatePatient(patientModel);
+            cubit.currentPatient = patientModel;
+            cubit.updatePatient();
           },
         ),
       ),
@@ -122,7 +126,6 @@ List<HistoryItemBuilder> historyCardList = [
     image: MyImages.personalHistory,
     color: ColorsPalette.lightBlue,
     bottomSheet: (cubit, model) => PersonalHistoryForm(
-      model: model,
       cubit: cubit,
       formCubit: PersonalHistoryFormCubit(),
     ),
@@ -133,7 +136,7 @@ List<HistoryItemBuilder> historyCardList = [
     color: ColorsPalette.lightPurple,
     bottomSheet: (cubit, model) => ComplainAnalysisForm(
       cubit: cubit,
-      patientModel: model,
+
       complainAnalysisCubit: ComplainAnalysisCubit(),
     ),
   ),
@@ -142,7 +145,6 @@ List<HistoryItemBuilder> historyCardList = [
     image: MyImages.pastHistory,
     color: ColorsPalette.lightGreen,
     bottomSheet: (cubit, model) => PastMedicalHistoryForm(
-      model: model,
       cubit: cubit,
       pastMedicalHistoryCubit: PastMedicalHistoryCubit(),
     ),
@@ -151,36 +153,19 @@ List<HistoryItemBuilder> historyCardList = [
     title: "Therapeutic History",
     image: MyImages.therapeutic,
     color: ColorsPalette.brightYellow,
-    bottomSheet: (cubit, model) =>
-        TnerapeuticHistoryForm(cubit: cubit, model: model),
+    bottomSheet: (cubit, model) => TnerapeuticHistoryForm(
+      cubit: cubit,
+      theraputicHistoryFormCubit: TheraputicHistoryFormCubit(),
+    ),
   ),
   HistoryItemBuilder(
     title: "Family History",
     image: MyImages.familyHistory,
     color: ColorsPalette.lightPurple,
-    bottomSheet: (cubit, model) =>
-        FamilyHistoryForm(cubit: cubit, model: model),
+    bottomSheet: (cubit, model) => FamilyHistoryForm(
+      cubit: cubit,
+      familyHistoryFormCubit: FamilyHistoryFormCubit(),
+    ),
   ),
-  // HistoryItemBuilder(
-  //   title: "Chest Inspection",
-  //   image: MyImages.familyHistory,
-  //   color: ColorsPalette.lightPurple,
-  //   bottomSheet: (cubit, model) =>
-  //       // ChestInpectionForm(cubit: cubit, model: model),
-  // )
+  
 ];
-
-class FamilyHistoryForm extends StatelessWidget {
-  const FamilyHistoryForm({
-    super.key,
-    required this.cubit,
-    required this.model,
-  });
-  final AddEditPatientCubit cubit;
-  final PatientModel model;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}

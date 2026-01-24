@@ -39,11 +39,11 @@ class AddEditPatientCubit extends Cubit<AddEditPatientState> {
     await FirestoreHelper.createPatientDocWithId(patientModel);
   }
 
-  updatePatient(PatientModel patient) async {
+  updatePatient() async {
     try {
       emit(AddEditPatientLoading());
 
-      String result = await FirestoreHelper.updatePatientData(patient);
+      String result = await FirestoreHelper.updatePatientData(currentPatient);
       if (result == "success") {
         emit(AddEditPatientSuccess());
       } else {

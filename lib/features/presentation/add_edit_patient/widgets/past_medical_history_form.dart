@@ -21,10 +21,10 @@ class PastMedicalHistoryForm extends StatelessWidget {
   const PastMedicalHistoryForm({
     super.key,
     required this.cubit,
-    required this.model,
+ 
     required this.pastMedicalHistoryCubit,
   });
-  final PatientModel model;
+ 
 
   final AddEditPatientCubit cubit;
 
@@ -95,9 +95,9 @@ class PastMedicalHistoryForm extends StatelessWidget {
                 ),
                 const Gap(8),
                 MyMainBotton(
-                  title: "save",
+                  title: "save",  
                   onTap: () {
-                    PatientModel? patient = model.copyWith(
+                    PatientModel patient = cubit.currentPatient.copyWith(
                       pastMedicalHistory: pastMedicalHistoryCubit
                           .setPastMedicalHistoryModel(),
                     );
@@ -121,10 +121,9 @@ class PastMedicalHistoryForm extends StatelessWidget {
                       pastMedicalHistoryCubit.foodAllergyController.toString(),
                     );
 
-                    if (patient != null) {
-                      cubit.updatePatient(patient);
-                      logMyData(patient);
-                    }
+                    cubit.currentPatient = patient;
+                    cubit.updatePatient();
+                  
                   },
                 ),
               ],
