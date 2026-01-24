@@ -68,7 +68,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
               children: [
                 HistoryGridView(
                   cubit: cubit,
-                  patientModel: cubit.currentPatient,
+                  patientModelToEdit: widget.patientModelToedit,
                 ),
                 Gap(8),
                 MyTextFeild(
@@ -148,7 +148,11 @@ class HistoryItemBuilder {
   final String title;
   final String image;
   final Color color;
-  final Widget Function(AddEditPatientCubit cubit, PatientModel model)
+  final Widget Function(
+    AddEditPatientCubit cubit,
+
+    PatientModel? patientModelToEdit,
+  )
   bottomSheet;
 
   HistoryItemBuilder({
@@ -175,16 +179,18 @@ List<HistoryItemBuilder> historyCardList = [
     title: "Personal History",
     image: MyImages.personalHistory,
     color: ColorsPalette.lightBlue,
-    bottomSheet: (cubit, model) => PersonalHistoryForm(
+    bottomSheet: (cubit, patientModelToEdit) => PersonalHistoryForm(
       cubit: cubit,
       formCubit: PersonalHistoryFormCubit(),
+      patientModelToedit: patientModelToEdit,
     ),
   ),
   HistoryItemBuilder(
     title: "History of Present Illness",
     image: MyImages.presentillness,
     color: ColorsPalette.lightPurple,
-    bottomSheet: (cubit, model) => ComplainAnalysisForm(
+    bottomSheet: (cubit, patientModelToEdit) => ComplainAnalysisForm(
+      patientModelToEdit: patientModelToEdit,
       cubit: cubit,
 
       complainAnalysisCubit: ComplainAnalysisCubit(),
@@ -194,7 +200,8 @@ List<HistoryItemBuilder> historyCardList = [
     title: "Past Medical History ",
     image: MyImages.pastHistory,
     color: ColorsPalette.lightGreen,
-    bottomSheet: (cubit, model) => PastMedicalHistoryForm(
+    bottomSheet: (cubit, patientModelToEdit) => PastMedicalHistoryForm(
+      patientModelToEdit: patientModelToEdit,
       cubit: cubit,
       pastMedicalHistoryCubit: PastMedicalHistoryCubit(),
     ),
@@ -203,7 +210,8 @@ List<HistoryItemBuilder> historyCardList = [
     title: "Therapeutic History",
     image: MyImages.therapeutic,
     color: ColorsPalette.brightYellow,
-    bottomSheet: (cubit, model) => TnerapeuticHistoryForm(
+    bottomSheet: (cubit, patientModelToEdit) => TnerapeuticHistoryForm(
+      patientModelToEdit: patientModelToEdit,
       cubit: cubit,
       theraputicHistoryFormCubit: TheraputicHistoryFormCubit(),
     ),
@@ -212,7 +220,8 @@ List<HistoryItemBuilder> historyCardList = [
     title: "Family History",
     image: MyImages.familyHistory,
     color: ColorsPalette.lightPurple,
-    bottomSheet: (cubit, model) => FamilyHistoryForm(
+    bottomSheet: (cubit, patientModelToEdit) => FamilyHistoryForm(
+      patientModelToEdit: patientModelToEdit,
       cubit: cubit,
       familyHistoryFormCubit: FamilyHistoryFormCubit(),
     ),
