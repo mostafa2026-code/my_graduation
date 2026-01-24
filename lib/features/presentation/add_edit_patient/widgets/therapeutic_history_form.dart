@@ -11,23 +11,53 @@ import 'package:my_graduation/core/dialogs/loading_dialog.dart';
 import 'package:my_graduation/core/dialogs/massage_dialog.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
+import 'package:my_graduation/features/data/models/patient_therapuetic_history.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/theraputic_history_form_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/past_medical_history_form.dart';
 
-class TnerapeuticHistoryForm extends StatelessWidget {
- const  TnerapeuticHistoryForm({super.key, required this.cubit, required this.theraputicHistoryFormCubit});
+class TnerapeuticHistoryForm extends StatefulWidget {
+  const TnerapeuticHistoryForm({
+    super.key,
+    required this.cubit,
+    required this.theraputicHistoryFormCubit,
+    this.patientModelToEdit,
+  });
   final AddEditPatientCubit cubit;
 
   final TheraputicHistoryFormCubit theraputicHistoryFormCubit;
+  final PatientModel? patientModelToEdit;
+
+  @override
+  State<TnerapeuticHistoryForm> createState() => _TnerapeuticHistoryFormState();
+}
+
+class _TnerapeuticHistoryFormState extends State<TnerapeuticHistoryForm> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.patientModelToEdit != null) {
+      PatientTherapueticHistory therapueticHistory =
+          PatientTherapueticHistory.fromJson(
+            widget.patientModelToEdit!.theraputicHistory ?? {},
+          );
+
+      widget.theraputicHistoryFormCubit.drugs.text =
+          therapueticHistory.drugTherapy ?? "";
+      widget.theraputicHistoryFormCubit.drugsAllergy.text =
+          therapueticHistory.allergyToDrugs ?? "";
+      widget.theraputicHistoryFormCubit.recentPrescribedDrugs.text =
+          therapueticHistory.recentPrescribedDrugs ?? "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: cubit),
-        BlocProvider.value(value: theraputicHistoryFormCubit),
+        BlocProvider.value(value: widget.cubit),
+        BlocProvider.value(value: widget.theraputicHistoryFormCubit),
       ],
       child: BlocListener<AddEditPatientCubit, AddEditPatientState>(
         listener: (context, state) {
@@ -53,34 +83,38 @@ class TnerapeuticHistoryForm extends StatelessWidget {
               const Gap(16),
               MyTextFeild(
                 hint: "Drug therapy taken by the patient",
-                controller: theraputicHistoryFormCubit.drugs,
+                controller: widget.theraputicHistoryFormCubit.drugs,
               ),
               const Gap(8),
               MyTextFeild(
                 hint: "Allergy to some drugs.",
-                controller: theraputicHistoryFormCubit.drugsAllergy,
+                controller: widget.theraputicHistoryFormCubit.drugsAllergy,
               ),
               const Gap(8),
               MyTextFeild(
                 hint: "Recent prescribed drugs",
-                controller: theraputicHistoryFormCubit.recentPrescribedDrugs,
+                controller:
+                    widget.theraputicHistoryFormCubit.recentPrescribedDrugs,
               ),
               const Gap(8),
 
               MyMainBotton(
                 title: "save",
                 onTap: () {
-                  PatientModel? patient = cubit.currentPatient.copyWith(
-                    theraputicHistory: theraputicHistoryFormCubit
+                  PatientModel? patient = widget.cubit.currentPatient.copyWith(
+                    theraputicHistory: widget.theraputicHistoryFormCubit
                         .saveTheraputicHistoryModel(),
                   );
-                  log(theraputicHistoryFormCubit.drugs.toString());
-                  log(theraputicHistoryFormCubit.drugsAllergy.toString());
+                  log(widget.theraputicHistoryFormCubit.drugs.toString());
                   log(
-                    theraputicHistoryFormCubit.recentPrescribedDrugs.toString(),
+                    widget.theraputicHistoryFormCubit.drugsAllergy.toString(),
                   );
-                  cubit.currentPatient = patient;
-                  cubit.updatePatient();
+                  log(
+                    widget.theraputicHistoryFormCubit.recentPrescribedDrugs
+                        .toString(),
+                  );
+                  widget.cubit.currentPatient = patient;
+                  widget.cubit.updatePatient();
                   logMyData(patient);
                 },
               ),

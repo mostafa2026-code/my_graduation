@@ -9,9 +9,9 @@ class TheraputicHistoryFormInitial extends TheraputicHistoryFormState {}
 
 class TheraputicHistoryFormCubit extends Cubit<TheraputicHistoryFormState> {
   TheraputicHistoryFormCubit() : super(TheraputicHistoryFormInitial());
-  final TextEditingController drugs = TextEditingController();
-  final TextEditingController drugsAllergy = TextEditingController();
-  final TextEditingController recentPrescribedDrugs = TextEditingController();
+   TextEditingController drugs = TextEditingController();
+   TextEditingController drugsAllergy = TextEditingController();
+   TextEditingController recentPrescribedDrugs = TextEditingController();
 
   Map<String, dynamic>? saveTheraputicHistoryModel() {
     PatientTherapueticHistory patientTherapueticHistory =
