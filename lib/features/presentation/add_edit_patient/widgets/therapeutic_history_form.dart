@@ -5,26 +5,30 @@ import 'package:my_graduation/component/my_main_botton.dart';
 import 'package:my_graduation/component/my_text_feild.dart';
 import 'package:my_graduation/core/dialogs/error_dialog.dart';
 import 'package:my_graduation/core/dialogs/loading_dialog.dart';
+
 import 'package:my_graduation/core/dialogs/massage_dialog.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/data/models/patient_therapuetic_history.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
+import 'package:my_graduation/features/presentation/add_edit_patient/cubit/theraputic_history_form_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/widgets/past_medical_history_form.dart';
 
 class TnerapeuticHistoryForm extends StatelessWidget {
   TnerapeuticHistoryForm({super.key, required this.cubit, required this.model});
   final AddEditPatientCubit cubit;
   final PatientModel model;
-  final TextEditingController drugs = TextEditingController();
-  final TextEditingController drugsAllergy = TextEditingController();
-  final TextEditingController recentPrescribedDrugs = TextEditingController();
+  final TheraputicHistoryFormCubit theraputicHistoryFormCubit =
+      TheraputicHistoryFormCubit();
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: cubit,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: cubit),
+        BlocProvider.value(value: theraputicHistoryFormCubit),
+      ],
       child: BlocListener<AddEditPatientCubit, AddEditPatientState>(
         listener: (context, state) {
           if (state is AddEditPatientLoading) {
@@ -49,36 +53,28 @@ class TnerapeuticHistoryForm extends StatelessWidget {
               const Gap(16),
               MyTextFeild(
                 hint: "Drug therapy taken by the patient",
-                controller: drugs,
+                controller: theraputicHistoryFormCubit.drugs,
               ),
               const Gap(8),
               MyTextFeild(
                 hint: "Allergy to some drugs.",
-                controller: drugsAllergy,
+                controller: theraputicHistoryFormCubit.drugsAllergy,
               ),
               const Gap(8),
               MyTextFeild(
                 hint: "Recent prescribed drugs",
-                controller: recentPrescribedDrugs,
+                controller: theraputicHistoryFormCubit.recentPrescribedDrugs,
               ),
               const Gap(8),
 
               MyMainBotton(
                 title: "save",
                 onTap: () {
-                  PatientTherapueticHistory patientTherapeuticHistory =
-                      PatientTherapueticHistory(
-                        drugTherapy: drugs.text,
-                        allergyToDrugs: drugsAllergy.text,
-                        recentPrescribedDrugs: recentPrescribedDrugs.text,
-                      );
-                  PatientModel patient = model.copyWith(
-                    theraputicHistory: patientTherapeuticHistory.toJson(),
-                  );
-
-                  cubit.updatePatient(patient);
-
-                  logMyData(patient);
+                  PatientModel? patient = theraputicHistoryFormCubit
+                      .saveTheraputicHistoryModel(model);
+                  if (patient != null) {
+                    cubit.updatePatient(patient);
+                  }
                 },
               ),
             ],
