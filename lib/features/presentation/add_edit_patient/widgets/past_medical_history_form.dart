@@ -10,6 +10,7 @@ import 'package:my_graduation/core/dialogs/loading_dialog.dart';
 import 'package:my_graduation/core/dialogs/massage_dialog.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
+import 'package:my_graduation/features/data/models/patient_past_medical_history.dart';
 import 'package:my_graduation/features/data/models/patient_personal_history.dart';
 import 'package:my_graduation/features/data/models/patient_therapuetic_history.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
@@ -17,25 +18,52 @@ import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_e
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/past_medical_history_cubit.dart';
 
 // ignore: must_be_immutable
-class PastMedicalHistoryForm extends StatelessWidget {
+class PastMedicalHistoryForm extends StatefulWidget {
   const PastMedicalHistoryForm({
     super.key,
     required this.cubit,
- 
     required this.pastMedicalHistoryCubit,
+    this.patientModelToEdit,
   });
- 
 
   final AddEditPatientCubit cubit;
 
   final PastMedicalHistoryCubit pastMedicalHistoryCubit;
+  final PatientModel? patientModelToEdit;
+
+  @override
+  State<PastMedicalHistoryForm> createState() => _PastMedicalHistoryFormState();
+}
+
+class _PastMedicalHistoryFormState extends State<PastMedicalHistoryForm> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.patientModelToEdit != null) {
+      PatientPastMedicalHistory pastMedicalHistory =
+          PatientPastMedicalHistory.fromJson(
+            widget.patientModelToEdit!.pastMedicalHistory ?? {},
+          );
+
+      widget.pastMedicalHistoryCubit.similarConditionController.text =
+          pastMedicalHistory.similarCondition ?? "";
+      widget.pastMedicalHistoryCubit.previousHospitalizationController.text =
+          pastMedicalHistory.previousHospitalizationCondition ?? "";
+      widget.pastMedicalHistoryCubit.previosChronicDiseasesController.text =
+          pastMedicalHistory.previousChronicDiseases ?? "";
+      widget.pastMedicalHistoryCubit.bloodTransfusionController.text =
+          pastMedicalHistory.bloodTransfusion ?? "";
+      widget.pastMedicalHistoryCubit.foodAllergyController.text =
+          pastMedicalHistory.foodAllergy ?? "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: cubit),
-        BlocProvider.value(value: pastMedicalHistoryCubit),
+        BlocProvider.value(value: widget.cubit),
+        BlocProvider.value(value: widget.pastMedicalHistoryCubit),
       ],
 
       child: BlocListener<AddEditPatientCubit, AddEditPatientState>(
@@ -65,65 +93,72 @@ class PastMedicalHistoryForm extends StatelessWidget {
                 MyTextFeild(
                   hint: "Similar condition",
                   controller:
-                      pastMedicalHistoryCubit.similarConditionController,
+                      widget.pastMedicalHistoryCubit.similarConditionController,
                 ),
                 const Gap(8),
 
                 MyTextFeild(
                   hint: "Previous hospitalization",
-                  controller:
-                      pastMedicalHistoryCubit.previousHospitalizationController,
+                  controller: widget
+                      .pastMedicalHistoryCubit
+                      .previousHospitalizationController,
                 ),
                 const Gap(8),
                 MyTextFeild(
                   hint: "Previous chronic diseases",
-                  controller:
-                      pastMedicalHistoryCubit.previosChronicDiseasesController,
+                  controller: widget
+                      .pastMedicalHistoryCubit
+                      .previosChronicDiseasesController,
                 ),
                 const Gap(8),
 
                 MyTextFeild(
                   hint: "Blood transfusion",
                   controller:
-                      pastMedicalHistoryCubit.bloodTransfusionController,
+                      widget.pastMedicalHistoryCubit.bloodTransfusionController,
                 ),
                 const Gap(8),
                 MyTextFeild(
                   hint: "Food allergy",
-                  controller: pastMedicalHistoryCubit.foodAllergyController,
+                  controller:
+                      widget.pastMedicalHistoryCubit.foodAllergyController,
                   textInputAction: TextInputAction.done,
                 ),
                 const Gap(8),
                 MyMainBotton(
-                  title: "save",  
+                  title: "save",
                   onTap: () {
-                    PatientModel patient = cubit.currentPatient.copyWith(
-                      pastMedicalHistory: pastMedicalHistoryCubit
+                    PatientModel patient = widget.cubit.currentPatient.copyWith(
+                      pastMedicalHistory: widget.pastMedicalHistoryCubit
                           .setPastMedicalHistoryModel(),
                     );
                     log(
-                      pastMedicalHistoryCubit.similarConditionController
+                      widget.pastMedicalHistoryCubit.similarConditionController
                           .toString(),
                     );
                     log(
-                      pastMedicalHistoryCubit.previousHospitalizationController
+                      widget
+                          .pastMedicalHistoryCubit
+                          .previousHospitalizationController
                           .toString(),
                     );
                     log(
-                      pastMedicalHistoryCubit.previosChronicDiseasesController
+                      widget
+                          .pastMedicalHistoryCubit
+                          .previosChronicDiseasesController
                           .toString(),
                     );
                     log(
-                      pastMedicalHistoryCubit.bloodTransfusionController
+                      widget.pastMedicalHistoryCubit.bloodTransfusionController
                           .toString(),
                     );
                     log(
-                      pastMedicalHistoryCubit.foodAllergyController.toString(),
+                      widget.pastMedicalHistoryCubit.foodAllergyController
+                          .toString(),
                     );
 
-                    cubit.currentPatient = patient;
-                    cubit.updatePatient();
-                  
+                    widget.cubit.currentPatient = patient;
+                    widget.cubit.updatePatient();
                   },
                 ),
               ],
