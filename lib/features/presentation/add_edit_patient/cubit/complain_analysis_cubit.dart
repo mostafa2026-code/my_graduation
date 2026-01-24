@@ -6,8 +6,8 @@ import 'package:my_graduation/features/data/models/patientcomplain_analysis.dart
 class ComplainAnalysisCubit extends Cubit<ComplainAnalysisState> {
   ComplainAnalysisCubit() : super(ComplainAnalysisInitial());
 
-  Onset? onset;
-  Course? course;
+  String? onset;
+  String? course;
   TextEditingController durationController = TextEditingController();
   TextEditingController releivingFactorController = TextEditingController();
   TextEditingController exaeratingFactorController = TextEditingController();
@@ -16,19 +16,19 @@ class ComplainAnalysisCubit extends Cubit<ComplainAnalysisState> {
   TextEditingController associatedSymptomsController = TextEditingController();
 
   void selectOnset(Onset value) {
-    if (onset == value) {
+    if (onset == value.name) {
       onset = null;
     } else {
-      onset = value;
+      onset = value.name;
     }
     emit(ComplainAnalysisInitial());
   }
 
   void selectCourse(Course value) {
-    if (course == value) {
+    if (course == value.name) {
       course = null;
     } else {
-      course = value;
+      course = value.name;
     }
     emit(ComplainAnalysisInitial());
   }
@@ -38,8 +38,8 @@ class ComplainAnalysisCubit extends Cubit<ComplainAnalysisState> {
       aggravatingFactors: exaeratingFactorController.text.trim(),
       reliefFactors: releivingFactorController.text.trim(),
       associatedSymptoms: associatedSymptomsController.text.trim(),
-      onset: onset?.name,
-      course: course?.name,
+      onset: onset,
+      course: course,
       duration: durationController.text.trim(),
       specialCharacteristics: specialCharacter.text.trim(),
       complain: complaintController.text.trim(),

@@ -12,28 +12,62 @@ import 'package:my_graduation/core/dialogs/massage_dialog.dart';
 import 'package:my_graduation/core/enums/my_enums.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
+import 'package:my_graduation/features/data/models/patientcomplain_analysis.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_state.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/complain_analysis_cubit.dart';
 
-class ComplainAnalysisForm extends StatelessWidget {
+class ComplainAnalysisForm extends StatefulWidget {
   const ComplainAnalysisForm({
     super.key,
 
     required this.cubit,
 
     required this.complainAnalysisCubit,
+    this.patientModelToEdit,
   });
 
   final ComplainAnalysisCubit complainAnalysisCubit;
   final AddEditPatientCubit cubit;
+  final PatientModel? patientModelToEdit;
+
+  @override
+  State<ComplainAnalysisForm> createState() => _ComplainAnalysisFormState();
+}
+
+class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.patientModelToEdit != null) {
+      PatientcomplainAnalysis patientcomplainAnalysis =
+          PatientcomplainAnalysis.fromJson(
+            widget.patientModelToEdit!.analysisofcomplains ?? {},
+          );
+      widget.complainAnalysisCubit.complaintController.text =
+          patientcomplainAnalysis.complain ?? "";
+      widget.complainAnalysisCubit.associatedSymptomsController.text =
+          patientcomplainAnalysis.associatedSymptoms ?? "";
+      widget.complainAnalysisCubit.durationController.text =
+          patientcomplainAnalysis.duration ?? "";
+      widget.complainAnalysisCubit.exaeratingFactorController.text =
+          patientcomplainAnalysis.aggravatingFactors ?? "";
+      widget.complainAnalysisCubit.releivingFactorController.text =
+          patientcomplainAnalysis.reliefFactors ?? "";
+      widget.complainAnalysisCubit.specialCharacter.text =
+          patientcomplainAnalysis.specialCharacteristics ?? "";
+      widget.complainAnalysisCubit.onset = patientcomplainAnalysis.onset ?? "";
+      widget.complainAnalysisCubit.course =
+          patientcomplainAnalysis.course ?? "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: cubit),
-        BlocProvider.value(value: complainAnalysisCubit),
+        BlocProvider.value(value: widget.cubit),
+        BlocProvider.value(value: widget.complainAnalysisCubit),
       ],
       child: BlocListener<AddEditPatientCubit, AddEditPatientState>(
         listener: (context, state) {
@@ -64,7 +98,7 @@ class ComplainAnalysisForm extends StatelessWidget {
                 const Gap(16),
                 MyTextFeild(
                   hint: "Complain",
-                  controller: complainAnalysisCubit.complaintController,
+                  controller: widget.complainAnalysisCubit.complaintController,
                 ),
                 const Text("Onset"),
                 const Gap(16),
@@ -78,21 +112,22 @@ class ComplainAnalysisForm extends StatelessWidget {
                       children: [
                         MyChip(
                           isSelected:
-                              complainAnalysisCubit.onset == Onset.sudden_onset,
+                              widget.complainAnalysisCubit.onset ==
+                              Onset.sudden_onset.name,
                           label: "Acute",
                           onselected: (_) {
-                            complainAnalysisCubit.selectOnset(
+                            widget.complainAnalysisCubit.selectOnset(
                               Onset.sudden_onset,
                             );
                           },
                         ),
                         MyChip(
                           isSelected:
-                              complainAnalysisCubit.onset ==
-                              Onset.gradual_onset,
+                              widget.complainAnalysisCubit.onset ==
+                              Onset.gradual_onset.name,
                           label: "Gradual",
                           onselected: (_) {
-                            complainAnalysisCubit.selectOnset(
+                            widget.complainAnalysisCubit.selectOnset(
                               Onset.gradual_onset,
                             );
                           },
@@ -111,42 +146,44 @@ class ComplainAnalysisForm extends StatelessWidget {
                       children: [
                         MyChip(
                           isSelected:
-                              complainAnalysisCubit.course ==
-                              Course.progressive,
+                              widget.complainAnalysisCubit.course ==
+                              Course.progressive.name,
                           label: "Progressive",
                           onselected: (_) {
-                            complainAnalysisCubit.selectCourse(
+                            widget.complainAnalysisCubit.selectCourse(
                               Course.progressive,
                             );
                           },
                         ),
                         MyChip(
                           isSelected:
-                              complainAnalysisCubit.course == Course.regressive,
+                              widget.complainAnalysisCubit.course ==
+                              Course.regressive.name,
                           label: "Regressive",
                           onselected: (_) {
-                            complainAnalysisCubit.selectCourse(
+                            widget.complainAnalysisCubit.selectCourse(
                               Course.regressive,
                             );
                           },
                         ),
                         MyChip(
                           isSelected:
-                              complainAnalysisCubit.course ==
-                              Course.intermetent,
+                              widget.complainAnalysisCubit.course ==
+                              Course.intermetent.name,
                           label: "Intermetent",
                           onselected: (_) {
-                            complainAnalysisCubit.selectCourse(
+                            widget.complainAnalysisCubit.selectCourse(
                               Course.intermetent,
                             );
                           },
                         ),
                         MyChip(
                           isSelected:
-                              complainAnalysisCubit.course == Course.stationary,
+                              widget.complainAnalysisCubit.course ==
+                              Course.stationary.name,
                           label: "Stationary",
                           onselected: (_) {
-                            complainAnalysisCubit.selectCourse(
+                            widget.complainAnalysisCubit.selectCourse(
                               Course.stationary,
                             );
                           },
@@ -159,59 +196,61 @@ class ComplainAnalysisForm extends StatelessWidget {
                 const Gap(8),
                 MyTextFeild(
                   hint: "Duration",
-                  controller: complainAnalysisCubit.durationController,
+                  controller: widget.complainAnalysisCubit.durationController,
                 ),
                 const Gap(8),
                 MyTextFeild(
                   hint: "Special Character",
                   maxline: 3,
-                  controller: complainAnalysisCubit.specialCharacter,
+                  controller: widget.complainAnalysisCubit.specialCharacter,
                 ),
                 const Gap(8),
 
                 MyTextFeild(
                   hint: "Reliveing Factors",
-                  controller: complainAnalysisCubit.releivingFactorController,
+                  controller:
+                      widget.complainAnalysisCubit.releivingFactorController,
                 ),
                 const Gap(8),
                 MyTextFeild(
                   hint: "Exagreting Factor ",
-                  controller: complainAnalysisCubit.exaeratingFactorController,
+                  controller:
+                      widget.complainAnalysisCubit.exaeratingFactorController,
                 ),
                 const Gap(8),
                 MyTextFeild(
                   hint: "Associated Symptoms",
                   controller:
-                      complainAnalysisCubit.associatedSymptomsController,
+                      widget.complainAnalysisCubit.associatedSymptomsController,
                   textInputAction: TextInputAction.done,
                 ),
                 const Gap(16),
                 MyMainBotton(
                   title: "save",
                   onTap: () {
-                    PatientModel pateint = cubit.currentPatient.copyWith(
-                      analysisofcomplains: complainAnalysisCubit
+                    PatientModel pateint = widget.cubit.currentPatient.copyWith(
+                      analysisofcomplains: widget.complainAnalysisCubit
                           .saveComplainAnalysisModel(),
                     );
 
                     log("personal: ${pateint.personalHistory}");
 
                     log(
-                      " associatedSymptomsController: ${complainAnalysisCubit.associatedSymptomsController.text}",
+                      " associatedSymptomsController: ${widget.complainAnalysisCubit.associatedSymptomsController.text}",
                     );
                     log(
-                      " complin: ${complainAnalysisCubit.complaintController.text}",
+                      " complin: ${widget.complainAnalysisCubit.complaintController.text}",
                     );
-                    log(" course: ${complainAnalysisCubit.course}");
+                    log(" course: ${widget.complainAnalysisCubit.course}");
                     log(
-                      " exaeratingFactorController: ${complainAnalysisCubit.exaeratingFactorController.text}",
+                      " exaeratingFactorController: ${widget.complainAnalysisCubit.exaeratingFactorController.text}",
                     );
                     log(
-                      " releivingFactorController: ${complainAnalysisCubit.releivingFactorController.text}",
+                      " releivingFactorController: ${widget.complainAnalysisCubit.releivingFactorController.text}",
                     );
 
-                    cubit.currentPatient = pateint;
-                    cubit.updatePatient();
+                    widget.cubit.currentPatient = pateint;
+                    widget.cubit.updatePatient();
                   },
                 ),
               ],
