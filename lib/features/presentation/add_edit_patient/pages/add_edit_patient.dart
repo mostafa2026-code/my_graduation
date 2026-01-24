@@ -85,6 +85,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
                 Gap(8),
                 Autocomplete(
                   optionsBuilder: (TextEditingValue textEditingValue) {
+                    // ignore: unrelated_type_equality_checks
                     if (textEditingValue == "") {
                       return diseasesList;
                     } else {

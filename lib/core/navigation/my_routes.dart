@@ -83,7 +83,9 @@ class MyRoutes {
         path: addPatient,
         builder: (context, state) => BlocProvider(
           create: (context) => AddEditPatientCubit(),
-          child: const AddEditPatient(),
+          child: AddEditPatient(
+            patientModelToedit: state.extra as PatientModel,
+          ),
         ),
       ),
       GoRoute(
@@ -118,7 +120,8 @@ class MyRoutes {
       ),
       GoRoute(
         path: patientsByDisease,
-        builder: (context, state) =>  PatientsByDiseaseScreen(diseaseName: state.extra as String,),
+        builder: (context, state) =>
+            PatientsByDiseaseScreen(diseaseName: state.extra as String),
       ),
     ],
   );
