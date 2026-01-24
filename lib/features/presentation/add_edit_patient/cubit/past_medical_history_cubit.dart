@@ -19,21 +19,20 @@ class PastMedicalHistoryCubit extends Cubit<PastMedicalHistoryState> {
 
   final TextEditingController foodAllergyController = TextEditingController();
 
-  PatientModel? savePastMedicalHistoryModel(PatientModel model) {
+  Map<String, dynamic>? setPastMedicalHistoryModel() {
     PatientPastMedicalHistory patientPastMedicalHistory =
         PatientPastMedicalHistory(
           similarCondition: similarConditionController.text.trim(),
           previousChronicDiseases: previosChronicDiseasesController.text.trim(),
-          previousHospitalizationCondition:
-              previousHospitalizationController.text.trim(),
+          previousHospitalizationCondition: previousHospitalizationController
+              .text
+              .trim(),
           bloodTransfusion: bloodTransfusionController.text.trim(),
           foodAllergy: foodAllergyController.text.trim(),
         );
-    PatientModel patient = model.copyWith(
-      pastMedicalHistory: patientPastMedicalHistory.toJson(),
-    );
+
     emit(PastMedicalHistoryInitial());
-    return patient;
+    return patientPastMedicalHistory.toJson();
   }
 }
 

@@ -97,9 +97,10 @@ class PastMedicalHistoryForm extends StatelessWidget {
                 MyMainBotton(
                   title: "save",
                   onTap: () {
-                    PatientModel? patientModel = pastMedicalHistoryCubit
-                        .savePastMedicalHistoryModel(model);
-
+                    PatientModel? patient = model.copyWith(
+                      pastMedicalHistory: pastMedicalHistoryCubit
+                          .setPastMedicalHistoryModel(),
+                    );
                     log(
                       pastMedicalHistoryCubit.similarConditionController
                           .toString(),
@@ -120,9 +121,9 @@ class PastMedicalHistoryForm extends StatelessWidget {
                       pastMedicalHistoryCubit.foodAllergyController.toString(),
                     );
 
-                    if (patientModel != null) {
-                      cubit.updatePatient(patientModel);
-                      logMyData(patientModel);
+                    if (patient != null) {
+                      cubit.updatePatient(patient);
+                      logMyData(patient);
                     }
                   },
                 ),
