@@ -9,15 +9,12 @@ class ComplainAnalysisCubit extends Cubit<ComplainAnalysisState> {
 
   Onset? onset;
   Course? course;
-  final TextEditingController durationController = TextEditingController();
-  final TextEditingController releivingFactorController =
-      TextEditingController();
-  final TextEditingController exaeratingFactorController =
-      TextEditingController();
-  final TextEditingController complaintController = TextEditingController();
-  final TextEditingController specialCharacter = TextEditingController();
-  final TextEditingController associatedSymptomsController =
-      TextEditingController();
+  TextEditingController durationController = TextEditingController();
+  TextEditingController releivingFactorController = TextEditingController();
+  TextEditingController exaeratingFactorController = TextEditingController();
+  TextEditingController complaintController = TextEditingController();
+  TextEditingController specialCharacter = TextEditingController();
+  TextEditingController associatedSymptomsController = TextEditingController();
   PatientcomplainAnalysis? patientcomplainAnalysis;
 
   void selectOnset(Onset value) {

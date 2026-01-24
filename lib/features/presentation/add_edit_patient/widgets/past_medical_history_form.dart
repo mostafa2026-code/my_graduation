@@ -91,6 +91,7 @@ class PastMedicalHistoryForm extends StatelessWidget {
                 MyTextFeild(
                   hint: "Food allergy",
                   controller: pastMedicalHistoryCubit.foodAllergyController,
+                  textInputAction: TextInputAction.done,
                 ),
                 const Gap(8),
                 MyMainBotton(

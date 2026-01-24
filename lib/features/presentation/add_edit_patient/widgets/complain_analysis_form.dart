@@ -158,6 +158,7 @@ class ComplainAnalysisForm extends StatelessWidget {
                   hint: "Associated Symptoms",
                   controller:
                       complainAnalysisCubit.associatedSymptomsController,
+                  textInputAction: TextInputAction.done,
                 ),
                 const Gap(16),
                 MyMainBotton(

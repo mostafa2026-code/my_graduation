@@ -7,6 +7,7 @@ class MyTextFeild extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final int? maxline;
+  final TextInputAction? textInputAction;
 
   const MyTextFeild({
     super.key,
@@ -15,6 +16,7 @@ class MyTextFeild extends StatelessWidget {
     this.validator,
     this.keyboardType,
     this.maxline,
+    this.textInputAction,
   });
 
   @override
@@ -24,6 +26,7 @@ class MyTextFeild extends StatelessWidget {
       keyboardType: keyboardType,
       autovalidateMode: AutovalidateMode.always,
       validator: validator,
+      textInputAction: textInputAction ?? TextInputAction.next,
       controller: controller,
       decoration: InputDecoration(
         filled: true,
