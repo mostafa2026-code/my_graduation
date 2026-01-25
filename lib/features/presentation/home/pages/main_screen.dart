@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/features/presentation/home/pages/home_screen.dart';
 import 'package:my_graduation/features/presentation/patients/pages/patients_home.dart';
 import 'package:my_graduation/features/presentation/profile/pages/profile_screen.dart';
+import 'package:my_graduation/features/presentation/search/cubit/search_cubit.dart';
 import 'package:my_graduation/features/presentation/search/pages/search_screen.dart';
 
 List<Widget> pages = [
@@ -26,31 +28,34 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: pages[selectedPage],
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GNav(
-            tabBorderRadius: 16,
-            backgroundColor: MyColors.primary,
-            activeColor: Colors.white,
-            style: GnavStyle.google,
-            gap: 8,
-            selectedIndex: selectedPage,
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => SearchCubit())],
+      child: Scaffold(
+        body: pages[selectedPage],
+        bottomNavigationBar: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GNav(
+              tabBorderRadius: 16,
+              backgroundColor: MyColors.primary,
+              activeColor: Colors.white,
+              style: GnavStyle.google,
+              gap: 8,
+              selectedIndex: selectedPage,
 
-            onTabChange: (value) {
-              setState(() {
-                selectedPage = value;
-              });
-            },
+              onTabChange: (value) {
+                setState(() {
+                  selectedPage = value;
+                });
+              },
 
-            tabs: [
-              GButton(icon: Icons.home, text: 'Home'),
-              GButton(icon: Icons.people, text: 'Patients'),
-              GButton(icon: Icons.search, text: 'Search'),
-              GButton(icon: Icons.person, text: 'Profile'),
-            ],
+              tabs: [
+                GButton(icon: Icons.home, text: 'Home'),
+                GButton(icon: Icons.people, text: 'Patients'),
+                GButton(icon: Icons.search, text: 'Search'),
+                GButton(icon: Icons.person, text: 'Profile'),
+              ],
+            ),
           ),
         ),
       ),

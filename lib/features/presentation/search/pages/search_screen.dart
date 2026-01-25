@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
+import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/core/functions/my_future_builder.dart';
 import 'package:my_graduation/core/lists/diseases_list.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
-import 'package:my_graduation/core/services/firebsase/firestore_helper.dart';
+import 'package:my_graduation/features/presentation/search/cubit/search_cubit.dart';
+import 'package:my_graduation/features/presentation/search/cubit/search_states.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -12,11 +16,11 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  String? selectedDisease;
-  String? sortBy;
+  SearchCubit? searchCubit;
 
   @override
   Widget build(BuildContext context) {
+    final searchCubit = context.watch<SearchCubit>();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -54,7 +58,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                 children: [
                                   DropdownButtonFormField(
                                     hint: Text(
-                                      selectedDisease ?? "Select Disease",
+                                      searchCubit.selectedDisease ??
+                                          "Select Disease",
                                     ),
                                     items: diseasesList
                                         .map(
@@ -66,7 +71,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         .toList(),
                                     onChanged: (value) {
                                       setState(() {
-                                        selectedDisease = value;
+                                        searchCubit.selectedDisease = value;
                                       });
                                     },
                                   ),
@@ -102,13 +107,13 @@ class _SearchScreenState extends State<SearchScreen> {
                       children: [
                         Text("Name"),
                         Checkbox.adaptive(
-                          value: sortBy == "name",
+                          value: searchCubit.sortBy == "name",
                           onChanged: (value) {
                             setState(() {
                               if (value == true) {
-                                sortBy = "name";
+                                searchCubit.sortBy = "name";
                               } else {
-                                sortBy = null;
+                                searchCubit.sortBy = null;
                               }
                             });
                           },
@@ -119,13 +124,13 @@ class _SearchScreenState extends State<SearchScreen> {
                       children: [
                         Text("Age"),
                         Checkbox.adaptive(
-                          value: sortBy == "age",
+                          value: searchCubit.sortBy == "age",
                           onChanged: (value) {
                             setState(() {
                               if (value == true) {
-                                sortBy = "age";
+                                searchCubit.sortBy = "age";
                               } else {
-                                sortBy = null;
+                                searchCubit.sortBy = null;
                               }
                             });
                           },
@@ -136,13 +141,13 @@ class _SearchScreenState extends State<SearchScreen> {
                       children: [
                         Text("Latest Date"),
                         Checkbox.adaptive(
-                          value: sortBy == "Latest Date",
+                          value: searchCubit.sortBy == "Latest Date",
                           onChanged: (value) {
                             setState(() {
                               if (value == true) {
-                                sortBy = "Latest Date";
+                                searchCubit.sortBy = "Latest Date";
                               } else {
-                                sortBy = null;
+                                searchCubit.sortBy = null;
                               }
                             });
                           },
@@ -153,13 +158,13 @@ class _SearchScreenState extends State<SearchScreen> {
                       children: [
                         Text("Oldest Date"),
                         Checkbox.adaptive(
-                          value: sortBy == "Oldest Date",
+                          value: searchCubit.sortBy == "Oldest Date",
                           onChanged: (value) {
                             setState(() {
                               if (value == true) {
-                                sortBy = "Oldest Date";
+                                searchCubit.sortBy = "Oldest Date";
                               } else {
-                                sortBy = null;
+                                searchCubit.sortBy = null;
                               }
                             });
                           },
@@ -168,7 +173,20 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ],
                 ),
-                myFutureBuilder(future: FirestoreHelper.getAllPatient()),
+                BlocBuilder<SearchCubit, SearchStates>(
+                  builder: (context, state) {
+                    if (state is SearchError) {
+                      return Center(child: Text(state.message));
+                    }
+                    if (state is SearchSuccess && state.result != null) {
+                      return myFutureBuilder(future: state.result!);
+                    }
+                    if (state is SearchSuccess && state.result == null) {
+                      return Center(child: Lottie.asset(MyImages.emptyJson));
+                    }
+                    return const SizedBox();
+                  },
+                ),
               ],
             ),
           ),

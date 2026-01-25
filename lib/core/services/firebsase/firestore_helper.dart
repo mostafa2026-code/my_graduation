@@ -82,11 +82,11 @@ class FirestoreHelper {
         .get();
   }
 
-  static filterAndSearchPatient(
+  static Future<QuerySnapshot<Map<String, dynamic>>> filterAndSearchPatient (
     String? diagnosis,
     String? sortBy,
     String? name,
-  ) {
+  ) async{
     String orderField;
     bool descending = false;
     Query<Map<String, dynamic>> collectionReference = _firestore
@@ -128,6 +128,6 @@ class FirestoreHelper {
         '${name}\uf8ff',
       ]);
     }
-    return collectionReference.get();
+    return await collectionReference.get();
   }
 }
