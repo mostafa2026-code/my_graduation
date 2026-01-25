@@ -17,8 +17,8 @@ class PatientsByDiseaseScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                myFutureBuilder(
-                  future: FirestoreHelper.getPatientByDisease(diseaseName),
+                myStreamBuilder(
+                  stream: FirestoreHelper.getPatientByDisease(diseaseName),
                 ),
               ],
             ),

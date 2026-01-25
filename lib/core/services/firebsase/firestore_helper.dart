@@ -56,37 +56,37 @@ class FirestoreHelper {
     });
   }
 
-  static Future<QuerySnapshot<Map<String, dynamic>>> getAllPatient() {
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllPatient() {
     return _firestore
         .collection(kpatientsCollection)
         .where("doctorId", isEqualTo: uid)
-        .get();
+        .snapshots();
   }
 
-  static Future<QuerySnapshot<Map<String, dynamic>>> getPatientByDisease(
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getPatientByDisease(
     String diagnosis,
   ) {
     return _firestore
         .collection(kpatientsCollection)
         .where("diagnosis", isEqualTo: diagnosis)
         .where("doctorId", isEqualTo: uid)
-        .get();
+        .snapshots();
   }
 
-  static Future<QuerySnapshot<Map<String, dynamic>>>
+  static Stream<QuerySnapshot<Map<String, dynamic>>>
   getPatientWithoutDiagnosis() {
     return _firestore
         .collection(kpatientsCollection)
         .where("diagnosis", isNull: true)
         .where("doctorId", isEqualTo: uid)
-        .get();
+        .snapshots();
   }
 
-  static Future<QuerySnapshot<Map<String, dynamic>>> filterAndSearchPatient (
+  static Stream<QuerySnapshot<Map<String, dynamic>>> filterAndSearchPatient(
     String? diagnosis,
     String? sortBy,
     String? name,
-  ) async{
+  ) {
     String orderField;
     bool descending = false;
     Query<Map<String, dynamic>> collectionReference = _firestore
@@ -125,9 +125,9 @@ class FirestoreHelper {
     );
     if (name != null && name.isNotEmpty) {
       collectionReference = collectionReference.startAt([name]).endAt([
-        '${name}\uf8ff',
+        '$name\uf8ff',
       ]);
     }
-    return await collectionReference.get();
+    return collectionReference.snapshots();
   }
 }

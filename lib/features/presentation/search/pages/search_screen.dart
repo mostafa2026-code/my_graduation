@@ -1,7 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
-import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/core/functions/my_future_builder.dart';
 import 'package:my_graduation/core/lists/diseases_list.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
@@ -16,7 +16,13 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  SearchCubit? searchCubit;
+  @override
+  void initState() {
+    super.initState();
+    context.read<SearchCubit>().getallpatient();
+  }
+
+  Timer? debounce;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +41,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   children: [
                     Expanded(
                       child: TextFormField(
-                        controller: TextEditingController(),
+                        controller: searchCubit.searchController,
                         decoration: InputDecoration(
                           hintText: "Search by name",
                           border: OutlineInputBorder(
@@ -43,6 +49,15 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           suffixIcon: Icon(Icons.search),
                         ),
+                        onChanged: (value) {
+                          if (debounce?.isActive ?? false) debounce!.cancel();
+                          debounce = Timer(
+                            const Duration(milliseconds: 500),
+                            () {
+                              searchCubit.searchPatients();
+                            },
+                          );
+                        },
                       ),
                     ),
                     IconButton(
@@ -109,13 +124,13 @@ class _SearchScreenState extends State<SearchScreen> {
                         Checkbox.adaptive(
                           value: searchCubit.sortBy == "name",
                           onChanged: (value) {
-                            setState(() {
-                              if (value == true) {
-                                searchCubit.sortBy = "name";
-                              } else {
-                                searchCubit.sortBy = null;
-                              }
-                            });
+                            if (value == true) {
+                              searchCubit.sortBy = "name";
+                            } else {
+                              searchCubit.sortBy = null;
+                            }
+
+                            searchCubit.searchPatients();
                           },
                         ),
                       ],
@@ -126,13 +141,13 @@ class _SearchScreenState extends State<SearchScreen> {
                         Checkbox.adaptive(
                           value: searchCubit.sortBy == "age",
                           onChanged: (value) {
-                            setState(() {
-                              if (value == true) {
-                                searchCubit.sortBy = "age";
-                              } else {
-                                searchCubit.sortBy = null;
-                              }
-                            });
+                            if (value == true) {
+                              searchCubit.sortBy = "age";
+                            } else {
+                              searchCubit.sortBy = null;
+                            }
+
+                            searchCubit.searchPatients();
                           },
                         ),
                       ],
@@ -143,13 +158,12 @@ class _SearchScreenState extends State<SearchScreen> {
                         Checkbox.adaptive(
                           value: searchCubit.sortBy == "Latest Date",
                           onChanged: (value) {
-                            setState(() {
-                              if (value == true) {
-                                searchCubit.sortBy = "Latest Date";
-                              } else {
-                                searchCubit.sortBy = null;
-                              }
-                            });
+                            if (value == true) {
+                              searchCubit.sortBy = "Latest Date";
+                            } else {
+                              searchCubit.sortBy = null;
+                            }
+                            searchCubit.searchPatients();
                           },
                         ),
                       ],
@@ -160,13 +174,12 @@ class _SearchScreenState extends State<SearchScreen> {
                         Checkbox.adaptive(
                           value: searchCubit.sortBy == "Oldest Date",
                           onChanged: (value) {
-                            setState(() {
-                              if (value == true) {
-                                searchCubit.sortBy = "Oldest Date";
-                              } else {
-                                searchCubit.sortBy = null;
-                              }
-                            });
+                            if (value == true) {
+                              searchCubit.sortBy = "Oldest Date";
+                            } else {
+                              searchCubit.sortBy = null;
+                            }
+                            searchCubit.searchPatients();
                           },
                         ),
                       ],
@@ -178,12 +191,10 @@ class _SearchScreenState extends State<SearchScreen> {
                     if (state is SearchError) {
                       return Center(child: Text(state.message));
                     }
-                    if (state is SearchSuccess && state.result != null) {
-                      return myFutureBuilder(future: state.result!);
+                    if (state is SearchSuccess) {
+                      return myStreamBuilder(stream: state.result);
                     }
-                    if (state is SearchSuccess && state.result == null) {
-                      return Center(child: Lottie.asset(MyImages.emptyJson));
-                    }
+
                     return const SizedBox();
                   },
                 ),

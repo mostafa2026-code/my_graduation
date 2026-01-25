@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:my_graduation/component/patients_list_view.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 
-FutureBuilder<QuerySnapshot<Map<String, dynamic>>> myFutureBuilder({
-  
-    required Future<QuerySnapshot<Map<String, dynamic>>> future,
+
+
+
+
+  StreamBuilder<QuerySnapshot<Map<String, dynamic>>> myStreamBuilder({
+    required Stream<QuerySnapshot<Map<String, dynamic>>> stream,
   }) {
-    return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
-      future: future,
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      stream: stream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());

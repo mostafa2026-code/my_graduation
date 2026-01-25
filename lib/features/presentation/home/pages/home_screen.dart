@@ -46,8 +46,8 @@ class HomeScreen extends StatelessWidget {
                 const Gap(24),
                 Text("Undiagnosed Cases", style: headlineTextStyle()),
                 const Gap(16),
-                myFutureBuilder(
-                  future: FirestoreHelper.getPatientWithoutDiagnosis(),
+                myStreamBuilder(
+                  stream: FirestoreHelper.getPatientWithoutDiagnosis(),
                 ),
               ],
             ),

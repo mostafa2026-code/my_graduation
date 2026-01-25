@@ -7,8 +7,8 @@ class SearchInitial extends SearchStates {}
 class SearchLoading extends SearchStates {}
 
 class SearchSuccess extends SearchStates {
-  Future<QuerySnapshot<Map<String, dynamic>>>? result;
-  SearchSuccess(this.result);
+  Stream<QuerySnapshot<Map<String, dynamic>>> result;
+  SearchSuccess({required this.result});
 }
 
 class SearchError extends SearchStates {
