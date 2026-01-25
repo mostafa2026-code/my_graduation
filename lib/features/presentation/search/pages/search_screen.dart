@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_graduation/core/enums/my_enums.dart';
 import 'package:my_graduation/core/functions/my_future_builder.dart';
 import 'package:my_graduation/core/lists/diseases_list.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
@@ -19,6 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
+    SearchCubit().resetSearch();
     context.read<SearchCubit>().getallpatient();
   }
 
@@ -122,10 +124,10 @@ class _SearchScreenState extends State<SearchScreen> {
                       children: [
                         Text("Name"),
                         Checkbox.adaptive(
-                          value: searchCubit.sortBy == "name",
+                          value: searchCubit.sortBy == SortBy.name.name,
                           onChanged: (value) {
                             if (value == true) {
-                              searchCubit.sortBy = "name";
+                              searchCubit.sortBy = SortBy.name.name;
                             } else {
                               searchCubit.sortBy = null;
                             }
@@ -139,10 +141,10 @@ class _SearchScreenState extends State<SearchScreen> {
                       children: [
                         Text("Age"),
                         Checkbox.adaptive(
-                          value: searchCubit.sortBy == "age",
+                          value: searchCubit.sortBy == SortBy.age.name,
                           onChanged: (value) {
                             if (value == true) {
-                              searchCubit.sortBy = "age";
+                              searchCubit.sortBy = SortBy.age.name;
                             } else {
                               searchCubit.sortBy = null;
                             }
@@ -156,10 +158,10 @@ class _SearchScreenState extends State<SearchScreen> {
                       children: [
                         Text("Latest Date"),
                         Checkbox.adaptive(
-                          value: searchCubit.sortBy == "Latest Date",
+                          value: searchCubit.sortBy == SortBy.latestDay.name,
                           onChanged: (value) {
                             if (value == true) {
-                              searchCubit.sortBy = "Latest Date";
+                              searchCubit.sortBy = SortBy.latestDay.name;
                             } else {
                               searchCubit.sortBy = null;
                             }
@@ -172,10 +174,10 @@ class _SearchScreenState extends State<SearchScreen> {
                       children: [
                         Text("Oldest Date"),
                         Checkbox.adaptive(
-                          value: searchCubit.sortBy == "Oldest Date",
+                          value: searchCubit.sortBy == SortBy.oldestDay.name,
                           onChanged: (value) {
                             if (value == true) {
-                              searchCubit.sortBy = "Oldest Date";
+                              searchCubit.sortBy = SortBy.oldestDay.name;
                             } else {
                               searchCubit.sortBy = null;
                             }

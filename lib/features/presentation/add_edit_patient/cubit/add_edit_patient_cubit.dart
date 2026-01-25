@@ -20,6 +20,7 @@ class AddEditPatientCubit extends Cubit<AddEditPatientState> {
       id: id,
       doctorId: SharedHelper.getUserInfo()?.id,
       doctorName: SharedHelper.getUserInfo()?.name,
+      date: DateTime.now().toString(),
     );
     currentPatient = patient;
     return currentPatient;

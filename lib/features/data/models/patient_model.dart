@@ -8,6 +8,7 @@ class PatientModel {
   Map<String, dynamic>? pastMedicalHistory;
   Map<String, dynamic>? theraputicHistory;
   Map<String, dynamic>? familyHistory;
+  String? date;
 
   String? examinationAbnormalities;
   String? neededInvestigation;
@@ -27,6 +28,7 @@ class PatientModel {
     this.examinationAbnormalities,
     this.neededInvestigation,
     this.familyHistory,
+    this.date,
   });
 
   //to Json
@@ -43,6 +45,7 @@ class PatientModel {
     'examinationAbnormalities': examinationAbnormalities,
     'neededInvestigation': neededInvestigation,
     'familyHistory': familyHistory,
+    'date': date,
   };
 
   //fromJson
@@ -59,6 +62,7 @@ class PatientModel {
     examinationAbnormalities: json['examinationAbnormalities'],
     neededInvestigation: json['neededInvestigation'],
     familyHistory: json['familyHistory'],
+    date: json['date'],
   );
 
   //edit
@@ -74,6 +78,7 @@ class PatientModel {
     Map<String, dynamic>? pastMedicalHistory,
     Map<String, dynamic>? theraputicHistory,
     Map<String, dynamic>? familyHistory,
+    String? date,
 
     String? examinationAbnormalities,
     String? neededInvestigation,
@@ -93,5 +98,6 @@ class PatientModel {
     examinationAbnormalities:
         examinationAbnormalities ?? this.examinationAbnormalities,
     neededInvestigation: neededInvestigation ?? this.neededInvestigation,
+    date: date ?? this.date,
   );
 }

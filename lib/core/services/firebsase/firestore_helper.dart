@@ -87,8 +87,6 @@ class FirestoreHelper {
     String? sortBy,
     String? name,
   ) {
-    String orderField;
-    bool descending = false;
     Query<Map<String, dynamic>> collectionReference = _firestore
         .collection(kpatientsCollection)
         .where("doctorId", isEqualTo: uid);
@@ -100,33 +98,38 @@ class FirestoreHelper {
       );
     }
 
-    switch (sortBy) {
-      case "name":
-        orderField = "name";
-        break;
-      case "age":
-        orderField = "age";
-        break;
-      case "Latest Date":
-        orderField = "createdAt";
-        descending = true;
-        break;
-      case "Oldest Date":
-        orderField = "createdAt";
-        descending = false;
-        break;
-      default:
-        orderField = "name";
-    }
-
-    collectionReference = collectionReference.orderBy(
-      orderField,
-      descending: descending,
-    );
-    if (name != null && name.isNotEmpty) {
+    if (name != null && name.trim().isNotEmpty) {
+      collectionReference = collectionReference.orderBy(
+        FieldPath(['personalHistory', 'name']),
+      );
       collectionReference = collectionReference.startAt([name]).endAt([
         '$name\uf8ff',
       ]);
+    } else {
+      // لو مفيش بحث بالاسم → نفرز حسب sortBy
+      switch (sortBy) {
+        case "age":
+          collectionReference = collectionReference.orderBy(
+            FieldPath(['personalHistory', 'age']),
+          );
+          break;
+        case "latestDate":
+          collectionReference = collectionReference.orderBy(
+            'date',
+            descending: true,
+          );
+          break;
+        case "oldestDate":
+          collectionReference = collectionReference.orderBy(
+            'date',
+            descending: false,
+          );
+          break;
+        default:
+          collectionReference = collectionReference.orderBy(
+            FieldPath(['personalHistory', 'name']),
+          );
+      }
     }
     return collectionReference.snapshots();
   }
