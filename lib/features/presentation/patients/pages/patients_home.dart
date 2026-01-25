@@ -37,6 +37,7 @@ class PatientsHome extends StatelessWidget {
                 ],
               ),
               Gap(24),
+              
               myFutureBuilder(future: FirestoreHelper.getAllPatient()),
             ],
           ),

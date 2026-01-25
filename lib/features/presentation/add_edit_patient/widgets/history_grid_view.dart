@@ -8,11 +8,13 @@ class HistoryGridView extends StatelessWidget {
   const HistoryGridView({
     super.key,
     required this.cubit,
-  
+
     this.patientModelToEdit,
+    required this.isEdit,
   });
   final AddEditPatientCubit cubit;
-  
+  final bool isEdit;
+
   final PatientModel? patientModelToEdit;
 
   @override
@@ -45,7 +47,9 @@ class HistoryGridView extends StatelessWidget {
 
               context: context,
               builder: (context) {
-                return SafeArea(child: model.bottomSheet(cubit, patientModelToEdit));
+                return SafeArea(
+                  child: model.bottomSheet(cubit, patientModelToEdit, isEdit),
+                );
               },
             );
           },

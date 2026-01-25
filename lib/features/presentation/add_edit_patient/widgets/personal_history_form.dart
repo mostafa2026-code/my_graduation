@@ -23,10 +23,11 @@ class PersonalHistoryForm extends StatefulWidget {
     required this.cubit,
 
     required this.formCubit,
-    this.patientModelToedit,
+    this.patientModelToedit, required this.isEdit,
   });
   final PersonalHistoryFormCubit formCubit;
   final PatientModel? patientModelToedit;
+  final bool isEdit;
 
   final AddEditPatientCubit cubit;
 

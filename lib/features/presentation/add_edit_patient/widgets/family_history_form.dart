@@ -14,10 +14,12 @@ class FamilyHistoryForm extends StatefulWidget {
     required this.cubit,
     required this.familyHistoryFormCubit,
     this.patientModelToEdit,
+    required this.isEdit,
   });
   final AddEditPatientCubit cubit;
   final FamilyHistoryFormCubit familyHistoryFormCubit;
   final PatientModel? patientModelToEdit;
+  final bool isEdit;
 
   @override
   State<FamilyHistoryForm> createState() => _FamilyHistoryFormState();
@@ -64,7 +66,7 @@ class _FamilyHistoryFormState extends State<FamilyHistoryForm> {
               Gap(20),
       
               MyMainBotton(
-                title: "Save",
+                title:widget.isEdit ? "Edit" : "Save",
                 onTap: () {
                   widget.cubit.currentPatient = widget.cubit.currentPatient.copyWith(
                     familyHistory: widget.familyHistoryFormCubit.saveFamilyHistory(),

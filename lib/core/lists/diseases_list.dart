@@ -9,4 +9,5 @@ List<String> diseasesList = [
   "Gastroesophageal Reflux Disease (GERD)",
   "Depression",
   "Seasonal Allergic Rhinitis",
+  'other disease'
 ];

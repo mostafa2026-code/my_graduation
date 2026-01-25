@@ -23,11 +23,13 @@ class TnerapeuticHistoryForm extends StatefulWidget {
     required this.cubit,
     required this.theraputicHistoryFormCubit,
     this.patientModelToEdit,
+    required this.isEdit,
   });
   final AddEditPatientCubit cubit;
 
   final TheraputicHistoryFormCubit theraputicHistoryFormCubit;
   final PatientModel? patientModelToEdit;
+  final bool isEdit;
 
   @override
   State<TnerapeuticHistoryForm> createState() => _TnerapeuticHistoryFormState();

@@ -24,12 +24,14 @@ class PastMedicalHistoryForm extends StatefulWidget {
     required this.cubit,
     required this.pastMedicalHistoryCubit,
     this.patientModelToEdit,
+    required this.isEdit,
   });
 
   final AddEditPatientCubit cubit;
 
   final PastMedicalHistoryCubit pastMedicalHistoryCubit;
   final PatientModel? patientModelToEdit;
+  final bool isEdit;
 
   @override
   State<PastMedicalHistoryForm> createState() => _PastMedicalHistoryFormState();

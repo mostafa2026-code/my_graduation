@@ -77,7 +77,7 @@ class FirestoreHelper {
   getPatientWithoutDiagnosis() {
     return _firestore
         .collection(kpatientsCollection)
-        .where("diagnosis", isNull: true)
+        .where("diagnosis", isNull: true, )
         .where("doctorId", isEqualTo: uid)
         .get();
   }

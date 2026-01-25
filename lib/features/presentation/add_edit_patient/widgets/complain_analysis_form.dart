@@ -24,12 +24,14 @@ class ComplainAnalysisForm extends StatefulWidget {
     required this.cubit,
 
     required this.complainAnalysisCubit,
-    this.patientModelToEdit,
+    this.patientModelToEdit, required this.isEdit,
+    
   });
 
   final ComplainAnalysisCubit complainAnalysisCubit;
   final AddEditPatientCubit cubit;
   final PatientModel? patientModelToEdit;
+  final bool isEdit;
 
   @override
   State<ComplainAnalysisForm> createState() => _ComplainAnalysisFormState();

@@ -73,8 +73,10 @@ class MyRoutes {
       GoRoute(
         path: patientDetails,
         builder: (context, state) {
-          final model =
-              state.extra as PatientModel; // Ensure you cast it correctly
+          final model = state.extra as PatientModel?;
+          if (model == null) {
+            return const PatientsHome();
+          }
           return PateintDetails(model: model);
         },
       ),
@@ -84,7 +86,7 @@ class MyRoutes {
         builder: (context, state) => BlocProvider(
           create: (context) => AddEditPatientCubit(),
           child: AddEditPatient(
-            patientModelToedit: state.extra as PatientModel,
+            patientModelToedit: state.extra as PatientModel?,
           ),
         ),
       ),
@@ -121,7 +123,7 @@ class MyRoutes {
       GoRoute(
         path: patientsByDisease,
         builder: (context, state) =>
-            PatientsByDiseaseScreen(diseaseName: state.extra as String),
+            PatientsByDiseaseScreen(diseaseName: state.extra as String? ?? ""),
       ),
     ],
   );

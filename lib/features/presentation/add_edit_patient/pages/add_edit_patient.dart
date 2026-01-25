@@ -28,7 +28,7 @@ class AddEditPatient extends StatefulWidget {
 }
 
 class _AddEditPatientState extends State<AddEditPatient> {
-  late final bool isEdit;
+  bool get isEdit => widget.patientModelToedit != null;
 
   late final AddEditPatientCubit cubit;
   TextEditingController examinationAbnormalitiesController =
@@ -40,8 +40,9 @@ class _AddEditPatientState extends State<AddEditPatient> {
   @override
   void initState() {
     super.initState();
-    if (widget.patientModelToedit != null) {
-      isEdit = true;
+    cubit = AddEditPatientCubit();
+    if (widget.patientModelToedit != null && isEdit) {
+      cubit.currentPatient = widget.patientModelToedit!;
       PatientModel patientModel = widget.patientModelToedit!;
       examinationAbnormalitiesController.text = patientModel
           .examinationAbnormalities
@@ -49,10 +50,10 @@ class _AddEditPatientState extends State<AddEditPatient> {
       neededInvestigationsController.text = patientModel.neededInvestigation
           .toString();
       diagnosisController.text = patientModel.diagnosis.toString();
+      cubit.currentPatient = patientModel;
+    } else if (!isEdit) {
+      cubit.generateDoc(cubit.generatePatient()!);
     }
-
-    cubit = AddEditPatientCubit();
-    cubit.generateDoc(cubit.generatePatient()!);
   }
 
   @override
@@ -69,6 +70,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
                 HistoryGridView(
                   cubit: cubit,
                   patientModelToEdit: widget.patientModelToedit,
+                  isEdit: isEdit,
                 ),
                 Gap(8),
                 MyTextFeild(
@@ -152,6 +154,7 @@ class HistoryItemBuilder {
     AddEditPatientCubit cubit,
 
     PatientModel? patientModelToEdit,
+    bool isEdit,
   )
   bottomSheet;
 
@@ -179,51 +182,56 @@ List<HistoryItemBuilder> historyCardList = [
     title: "Personal History",
     image: MyImages.personalHistory,
     color: ColorsPalette.lightBlue,
-    bottomSheet: (cubit, patientModelToEdit) => PersonalHistoryForm(
+    bottomSheet: (cubit, patientModelToEdit, isEdit) => PersonalHistoryForm(
       cubit: cubit,
       formCubit: PersonalHistoryFormCubit(),
       patientModelToedit: patientModelToEdit,
+      isEdit: isEdit,
     ),
   ),
   HistoryItemBuilder(
     title: "History of Present Illness",
     image: MyImages.presentillness,
     color: ColorsPalette.lightPurple,
-    bottomSheet: (cubit, patientModelToEdit) => ComplainAnalysisForm(
+    bottomSheet: (cubit, patientModelToEdit, isEdit) => ComplainAnalysisForm(
       patientModelToEdit: patientModelToEdit,
       cubit: cubit,
 
       complainAnalysisCubit: ComplainAnalysisCubit(),
+      isEdit: isEdit,
     ),
   ),
   HistoryItemBuilder(
     title: "Past Medical History ",
     image: MyImages.pastHistory,
     color: ColorsPalette.lightGreen,
-    bottomSheet: (cubit, patientModelToEdit) => PastMedicalHistoryForm(
+    bottomSheet: (cubit, patientModelToEdit, isEdit) => PastMedicalHistoryForm(
       patientModelToEdit: patientModelToEdit,
       cubit: cubit,
       pastMedicalHistoryCubit: PastMedicalHistoryCubit(),
+      isEdit: isEdit,
     ),
   ),
   HistoryItemBuilder(
     title: "Therapeutic History",
     image: MyImages.therapeutic,
     color: ColorsPalette.brightYellow,
-    bottomSheet: (cubit, patientModelToEdit) => TnerapeuticHistoryForm(
+    bottomSheet: (cubit, patientModelToEdit, isEdit) => TnerapeuticHistoryForm(
       patientModelToEdit: patientModelToEdit,
       cubit: cubit,
       theraputicHistoryFormCubit: TheraputicHistoryFormCubit(),
+      isEdit: isEdit,
     ),
   ),
   HistoryItemBuilder(
     title: "Family History",
     image: MyImages.familyHistory,
     color: ColorsPalette.lightPurple,
-    bottomSheet: (cubit, patientModelToEdit) => FamilyHistoryForm(
+    bottomSheet: (cubit, patientModelToEdit, isEdit) => FamilyHistoryForm(
       patientModelToEdit: patientModelToEdit,
       cubit: cubit,
       familyHistoryFormCubit: FamilyHistoryFormCubit(),
+      isEdit: isEdit,
     ),
   ),
 ];
