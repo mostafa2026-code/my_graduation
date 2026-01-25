@@ -16,6 +16,7 @@ import 'package:my_graduation/features/presentation/patient_details/pages/patein
 import 'package:my_graduation/features/presentation/patients/pages/patients_home.dart';
 import 'package:my_graduation/features/presentation/profile/pages/profile_screen.dart';
 import 'package:my_graduation/features/presentation/q_and_a/pages/q_and_a_screen.dart';
+import 'package:my_graduation/features/presentation/search/pages/search_screen.dart';
 import 'package:my_graduation/features/presentation/splash/pages/splash_screen.dart';
 import 'package:my_graduation/features/presentation/settings/pages/settings_screen.dart';
 
@@ -65,6 +66,7 @@ class MyRoutes {
         ),
       ),
       GoRoute(path: main, builder: (context, state) => const MainScreen()),
+      GoRoute(path: search, builder: (context, state) => const SearchScreen()),
       GoRoute(path: home, builder: (context, state) => const HomeScreen()),
       GoRoute(
         path: patientsHome,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_graduation/core/functions/my_future_builder.dart';
 import 'package:my_graduation/core/lists/diseases_list.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
+import 'package:my_graduation/core/services/firebsase/firestore_helper.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -11,6 +13,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   String? selectedDisease;
+  String? sortBy;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text("Filter"),
+                              title: Text("Filter By Disease"),
                               content: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,6 +94,81 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Sort By"),
+                    Row(
+                      children: [
+                        Text("Name"),
+                        Checkbox.adaptive(
+                          value: sortBy == "name",
+                          onChanged: (value) {
+                            setState(() {
+                              if (value == true) {
+                                sortBy = "name";
+                              } else {
+                                sortBy = null;
+                              }
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text("Age"),
+                        Checkbox.adaptive(
+                          value: sortBy == "age",
+                          onChanged: (value) {
+                            setState(() {
+                              if (value == true) {
+                                sortBy = "age";
+                              } else {
+                                sortBy = null;
+                              }
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text("Latest Date"),
+                        Checkbox.adaptive(
+                          value: sortBy == "Latest Date",
+                          onChanged: (value) {
+                            setState(() {
+                              if (value == true) {
+                                sortBy = "Latest Date";
+                              } else {
+                                sortBy = null;
+                              }
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text("Oldest Date"),
+                        Checkbox.adaptive(
+                          value: sortBy == "Oldest Date",
+                          onChanged: (value) {
+                            setState(() {
+                              if (value == true) {
+                                sortBy = "Oldest Date";
+                              } else {
+                                sortBy = null;
+                              }
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                myFutureBuilder(future: FirestoreHelper.getAllPatient()),
               ],
             ),
           ),
