@@ -12,6 +12,7 @@ import 'package:my_graduation/core/navigation/my_routes.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/features/presentation/auth/register/cubit/register_cubit.dart';
 import 'package:my_graduation/features/presentation/auth/register/cubit/register_states.dart';
+import 'package:my_graduation/features/presentation/auth/login/widgets/social_bottons.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -66,14 +67,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const Text("Welcome to Dr.record"),
                 const Gap(10),
                 MyTextFeild(
-                  
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Name is required";
                     }
                     return null;
                   },
-                  
+
                   hint: "Enter your name",
                   controller: cubitReg.nameReg,
                 ),
@@ -116,6 +116,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       FocusScope.of(context).unfocus();
                       cubitReg.register();
                     }
+                  },
+                ),
+                const Gap(20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Expanded(child: Divider()),
+                    const Gap(5),
+                    const Text("or continue with"),
+                    const Gap(5),
+                    const Expanded(child: Divider()),
+                  ],
+                ),
+                const Gap(20),
+                SocialBottons(
+                  onGoogleTap: () {
+                    cubitReg.signUpWithGoogle();
+                  },
+                  onFacebookTap: () {
+                    cubitReg.signUpWithFacebook();
                   },
                 ),
               ],

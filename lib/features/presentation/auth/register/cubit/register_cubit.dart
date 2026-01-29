@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/core/services/shared_prefrences/shared_helper.dart';
 import 'package:my_graduation/features/data/models/doctors_model.dart';
 import 'package:my_graduation/features/presentation/auth/register/cubit/register_states.dart';
@@ -30,8 +31,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
             email: emailReg.text.trim(),
             name: nameReg.text.trim(),
             id: userCredential.user!.uid,
+
             // image: userCredential.user!.photoURL!,
-            
           ),
         );
         SharedHelper.saveIsLoggedIn();
@@ -42,6 +43,51 @@ class RegisterCubit extends Cubit<RegisterStates> {
       log(e.toString());
       emit(RegisterErrorState(e.toString()));
     }
+  }
+
+  signUpWithGoogle() async {
+    emit(RegisterLoadingState());
+    try {
+      UserCredential? response = await FirebaseHelper.signInWithGoogle();
+      if (response == null) {
+        emit(RegisterErrorState("Google Sign up failed or cancelled"));
+        return;
+      } else {
+        await _saveUser(response);
+      }
+    } on Exception catch (e) {
+      emit(RegisterErrorState(e.toString()));
+      log(e.toString());
+    }
+  }
+
+  signUpWithFacebook() async {
+    emit(RegisterLoadingState());
+    try {
+      UserCredential? response = await FirebaseHelper.signInWithFacebook();
+      if (response == null) {
+        emit(RegisterErrorState("Facebook Sign up failed or cancelled"));
+        return;
+      } else {
+        await _saveUser(response);
+      }
+    } on Exception catch (e) {
+      emit(RegisterErrorState(e.toString()));
+      log(e.toString());
+    }
+  }
+
+  Future<void> _saveUser(UserCredential response) async {
+    emit(RegisterSuccessState());
+    SharedHelper.saveDoctor(
+      DoctorsModel(
+        name: response.user!.displayName ?? "No Name",
+        email: response.user!.email ?? "No Email",
+        id: response.user!.uid,
+        image: response.user!.photoURL ?? "",
+      ),
+    );
+    SharedHelper.saveIsLoggedIn();
   }
 
   @override

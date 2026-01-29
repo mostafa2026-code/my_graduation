@@ -88,10 +88,17 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
 
                     children: [
-                     const Text("Forget your password?"),
-                      MyTextBottn(text: 'Reset', onTap: () {
-                        mypush(context, MyRoutes.verifyemailForResetPassword, null);
-                      }),
+                      const Text("Forget your password?"),
+                      MyTextBottn(
+                        text: 'Reset',
+                        onTap: () {
+                          mypush(
+                            context,
+                            MyRoutes.verifyemailForResetPassword,
+                            null,
+                          );
+                        },
+                      ),
                     ],
                   ),
                   const Gap(20),
@@ -112,9 +119,16 @@ class LoginScreen extends StatelessWidget {
                       const Expanded(child: Divider()),
                     ],
                   ),
-                 const  Gap(20),
+                  const Gap(20),
 
-                 const  SocialBottons(),
+                  SocialBottons(
+                    onGoogleTap: () {
+                      cubitLogin.loginWithGoogle();
+                    },
+                    onFacebookTap: () {
+                      cubitLogin.loginWithFacebook();
+                    },
+                  ),
                 ],
               ),
             ),

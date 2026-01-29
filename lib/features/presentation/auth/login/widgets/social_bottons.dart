@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:my_graduation/core/const/my_images.dart';
-import 'package:my_graduation/features/presentation/auth/login/cubit/login_cubit.dart';
 
 class SocialBottons extends StatelessWidget {
-  const SocialBottons({super.key});
+  final VoidCallback onGoogleTap;
+  final VoidCallback onFacebookTap;
+
+  const SocialBottons({
+    super.key,
+    required this.onGoogleTap,
+    required this.onFacebookTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +23,9 @@ class SocialBottons extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             if (index == 0) {
-              context.read<LoginCubit>().loginWithGoogle();
+              onGoogleTap();
             } else if (index == 1) {
-              context.read<LoginCubit>().loginWithFacebook();
+              onFacebookTap();
             }
           },
           child: CircleAvatar(
