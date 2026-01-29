@@ -60,22 +60,6 @@ class LoginCubit extends Cubit<LoginStates> {
     }
   }
 
-  loginWithFacebook() async {
-    emit(LoginLoadingState());
-    try {
-      UserCredential? response = await FirebaseHelper.signInWithFacebook();
-      if (response == null) {
-        emit(LoginErrorState("Facebook Sign in failed or cancelled"));
-        return;
-      } else {
-        await _saveUser(response);
-      }
-    } on Exception catch (e) {
-      emit(LoginErrorState(e.toString()));
-      log(e.toString());
-    }
-  }
-
   Future<void> _saveUser(UserCredential response) async {
     emit(LoginSuccessState());
     SharedHelper.saveDoctor(

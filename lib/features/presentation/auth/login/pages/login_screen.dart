@@ -125,9 +125,6 @@ class LoginScreen extends StatelessWidget {
                     onGoogleTap: () {
                       cubitLogin.loginWithGoogle();
                     },
-                    onFacebookTap: () {
-                      cubitLogin.loginWithFacebook();
-                    },
                   ),
                 ],
               ),

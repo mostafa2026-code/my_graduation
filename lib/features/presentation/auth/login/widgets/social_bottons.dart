@@ -6,13 +6,8 @@ import 'package:my_graduation/core/const/my_images.dart';
 
 class SocialBottons extends StatelessWidget {
   final VoidCallback onGoogleTap;
-  final VoidCallback onFacebookTap;
 
-  const SocialBottons({
-    super.key,
-    required this.onGoogleTap,
-    required this.onFacebookTap,
-  });
+  const SocialBottons({super.key, required this.onGoogleTap});
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +17,7 @@ class SocialBottons extends StatelessWidget {
       children: List.generate(MyImages.socialImages.length, (index) {
         return GestureDetector(
           onTap: () {
-            if (index == 0) {
-              onGoogleTap();
-            } else if (index == 1) {
-              onFacebookTap();
-            }
+            onGoogleTap();
           },
           child: CircleAvatar(
             radius: 30,

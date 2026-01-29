@@ -134,9 +134,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   onGoogleTap: () {
                     cubitReg.signUpWithGoogle();
                   },
-                  onFacebookTap: () {
-                    cubitReg.signUpWithFacebook();
-                  },
                 ),
               ],
             ),

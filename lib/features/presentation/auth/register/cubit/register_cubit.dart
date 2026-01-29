@@ -61,22 +61,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
     }
   }
 
-  signUpWithFacebook() async {
-    emit(RegisterLoadingState());
-    try {
-      UserCredential? response = await FirebaseHelper.signInWithFacebook();
-      if (response == null) {
-        emit(RegisterErrorState("Facebook Sign up failed or cancelled"));
-        return;
-      } else {
-        await _saveUser(response);
-      }
-    } on Exception catch (e) {
-      emit(RegisterErrorState(e.toString()));
-      log(e.toString());
-    }
-  }
-
   Future<void> _saveUser(UserCredential response) async {
     emit(RegisterSuccessState());
     SharedHelper.saveDoctor(
