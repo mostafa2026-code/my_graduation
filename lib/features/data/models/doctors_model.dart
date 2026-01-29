@@ -10,7 +10,7 @@ class DoctorsModel {
   String? position;
   String? qualification;
   String? about;
-  String? patientsIds;
+  List<String>? patientsIds;
   double? salary;
   String? fromHour;
   String? toHour;
@@ -45,7 +45,9 @@ class DoctorsModel {
     position = json['position'];
     qualification = json['qualification'];
     about = json['about'];
-    patientsIds = json['patientsIds'];
+    patientsIds = json['patientsIds'] != null
+        ? List<String>.from(json['patientsIds'])
+        : null;
     salary = json['salary'];
     fromHour = json['fromHour'];
     toHour = json['toHour'];
@@ -85,7 +87,7 @@ class DoctorsModel {
     String? position,
     String? qualification,
     String? about,
-    String? patientsIds,
+    List<String>? patientsIds,
     double? salary,
     String? fromHour,
     String? toHour,
