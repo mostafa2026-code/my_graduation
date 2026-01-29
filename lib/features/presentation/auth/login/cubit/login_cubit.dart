@@ -44,8 +44,50 @@ class LoginCubit extends Cubit<LoginStates> {
     }
   }
 
-  loginWithGoogle() {}
+  loginWithGoogle() async {
+    emit(LoginLoadingState());
+    try {
+      UserCredential? response = await FirebaseHelper.signInWithGoogle();
+      if (response == null) {
+        emit(LoginErrorState("Google Sign in failed or cancelled"));
+        return;
+      } else {
+        await _saveUser(response);
+      }
+    } on Exception catch (e) {
+      emit(LoginErrorState(e.toString()));
+      log(e.toString());
+    }
+  }
 
+  loginWithFacebook() async {
+    emit(LoginLoadingState());
+    try {
+      UserCredential? response = await FirebaseHelper.signInWithFacebook();
+      if (response == null) {
+        emit(LoginErrorState("Facebook Sign in failed or cancelled"));
+        return;
+      } else {
+        await _saveUser(response);
+      }
+    } on Exception catch (e) {
+      emit(LoginErrorState(e.toString()));
+      log(e.toString());
+    }
+  }
+
+  Future<void> _saveUser(UserCredential response) async {
+    emit(LoginSuccessState());
+    SharedHelper.saveDoctor(
+      DoctorsModel(
+        name: response.user!.displayName ?? "No Name",
+        email: response.user!.email ?? "No Email",
+        id: response.user!.uid,
+        image: response.user!.photoURL ?? "",
+      ),
+    );
+    SharedHelper.saveIsLoggedIn();
+  }
 
   // logout() {
   //   emit(loadin());

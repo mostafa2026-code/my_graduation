@@ -5,7 +5,6 @@ import 'package:lottie/lottie.dart';
 import 'package:my_graduation/component/patients_list_view.dart';
 import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
-import 'package:my_graduation/main.dart';
 
 StreamBuilder<QuerySnapshot<Map<String, dynamic>>> myStreamBuilder({
   required Stream<QuerySnapshot<Map<String, dynamic>>> stream,

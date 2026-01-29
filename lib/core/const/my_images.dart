@@ -21,5 +21,5 @@ class MyImages {
 
   static const String presentillness = "assets/images/presentillnes.png";
 
-  static final List<String> socialImages = [google, facebook, twitter];
+  static final List<String> socialImages = [google, facebook];
 }
