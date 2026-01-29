@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:my_graduation/core/cubits/theme_cubit.dart';
 import 'package:my_graduation/component/my_main_botton.dart';
 import 'package:my_graduation/component/my_text_feild.dart';
 import 'package:my_graduation/core/const/my_images.dart';
@@ -65,6 +67,18 @@ class _AddEditPatientState extends State<AddEditPatient> {
           isEdit ? "Edit Patient" : "Add Patient",
           style: MyTextStyles.appBarTitle,
         ),
+        actions: [
+          BlocBuilder<ThemeCubit, bool>(
+            builder: (context, isDark) {
+              return IconButton(
+                icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+                onPressed: () {
+                  context.read<ThemeCubit>().toggleTheme();
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -162,13 +176,13 @@ class HistoryItemBuilder {
     PatientModel? patientModelToEdit,
     bool isEdit,
   )
-  bottomSheet;
+  buildForm;
 
   HistoryItemBuilder({
     required this.title,
     required this.image,
     required this.color,
-    required this.bottomSheet,
+    required this.buildForm,
   });
 }
 
@@ -188,7 +202,7 @@ List<HistoryItemBuilder> historyCardList = [
     title: "Personal History",
     image: MyImages.personalHistory,
     color: ColorsPalette.lightBlue,
-    bottomSheet: (cubit, patientModelToEdit, isEdit) => PersonalHistoryForm(
+    buildForm: (cubit, patientModelToEdit, isEdit) => PersonalHistoryForm(
       cubit: cubit,
       formCubit: PersonalHistoryFormCubit(),
       patientModelToedit: patientModelToEdit,
@@ -199,7 +213,7 @@ List<HistoryItemBuilder> historyCardList = [
     title: "History of Present Illness",
     image: MyImages.presentillness,
     color: ColorsPalette.lightPurple,
-    bottomSheet: (cubit, patientModelToEdit, isEdit) => ComplainAnalysisForm(
+    buildForm: (cubit, patientModelToEdit, isEdit) => ComplainAnalysisForm(
       patientModelToEdit: patientModelToEdit,
       cubit: cubit,
 
@@ -211,7 +225,7 @@ List<HistoryItemBuilder> historyCardList = [
     title: "Past Medical History ",
     image: MyImages.pastHistory,
     color: ColorsPalette.lightGreen,
-    bottomSheet: (cubit, patientModelToEdit, isEdit) => PastMedicalHistoryForm(
+    buildForm: (cubit, patientModelToEdit, isEdit) => PastMedicalHistoryForm(
       patientModelToEdit: patientModelToEdit,
       cubit: cubit,
       pastMedicalHistoryCubit: PastMedicalHistoryCubit(),
@@ -222,7 +236,7 @@ List<HistoryItemBuilder> historyCardList = [
     title: "Therapeutic History",
     image: MyImages.therapeutic,
     color: ColorsPalette.brightYellow,
-    bottomSheet: (cubit, patientModelToEdit, isEdit) => TnerapeuticHistoryForm(
+    buildForm: (cubit, patientModelToEdit, isEdit) => TnerapeuticHistoryForm(
       patientModelToEdit: patientModelToEdit,
       cubit: cubit,
       theraputicHistoryFormCubit: TheraputicHistoryFormCubit(),
@@ -233,7 +247,7 @@ List<HistoryItemBuilder> historyCardList = [
     title: "Family History",
     image: MyImages.familyHistory,
     color: ColorsPalette.lightPurple,
-    bottomSheet: (cubit, patientModelToEdit, isEdit) => FamilyHistoryForm(
+    buildForm: (cubit, patientModelToEdit, isEdit) => FamilyHistoryForm(
       patientModelToEdit: patientModelToEdit,
       cubit: cubit,
       familyHistoryFormCubit: FamilyHistoryFormCubit(),

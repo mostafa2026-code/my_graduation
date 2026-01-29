@@ -69,7 +69,10 @@ class _TnerapeuticHistoryFormState extends State<TnerapeuticHistoryForm> {
           }
           if (state is AddEditPatientSuccess) {
             mypop(context);
-            massageDialog(context, "Personal History saved successfully");
+            massageDialog(
+              context,
+              "Therapeutic History saved successfully",
+            ).then((value) => mypop(context));
           }
           if (state is AddEditPatientFailure) {
             mypop(context);

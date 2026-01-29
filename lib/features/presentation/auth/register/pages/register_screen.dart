@@ -47,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             mypop(context);
             isDialogShowing = false;
           }
-          mygo(context, MyRoutes.main, null);
+          mygo(context, MyRoutes.doctorInfo, null);
         } else if (state is RegisterErrorState) {
           if (isDialogShowing) {
             mypop(context);

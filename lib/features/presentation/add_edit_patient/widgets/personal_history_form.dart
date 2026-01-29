@@ -23,7 +23,8 @@ class PersonalHistoryForm extends StatefulWidget {
     required this.cubit,
 
     required this.formCubit,
-    this.patientModelToedit, required this.isEdit,
+    this.patientModelToedit,
+    required this.isEdit,
   });
   final PersonalHistoryFormCubit formCubit;
   final PatientModel? patientModelToedit;
@@ -78,7 +79,10 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
           }
           if (state is AddEditPatientSuccess) {
             mypop(context);
-            massageDialog(context, "Personal History saved successfully");
+            massageDialog(
+              context,
+              "Personal History saved successfully",
+            ).then((value) => mypop(context));
           }
           if (state is AddEditPatientFailure) {
             mypop(context);

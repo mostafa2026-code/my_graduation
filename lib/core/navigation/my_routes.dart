@@ -5,7 +5,9 @@ import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_e
 import 'package:my_graduation/features/presentation/add_edit_patient/pages/add_edit_patient.dart';
 import 'package:my_graduation/features/presentation/auth/login/pages/login_screen.dart';
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_cubit.dart';
+import 'package:my_graduation/features/presentation/auth/register/cubit/doctor_info_cubit.dart';
 import 'package:my_graduation/features/presentation/auth/register/cubit/register_cubit.dart';
+import 'package:my_graduation/features/presentation/auth/register/pages/doctor_info_screen.dart';
 import 'package:my_graduation/features/presentation/auth/register/pages/register_screen.dart';
 import 'package:my_graduation/features/presentation/auth/reset_password/pages/reset_password.dart';
 import 'package:my_graduation/features/presentation/auth/reset_password/pages/verify_email_for_reset_password.dart';
@@ -42,6 +44,7 @@ class MyRoutes {
   static const String verifyemailForResetPassword =
       '/verifyemailForResetPassword';
   static const String patientsByDisease = '/patientsByDisease';
+  static const String doctorInfo = '/doctorInfo';
 
   static final GoRouter routes = GoRouter(
     initialLocation: splash,
@@ -63,6 +66,15 @@ class MyRoutes {
             return RegisterCubit();
           },
           child: const RegisterScreen(),
+        ),
+      ),
+      GoRoute(
+        path: doctorInfo,
+        builder: (context, state) => BlocProvider(
+          create: (context) {
+            return DoctorInfoCubit();
+          },
+          child: const DoctorInfoScreen(),
         ),
       ),
       GoRoute(path: main, builder: (context, state) => const MainScreen()),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/core/utils/my_text_styles.dart';
 
 class MyChip extends StatefulWidget {
@@ -24,14 +23,12 @@ class _MyChipState extends State<MyChip> {
     return FilterChip(
       onSelected: widget.onselected,
       selected: widget.isSelected,
-      selectedColor: MyColors.primary,
+      selectedColor: Theme.of(context).primaryColor,
       checkmarkColor: Colors.white,
-
-      backgroundColor: Color(0xFFF5F5F5),
       label: Text(widget.label, style: MyTextStyles.chipText),
       labelStyle: widget.isSelected
           ? MyTextStyles.chipText.copyWith(color: Colors.white)
-          : MyTextStyles.chipText,
+          : null,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     );
   }

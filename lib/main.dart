@@ -7,6 +7,10 @@ import 'package:my_graduation/core/services/shared_prefrences/shared_helper.dart
 import 'package:my_graduation/features/data/models/doctors_model.dart';
 import 'package:my_graduation/firebase_options.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_graduation/core/cubits/theme_cubit.dart';
+import 'package:my_graduation/core/utils/app_theme.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -23,9 +27,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: MyRoutes.routes,
-      debugShowCheckedModeBanner: false,
+    return BlocProvider(
+      create: (context) => ThemeCubit(),
+      child: BlocBuilder<ThemeCubit, bool>(
+        builder: (context, isDark) {
+          return MaterialApp.router(
+            routerConfig: MyRoutes.routes,
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+          );
+        },
+      ),
     );
   }
 }

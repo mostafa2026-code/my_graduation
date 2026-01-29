@@ -18,8 +18,9 @@ class MyListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(title, style: MyTextStyles.listTileTitle),
-      leading: Icon(icon),
+      leading: Icon(icon, color: Theme.of(context).primaryColor),
       onTap: ontap,
+      trailing: trailing,
     );
   }
 }

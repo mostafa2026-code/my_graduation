@@ -24,18 +24,15 @@ class RegisterCubit extends Cubit<RegisterStates> {
       );
       if (userCredential.user != null) {
         await userCredential.user!.updateDisplayName(nameReg.text.trim());
-
-        emit(RegisterSuccessState());
         SharedHelper.saveDoctor(
           DoctorsModel(
             email: emailReg.text.trim(),
             name: nameReg.text.trim(),
             id: userCredential.user!.uid,
-
-            // image: userCredential.user!.photoURL!,
           ),
         );
         SharedHelper.saveIsLoggedIn();
+        emit(RegisterSuccessState());
       } else {
         emit(RegisterErrorState("Error in Register"));
       }
@@ -62,7 +59,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
   }
 
   Future<void> _saveUser(UserCredential response) async {
-    emit(RegisterSuccessState());
     SharedHelper.saveDoctor(
       DoctorsModel(
         name: response.user!.displayName ?? "No Name",
@@ -72,6 +68,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
       ),
     );
     SharedHelper.saveIsLoggedIn();
+    emit(RegisterSuccessState());
   }
 
   @override

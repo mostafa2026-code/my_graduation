@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_graduation/core/cubits/theme_cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -6,34 +8,37 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Settings'), centerTitle: true),
       body: ListView(
         children: [
           _buildSettingsItem(
             context,
             icon: Icons.person_outline,
             title: 'Account',
-            onTap: () {
-
-            },
+            onTap: () {},
           ),
           _buildSettingsItem(
             context,
             icon: Icons.notifications_outlined,
             title: 'Notifications',
-            onTap: () {
-
-            },
+            onTap: () {},
           ),
           _buildSettingsItem(
             context,
             icon: Icons.language,
             title: 'Language',
-            onTap: () {
-
+            onTap: () {},
+          ),
+          BlocBuilder<ThemeCubit, bool>(
+            builder: (context, isDark) {
+              return SwitchListTile(
+                secondary: Icon(isDark ? Icons.dark_mode : Icons.light_mode),
+                title: const Text('Dark Mode'),
+                value: isDark,
+                onChanged: (value) {
+                  context.read<ThemeCubit>().toggleTheme();
+                },
+              );
             },
           ),
           const Divider(),
@@ -41,17 +46,13 @@ class SettingsScreen extends StatelessWidget {
             context,
             icon: Icons.help_outline,
             title: 'Help & Support',
-            onTap: () {
-
-            },
+            onTap: () {},
           ),
           _buildSettingsItem(
             context,
             icon: Icons.info_outline,
             title: 'About',
-            onTap: () {
-
-            },
+            onTap: () {},
           ),
         ],
       ),
@@ -72,5 +73,3 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 }
-
-

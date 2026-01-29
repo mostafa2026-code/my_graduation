@@ -34,23 +34,37 @@ class HistoryGridView extends StatelessWidget {
 
         return GestureDetector(
           onTap: () async {
-            await showModalBottomSheet(
-              showDragHandle: true,
-              isScrollControlled: true,
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    Scaffold(
+                      appBar: AppBar(title: Text(model.title)),
+                      body: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: model.buildForm(
+                          cubit,
+                          patientModelToEdit,
+                          isEdit,
+                        ),
+                      ),
+                    ),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                      const begin = Offset(1.0, 0.0);
+                      const end = Offset.zero;
+                      const curve = Curves.easeInOut;
 
-              useSafeArea: true,
-              isDismissible: true,
-              sheetAnimationStyle: AnimationStyle(
-                curve: Curves.bounceInOut,
-                duration: const Duration(milliseconds: 200),
+                      var tween = Tween(
+                        begin: begin,
+                        end: end,
+                      ).chain(CurveTween(curve: curve));
+
+                      return SlideTransition(
+                        position: animation.drive(tween),
+                        child: child,
+                      );
+                    },
               ),
-
-              context: context,
-              builder: (context) {
-                return SafeArea(
-                  child: model.bottomSheet(cubit, patientModelToEdit, isEdit),
-                );
-              },
             );
           },
           child: HistoryCards(model: model, cubit: cubit),

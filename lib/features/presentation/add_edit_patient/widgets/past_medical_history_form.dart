@@ -76,7 +76,10 @@ class _PastMedicalHistoryFormState extends State<PastMedicalHistoryForm> {
           }
           if (state is AddEditPatientSuccess) {
             mypop(context);
-            massageDialog(context, "Personal History saved successfully");
+            massageDialog(
+              context,
+              "Past Medical History saved successfully",
+            ).then((value) => mypop(context));
           }
           if (state is AddEditPatientFailure) {
             mypop(context);

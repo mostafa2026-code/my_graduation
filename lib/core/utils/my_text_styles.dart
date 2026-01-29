@@ -8,7 +8,6 @@ class MyTextStyles {
     fontSize: 57,
     fontWeight: FontWeight.w700,
     letterSpacing: -0.25,
-    color: MyColors.textPrimary,
     height: 1.12,
   );
 
@@ -16,7 +15,6 @@ class MyTextStyles {
     fontSize: 45,
     fontWeight: FontWeight.w700,
     letterSpacing: 0,
-    color: MyColors.textPrimary,
     height: 1.16,
   );
 
@@ -24,7 +22,6 @@ class MyTextStyles {
     fontSize: 36,
     fontWeight: FontWeight.w600,
     letterSpacing: 0,
-    color: MyColors.textPrimary,
     height: 1.22,
   );
 
@@ -32,7 +29,6 @@ class MyTextStyles {
     fontSize: 32,
     fontWeight: FontWeight.w700,
     letterSpacing: 0,
-    color: MyColors.textPrimary,
     height: 1.25,
   );
 
@@ -40,7 +36,6 @@ class MyTextStyles {
     fontSize: 28,
     fontWeight: FontWeight.w700,
     letterSpacing: 0,
-    color: MyColors.textPrimary,
     height: 1.29,
   );
 
@@ -48,7 +43,6 @@ class MyTextStyles {
     fontSize: 24,
     fontWeight: FontWeight.w600,
     letterSpacing: 0,
-    color: MyColors.textPrimary,
     height: 1.33,
   );
 
@@ -56,7 +50,6 @@ class MyTextStyles {
     fontSize: 22,
     fontWeight: FontWeight.w600,
     letterSpacing: 0,
-    color: MyColors.textPrimary,
     height: 1.27,
   );
 
@@ -64,7 +57,6 @@ class MyTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.15,
-    color: MyColors.textPrimary,
     height: 1.5,
   );
 
@@ -72,7 +64,6 @@ class MyTextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.1,
-    color: MyColors.textPrimary,
     height: 1.43,
   );
 
@@ -80,7 +71,6 @@ class MyTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.5,
-    color: MyColors.textPrimary,
     height: 1.5,
   );
 
@@ -88,7 +78,6 @@ class MyTextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.25,
-    color: MyColors.textPrimary,
     height: 1.43,
   );
 
@@ -104,7 +93,6 @@ class MyTextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.1,
-    color: MyColors.textPrimary,
     height: 1.43,
   );
 
@@ -152,7 +140,6 @@ class MyTextStyles {
     fontSize: 20,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.15,
-    color: MyColors.textPrimary,
     height: 1.4,
   );
 
@@ -160,7 +147,6 @@ class MyTextStyles {
     fontSize: 20,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.15,
-    color: MyColors.textPrimary,
     height: 1.4,
   );
 
@@ -192,7 +178,6 @@ class MyTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.5,
-    color: MyColors.textPrimary,
     height: 1.5,
   );
 
@@ -208,7 +193,6 @@ class MyTextStyles {
     fontSize: 18,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.15,
-    color: MyColors.textPrimary,
     height: 1.44,
   );
 
@@ -224,7 +208,6 @@ class MyTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.15,
-    color: MyColors.textPrimary,
     height: 1.5,
   );
 
@@ -240,7 +223,6 @@ class MyTextStyles {
     fontSize: 20,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.15,
-    color: MyColors.textPrimary,
     height: 1.4,
   );
 
@@ -248,7 +230,6 @@ class MyTextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.25,
-    color: MyColors.textPrimary,
     height: 1.43,
   );
 
@@ -256,7 +237,6 @@ class MyTextStyles {
     fontSize: 13,
     fontWeight: FontWeight.w500,
     letterSpacing: 0.1,
-    color: MyColors.textPrimary,
     height: 1.38,
   );
 
@@ -264,7 +244,6 @@ class MyTextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.1,
-    color: MyColors.textPrimary,
     height: 1.43,
   );
 

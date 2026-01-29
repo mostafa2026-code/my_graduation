@@ -24,8 +24,8 @@ class ComplainAnalysisForm extends StatefulWidget {
     required this.cubit,
 
     required this.complainAnalysisCubit,
-    this.patientModelToEdit, required this.isEdit,
-    
+    this.patientModelToEdit,
+    required this.isEdit,
   });
 
   final ComplainAnalysisCubit complainAnalysisCubit;
@@ -79,7 +79,11 @@ class _ComplainAnalysisFormState extends State<ComplainAnalysisForm> {
           }
           if (state is AddEditPatientSuccess) {
             mypop(context);
-            massageDialog(context, "Personal History saved successfully");
+            massageDialog(
+              context,
+              "Complain Analysis saved successfully",
+            // ignore: use_build_context_synchronously
+            ).then((value) => mypop(context));
           }
           if (state is AddEditPatientFailure) {
             mypop(context);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/core/utils/my_text_styles.dart';
 
 class MyTextFeild extends StatelessWidget {
@@ -38,25 +37,11 @@ class MyTextFeild extends StatelessWidget {
       style: MyTextStyles.inputText,
       decoration: InputDecoration(
         filled: true,
-        fillColor: MyColors.textFieldText.withAlpha(60),
         hintText: hint,
         hintStyle: MyTextStyles.hintText,
         errorStyle: MyTextStyles.errorText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          borderSide: BorderSide(color: Colors.grey),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          borderSide: BorderSide(color: MyColors.primary),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          borderSide: BorderSide(color: Colors.grey),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          borderSide: BorderSide(color: Colors.red),
         ),
       ),
     );

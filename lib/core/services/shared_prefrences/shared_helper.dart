@@ -7,6 +7,7 @@ class SharedHelper {
   static late final SharedPreferences sharedPreferences;
   static const String kDocror = "doctor";
   static const String kisLoggedIn = "isLoggedIn";
+  static const String kThemeMode = "themeMode";
 
   static init() async {
     sharedPreferences = await SharedPreferences.getInstance();
@@ -35,5 +36,13 @@ class SharedHelper {
       return doctor;
     }
     return null;
+  }
+
+  static Future<void> saveThemeMode(bool isDark) async {
+    await sharedPreferences.setBool(kThemeMode, isDark);
+  }
+
+  static bool getThemeMode() {
+    return sharedPreferences.getBool(kThemeMode) ?? false;
   }
 }
