@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_graduation/core/utils/my_colors.dart';
+import 'package:my_graduation/core/utils/my_text_styles.dart';
 
 class MyTextBottn extends StatelessWidget {
   final String text;
@@ -10,7 +10,7 @@ class MyTextBottn extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onTap,
-      child: Text(text, style: TextStyle(color: MyColors.button)),
+      child: Text(text, style: MyTextStyles.textButton),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:my_graduation/core/functions/my_future_builder.dart';
 import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/core/services/firebsase/firestore_helper.dart';
+import 'package:my_graduation/core/utils/my_text_styles.dart';
 import 'package:my_graduation/features/presentation/home/widgets/disease_category_list_view.dart';
 import 'package:my_graduation/features/presentation/home/widgets/my_drawer.dart';
 
@@ -34,9 +35,12 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Gap(24),
-                Text("Welcome Doctor ${FirebaseHelper.getUserName() ?? ''}!"),
+                Text(
+                  "Welcome Doctor ${FirebaseHelper.getUserName() ?? ''}!",
+                  style: MyTextStyles.welcomeText,
+                ),
                 const Gap(24),
-                Text('Diseaes Categories', style: headlineTextStyle()),
+                Text('Diseaes Categories', style: MyTextStyles.headlineSmall),
                 const Gap(16),
 
                 SizedBox(
@@ -44,7 +48,7 @@ class HomeScreen extends StatelessWidget {
                   child: DiseaseCategoryListView(),
                 ),
                 const Gap(24),
-                Text("Undiagnosed Cases", style: headlineTextStyle()),
+                Text("Undiagnosed Cases", style: MyTextStyles.headlineSmall),
                 const Gap(16),
                 myStreamBuilder(
                   stream: FirestoreHelper.getPatientWithoutDiagnosis(),
@@ -56,9 +60,6 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-  TextStyle headlineTextStyle() =>
-      TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 }
 
 class DrawerItemModel {

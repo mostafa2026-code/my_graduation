@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
+import 'package:my_graduation/core/utils/my_text_styles.dart';
 import 'package:my_graduation/core/navigation/my_routes.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
@@ -39,11 +39,11 @@ class PatientCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name),
+                  Text(name, style: MyTextStyles.cardTitle),
 
-                  Text("ID: $id"),
+                  Text("ID: $id", style: MyTextStyles.cardSubtitle),
                   Gap(8),
-                  Text(diagnosis),
+                  Text(diagnosis, style: MyTextStyles.bodyMedium),
                   Gap(8),
                 ],
               ),

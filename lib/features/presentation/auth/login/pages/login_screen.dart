@@ -11,6 +11,7 @@ import 'package:my_graduation/core/dialogs/error_dialog.dart';
 import 'package:my_graduation/core/dialogs/loading_dialog.dart';
 import 'package:my_graduation/core/navigation/my_routes.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
+import 'package:my_graduation/core/utils/my_text_styles.dart';
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:my_graduation/features/presentation/auth/login/cubit/login_states.dart';
 import 'package:my_graduation/features/presentation/auth/login/widgets/social_bottons.dart';
@@ -37,7 +38,7 @@ class LoginScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("login"),
+          title: Text("Login", style: MyTextStyles.appBarTitle),
           // automaticallyImplyLeading: false,
 
           // title: SvgPicture.asset(MyImages.logo, height: 10),
@@ -53,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   Center(child: SvgPicture.asset(MyImages.doctor, height: 150)),
                   const Gap(20),
-                  Text("Welcome Back"),
+                  Text("Welcome Back", style: MyTextStyles.headlineMedium),
                   const Gap(10),
                   MyTextFeild(
                     validator: (value) {
@@ -88,7 +89,10 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
 
                     children: [
-                      const Text("Forget your password?"),
+                      Text(
+                        "Forget your password?",
+                        style: MyTextStyles.bodyMedium,
+                      ),
                       MyTextBottn(
                         text: 'Reset',
                         onTap: () {
@@ -114,7 +118,7 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       const Expanded(child: Divider()),
                       const Gap(5),
-                      const Text("or continue with"),
+                      Text("or continue with", style: MyTextStyles.dividerText),
                       const Gap(5),
                       const Expanded(child: Divider()),
                     ],
@@ -137,7 +141,7 @@ class LoginScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Don't have an account?"),
+                Text("Don't have an account?", style: MyTextStyles.bodyMedium),
                 MyTextBottn(
                   text: 'Sign Up',
                   onTap: () {

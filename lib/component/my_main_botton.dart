@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
+import 'package:my_graduation/core/utils/my_text_styles.dart';
 
 class MyMainBotton extends StatelessWidget {
   final String title;
@@ -23,7 +24,7 @@ class MyMainBotton extends StatelessWidget {
         backgroundColor: MyColors.button,
         minimumSize: Size(width ?? double.infinity, height ?? 50),
       ),
-      child: Text(title, style: TextStyle(color: Colors.white)),
+      child: Text(title, style: MyTextStyles.buttonLarge),
     );
   }
 }

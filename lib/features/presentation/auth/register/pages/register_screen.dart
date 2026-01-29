@@ -10,6 +10,7 @@ import 'package:my_graduation/core/dialogs/error_dialog.dart';
 import 'package:my_graduation/core/dialogs/loading_dialog.dart';
 import 'package:my_graduation/core/navigation/my_routes.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
+import 'package:my_graduation/core/utils/my_text_styles.dart';
 import 'package:my_graduation/features/presentation/auth/register/cubit/register_cubit.dart';
 import 'package:my_graduation/features/presentation/auth/register/cubit/register_states.dart';
 import 'package:my_graduation/features/presentation/auth/login/widgets/social_bottons.dart';
@@ -56,7 +57,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: Text("Register")),
+        appBar: AppBar(
+          title: Text("Register", style: MyTextStyles.appBarTitle),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Form(
@@ -64,7 +67,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Welcome to Dr.record"),
+                Text(
+                  "Welcome to Dr.record",
+                  style: MyTextStyles.headlineMedium,
+                ),
                 const Gap(10),
                 MyTextFeild(
                   validator: (value) {
@@ -124,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     const Expanded(child: Divider()),
                     const Gap(5),
-                    const Text("or continue with"),
+                    Text("or continue with", style: MyTextStyles.dividerText),
                     const Gap(5),
                     const Expanded(child: Divider()),
                   ],
@@ -142,7 +148,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         bottomNavigationBar: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Already have an account?"),
+            Text("Already have an account?", style: MyTextStyles.bodyMedium),
             MyTextBottn(
               text: "Login",
               onTap: () {

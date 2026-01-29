@@ -4,6 +4,7 @@ import 'package:my_graduation/component/my_main_botton.dart';
 import 'package:my_graduation/component/my_text_feild.dart';
 import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/core/lists/diseases_list.dart';
+import 'package:my_graduation/core/utils/my_text_styles.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/complain_analysis_cubit.dart';
@@ -59,7 +60,12 @@ class _AddEditPatientState extends State<AddEditPatient> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(isEdit ? "Edit Patient" : "Add Patient")),
+      appBar: AppBar(
+        title: Text(
+          isEdit ? "Edit Patient" : "Add Patient",
+          style: MyTextStyles.appBarTitle,
+        ),
+      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SafeArea(

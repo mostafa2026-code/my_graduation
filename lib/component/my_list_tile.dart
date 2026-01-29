@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_graduation/core/utils/my_text_styles.dart';
 
 class MyListTile extends StatelessWidget {
   final String title;
@@ -15,6 +16,10 @@ class MyListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(title: Text(title), leading: Icon(icon), onTap: ontap);
+    return ListTile(
+      title: Text(title, style: MyTextStyles.listTileTitle),
+      leading: Icon(icon),
+      onTap: ontap,
+    );
   }
 }

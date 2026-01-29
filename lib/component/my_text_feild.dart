@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
+import 'package:my_graduation/core/utils/my_text_styles.dart';
 
 class MyTextFeild extends StatelessWidget {
   final String hint;
@@ -20,7 +21,7 @@ class MyTextFeild extends StatelessWidget {
     this.maxline,
     this.textInputAction,
     this.focusNode,
-    this.ontap
+    this.ontap,
   });
 
   @override
@@ -34,10 +35,13 @@ class MyTextFeild extends StatelessWidget {
       controller: controller,
       focusNode: focusNode,
       onTap: ontap,
+      style: MyTextStyles.inputText,
       decoration: InputDecoration(
         filled: true,
         fillColor: MyColors.textFieldText.withAlpha(60),
         hintText: hint,
+        hintStyle: MyTextStyles.hintText,
+        errorStyle: MyTextStyles.errorText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           borderSide: BorderSide(color: Colors.grey),
