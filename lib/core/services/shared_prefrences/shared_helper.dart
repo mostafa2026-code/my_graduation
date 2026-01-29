@@ -8,6 +8,7 @@ class SharedHelper {
   static const String kDocror = "doctor";
   static const String kisLoggedIn = "isLoggedIn";
   static const String kThemeMode = "themeMode";
+  static const String kOnboarding = "onboarding";
 
   static init() async {
     sharedPreferences = await SharedPreferences.getInstance();
@@ -24,8 +25,16 @@ class SharedHelper {
     sharedPreferences.setBool(kisLoggedIn, true);
   }
 
-  static isLoggedIn() {
-    sharedPreferences.getBool(kisLoggedIn);
+  static bool isLoggedIn() {
+    return sharedPreferences.getBool(kisLoggedIn) ?? false;
+  }
+
+  static saveOnboardingDone() {
+    sharedPreferences.setBool(kOnboarding, true);
+  }
+
+  static bool isOnboardingDone() {
+    return sharedPreferences.getBool(kOnboarding) ?? false;
   }
 
   static DoctorsModel? getUserInfo() {

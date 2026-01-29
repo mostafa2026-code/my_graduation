@@ -14,6 +14,7 @@ import 'package:my_graduation/features/presentation/auth/reset_password/pages/ve
 import 'package:my_graduation/features/presentation/home/pages/home_screen.dart';
 import 'package:my_graduation/features/presentation/home/pages/main_screen.dart';
 import 'package:my_graduation/features/presentation/home/pages/patients_by_disease_screen.dart';
+import 'package:my_graduation/features/presentation/onboarding/pages/onboarding_screen.dart';
 import 'package:my_graduation/features/presentation/patient_details/pages/pateint_details.dart';
 import 'package:my_graduation/features/presentation/patients/pages/patients_home.dart';
 import 'package:my_graduation/features/presentation/profile/pages/profile_screen.dart';
@@ -21,6 +22,7 @@ import 'package:my_graduation/features/presentation/q_and_a/pages/q_and_a_screen
 import 'package:my_graduation/features/presentation/search/pages/search_screen.dart';
 import 'package:my_graduation/features/presentation/splash/pages/splash_screen.dart';
 import 'package:my_graduation/features/presentation/settings/pages/settings_screen.dart';
+import 'package:my_graduation/features/presentation/welcome/pages/welcome_screen.dart';
 
 class MyRoutes {
   static const String login = '/login';
@@ -138,6 +140,14 @@ class MyRoutes {
         path: patientsByDisease,
         builder: (context, state) =>
             PatientsByDiseaseScreen(diseaseName: state.extra as String? ?? ""),
+      ),
+      GoRoute(
+        path: onBoarding,
+        builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: welcome,
+        builder: (context, state) => const WelcomeScreen(),
       ),
     ],
   );
