@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:my_graduation/component/my_main_botton.dart';
 import 'package:my_graduation/component/my_text_feild.dart';
 import 'package:my_graduation/core/dialogs/error_dialog.dart';
 import 'package:my_graduation/core/dialogs/loading_dialog.dart';
 import 'package:my_graduation/core/navigation/my_routes.dart';
+import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/core/utils/my_text_styles.dart';
 import 'package:my_graduation/features/presentation/auth/register/cubit/doctor_info_cubit.dart';
 
@@ -25,10 +25,10 @@ class DoctorInfoScreen extends StatelessWidget {
           if (state is DoctorInfoLoading) {
             loadingDialog(context);
           } else if (state is DoctorInfoSuccess) {
-            Navigator.pop(context);
-            context.go(MyRoutes.home);
+            mypop(context);
+            mygo(context, MyRoutes.home, null);
           } else if (state is DoctorInfoError) {
-            Navigator.pop(context);
+            mypop(context);
             errorDialog(context, state.error);
           }
         },
@@ -74,9 +74,7 @@ class DoctorInfoScreen extends StatelessWidget {
                 const Gap(15),
                 MyTextFeild(
                   hint: "Work Address",
-                  controller: context
-                      .read<DoctorInfoCubit>()
-                      .addressController,
+                  controller: context.read<DoctorInfoCubit>().addressController,
                 ),
               ]),
               const Gap(30),
@@ -105,9 +103,7 @@ class DoctorInfoScreen extends StatelessWidget {
                 const Gap(15),
                 MyTextFeild(
                   hint: "Salary (Optional)",
-                  controller: context
-                      .read<DoctorInfoCubit>()
-                      .salaryController,
+                  controller: context.read<DoctorInfoCubit>().salaryController,
                   keyboardType: TextInputType.number,
                 ),
                 const Gap(15),

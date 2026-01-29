@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:my_graduation/core/navigation/my_routes.dart';
+import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/core/utils/my_text_styles.dart';
@@ -66,14 +66,16 @@ class MyDrawer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     onTap: () {
-                      Navigator.pop(context); // Close drawer
+                      mypop(context); // Close drawer
                       if (item.title == "Profile") {
-                        context.push(MyRoutes.profile);
+                        mypush(context, MyRoutes.profile, null);
                       } else if (item.title == "Settings") {
-                        context.push(MyRoutes.settings);
+                        mypush(context, MyRoutes.settings, null);
+                      } else if (item.title == "About") {
+                        mypush(context, MyRoutes.about, null);
                       } else if (item.title == "Logout") {
                         FirebaseHelper.mylogout();
-                        context.go(MyRoutes.login);
+                        mygo(context, MyRoutes.login, null);
                       } else if (item.ontap != null) {
                         item.ontap!();
                       }

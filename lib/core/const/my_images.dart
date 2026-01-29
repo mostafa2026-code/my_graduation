@@ -1,5 +1,5 @@
 class MyImages {
-  static const String logo = "assets/icons/DesignDr.-Record_.svg";
+  static const String logo = "assets/images/app_logo.png";
   static const String splash = "assets/icons/Doctor.json";
   static const String doctor = "assets/icons/free-man-doctor.svg";
   static const String google = "assets/icons/google.svg";

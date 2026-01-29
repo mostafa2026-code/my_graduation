@@ -1,10 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
+import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/core/navigation/my_routes.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/core/utils/my_text_styles.dart';
+
+import 'package:my_graduation/core/navigation/navigation_methods.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -70,7 +72,7 @@ class WelcomeScreen extends StatelessWidget {
                           ],
                         ),
                         child: Image.asset(
-                          'assets/images/drRecord-removebg-preview.png', // Using the app logo
+                          MyImages.logo, // Using the app logo
                           height: 120,
                         ),
                       ),
@@ -107,7 +109,8 @@ class WelcomeScreen extends StatelessWidget {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () => context.go(MyRoutes.login),
+                            onPressed: () =>
+                                mygo(context, MyRoutes.login, null),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: MyColors.primary,
                               padding: const EdgeInsets.symmetric(vertical: 18),
@@ -127,7 +130,8 @@ class WelcomeScreen extends StatelessWidget {
                         SizedBox(
                           width: double.infinity,
                           child: OutlinedButton(
-                            onPressed: () => context.go(MyRoutes.register),
+                            onPressed: () =>
+                                mygo(context, MyRoutes.register, null),
                             style: OutlinedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(vertical: 18),
                               side: BorderSide(

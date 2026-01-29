@@ -1,9 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:my_graduation/core/const/my_images.dart';
 import 'package:my_graduation/core/navigation/my_routes.dart';
+import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/core/services/shared_prefrences/shared_helper.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/core/utils/my_text_styles.dart';
@@ -54,7 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: TextButton(
                 onPressed: () {
                   SharedHelper.saveOnboardingDone();
-                  context.go(MyRoutes.welcome);
+                  mygo(context, MyRoutes.welcome, null);
                 },
                 child: Text(
                   'Skip',
@@ -101,7 +101,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       onPressed: () {
                         if (_currentPage == _pages.length - 1) {
                           SharedHelper.saveOnboardingDone();
-                          context.go(MyRoutes.welcome);
+                          mygo(context, MyRoutes.welcome, null);
                         } else {
                           _pageController.nextPage(
                             duration: const Duration(milliseconds: 500),

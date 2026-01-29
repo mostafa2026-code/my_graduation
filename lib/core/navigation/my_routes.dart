@@ -24,6 +24,8 @@ import 'package:my_graduation/features/presentation/splash/pages/splash_screen.d
 import 'package:my_graduation/features/presentation/settings/pages/settings_screen.dart';
 import 'package:my_graduation/features/presentation/welcome/pages/welcome_screen.dart';
 
+import 'package:my_graduation/features/presentation/settings/pages/about_screen.dart';
+
 class MyRoutes {
   static const String login = '/login';
   static const String main = '/home';
@@ -116,10 +118,7 @@ class MyRoutes {
       ),
       GoRoute(path: qAndA, builder: (context, state) => const QAndAScreen()),
 
-      // GoRoute(
-      //   path: about,
-      //   builder: (context, state) => const AboutScreen(),
-      // ),
+      GoRoute(path: about, builder: (context, state) => const AboutScreen()),
       // GoRoute(
       //   path: logout,
       //   builder: (context, state) => const LogoutScreen(),

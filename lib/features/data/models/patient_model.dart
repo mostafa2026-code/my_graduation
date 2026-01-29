@@ -100,4 +100,12 @@ class PatientModel {
     neededInvestigation: neededInvestigation ?? this.neededInvestigation,
     date: date ?? this.date,
   );
+  static PatientModel dummy() => PatientModel(
+    id: '123456789',
+    doctorName: 'Dr. John Doe',
+    phone: '01234567890',
+    diagnosis: 'Heart Failure',
+    personalHistory: {'name': 'Patient Name'},
+    date: '2026-01-29',
+  );
 }

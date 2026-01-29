@@ -13,7 +13,7 @@ StreamBuilder<QuerySnapshot<Map<String, dynamic>>> myStreamBuilder({
     stream: stream,
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
-        return const Center(child: CircularProgressIndicator());
+        return const PatientsListView(patients: [], isLoading: true);
       } else if (snapshot.hasError) {
         return Center(child: Text(snapshot.error.toString()));
       } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
