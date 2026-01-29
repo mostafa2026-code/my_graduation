@@ -31,7 +31,14 @@ class SharedHelper {
   static DoctorsModel? getUserInfo() {
     final String? docString = sharedPreferences.getString(kDocror);
     if (docString != null) {
-      final Map<String, dynamic> json = jsonDecode(docString);
+      final Map<String, dynamic> json = Map<String, dynamic>.from(
+        jsonDecode(docString),
+      );
+
+      final List<String>? ids = sharedPreferences.getStringList('patientsIds');
+
+      json['patientsIds'] = ids;
+
       DoctorsModel doctor = DoctorsModel.fromJson(json);
       return doctor;
     }
