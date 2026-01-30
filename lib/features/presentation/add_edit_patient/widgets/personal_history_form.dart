@@ -82,6 +82,7 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
             massageDialog(
               context,
               "Personal History saved successfully",
+            // ignore: use_build_context_synchronously
             ).then((value) => mypop(context));
           }
           if (state is AddEditPatientFailure) {

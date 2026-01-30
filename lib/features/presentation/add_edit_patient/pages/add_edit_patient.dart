@@ -5,7 +5,9 @@ import 'package:my_graduation/core/cubits/theme_cubit.dart';
 import 'package:my_graduation/component/my_main_botton.dart';
 import 'package:my_graduation/component/my_text_feild.dart';
 import 'package:my_graduation/core/const/my_images.dart';
+import 'package:my_graduation/core/dialogs/massage_dialog.dart';
 import 'package:my_graduation/core/lists/diseases_list.dart';
+import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/core/utils/my_text_styles.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
@@ -39,7 +41,6 @@ class _AddEditPatientState extends State<AddEditPatient> {
   TextEditingController neededInvestigationsController =
       TextEditingController();
   TextEditingController diagnosisController = TextEditingController();
-  String? selectedDiagnosis;
   @override
   void initState() {
     super.initState();
@@ -105,24 +106,22 @@ class _AddEditPatientState extends State<AddEditPatient> {
                   maxline: 3,
                 ),
                 Gap(8),
-                Autocomplete(
+                Autocomplete<String>(
+                  initialValue: TextEditingValue(
+                    text: diagnosisController.text,
+                  ),
                   optionsBuilder: (TextEditingValue textEditingValue) {
-                    // ignore: unrelated_type_equality_checks
-                    if (textEditingValue == "") {
+                    if (textEditingValue.text.isEmpty) {
                       return diseasesList;
-                    } else {
-                      return diseasesList.where(
-                        (element) => element.toLowerCase().contains(
-                          textEditingValue.text.toLowerCase(),
-                        ),
-                      );
                     }
+                    return diseasesList.where(
+                      (element) => element.toLowerCase().contains(
+                        textEditingValue.text.toLowerCase(),
+                      ),
+                    );
                   },
                   onSelected: (value) {
-                    setState(() {
-                      selectedDiagnosis = value.toString();
-                      diagnosisController.text = selectedDiagnosis.toString();
-                    });
+                    diagnosisController.text = value;
                   },
                   fieldViewBuilder:
                       (
@@ -133,8 +132,11 @@ class _AddEditPatientState extends State<AddEditPatient> {
                       ) {
                         return MyTextFeild(
                           hint: "Expected Diagnosis",
-                          controller: diagnosisController,
+                          controller: textEditingController,
                           focusNode: focusNode,
+                          onChanged: (value) {
+                            diagnosisController.text = value;
+                          },
                           ontap: () {
                             FocusScope.of(context).requestFocus(focusNode);
                           },
@@ -159,6 +161,11 @@ class _AddEditPatientState extends State<AddEditPatient> {
             );
             cubit.currentPatient = patientModel;
             cubit.updatePatient();
+            massageDialog(
+              context,
+              "Patient saved successfully",
+              // ignore: use_build_context_synchronously
+            ).then((value) => mypop(context));
           },
         ),
       ),

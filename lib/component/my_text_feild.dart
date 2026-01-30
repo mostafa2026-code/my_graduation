@@ -10,6 +10,7 @@ class MyTextFeild extends StatelessWidget {
   final TextInputAction? textInputAction;
   final FocusNode? focusNode;
   final Function()? ontap;
+  final Function(String)? onChanged;
 
   const MyTextFeild({
     super.key,
@@ -21,6 +22,7 @@ class MyTextFeild extends StatelessWidget {
     this.textInputAction,
     this.focusNode,
     this.ontap,
+    this.onChanged,
   });
 
   @override
@@ -34,6 +36,7 @@ class MyTextFeild extends StatelessWidget {
       controller: controller,
       focusNode: focusNode,
       onTap: ontap,
+      onChanged: onChanged,
       style: MyTextStyles.inputText,
       decoration: InputDecoration(
         filled: true,

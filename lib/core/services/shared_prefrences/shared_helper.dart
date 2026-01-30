@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:my_graduation/features/data/models/doctors_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,19 +40,24 @@ class SharedHelper {
 
   static DoctorsModel? getUserInfo() {
     final String? docString = sharedPreferences.getString(kDocror);
-    if (docString != null) {
+    if (docString == null) return null;
+
+    try {
       final Map<String, dynamic> json = Map<String, dynamic>.from(
         jsonDecode(docString),
       );
 
+      // Merge patientsIds if they are stored separately
       final List<String>? ids = sharedPreferences.getStringList('patientsIds');
+      if (ids != null) {
+        json['patientsIds'] = ids;
+      }
 
-      json['patientsIds'] = ids;
-
-      DoctorsModel doctor = DoctorsModel.fromJson(json);
-      return doctor;
+      return DoctorsModel.fromJson(json);
+    } catch (e) {
+      log("Error parsing user info: $e");
+      return null;
     }
-    return null;
   }
 
   static Future<void> saveThemeMode(bool isDark) async {

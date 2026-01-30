@@ -25,6 +25,7 @@ class MyDrawer extends StatelessWidget {
                 end: Alignment.bottomRight,
                 colors: [
                   Theme.of(context).primaryColor,
+                  // ignore: deprecated_member_use
                   Theme.of(context).primaryColor.withOpacity(0.8),
                 ],
               ),

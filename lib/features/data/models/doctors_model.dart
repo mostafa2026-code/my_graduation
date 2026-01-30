@@ -34,23 +34,23 @@ class DoctorsModel {
   });
 
   DoctorsModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    image = json['image'];
-    speciality = json['speciality'];
-    address = json['address'];
-    phone = json['phone'];
-    email = json['email'];
-    id = json['id'];
-    password = json['password'];
-    position = json['position'];
-    qualification = json['qualification'];
-    about = json['about'];
+    name = json['name']?.toString();
+    image = json['image']?.toString();
+    speciality = json['speciality']?.toString();
+    address = json['address']?.toString();
+    phone = json['phone']?.toString();
+    email = json['email']?.toString();
+    id = json['id']?.toString();
+    password = json['password']?.toString();
+    position = json['position']?.toString();
+    qualification = json['qualification']?.toString();
+    about = json['about']?.toString();
     patientsIds = json['patientsIds'] != null
         ? List<String>.from(json['patientsIds'])
         : null;
-    salary = json['salary'];
-    fromHour = json['fromHour'];
-    toHour = json['toHour'];
+    salary = json['salary'] is num ? (json['salary'] as num).toDouble() : null;
+    fromHour = json['fromHour']?.toString();
+    toHour = json['toHour']?.toString();
   }
 
   Map<String, dynamic> toJson() {

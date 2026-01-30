@@ -24,8 +24,10 @@ class _SplashScreenState extends State<SplashScreen> {
       } else {
         // ignore: use_build_context_synchronously
         if (SharedHelper.isOnboardingDone()) {
+          // ignore: use_build_context_synchronously
           mypushReplace(context, MyRoutes.welcome, null);
         } else {
+          // ignore: use_build_context_synchronously
           mypushReplace(context, MyRoutes.onBoarding, null);
         }
       }

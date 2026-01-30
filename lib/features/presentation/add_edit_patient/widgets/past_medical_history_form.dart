@@ -79,6 +79,7 @@ class _PastMedicalHistoryFormState extends State<PastMedicalHistoryForm> {
             massageDialog(
               context,
               "Past Medical History saved successfully",
+            // ignore: use_build_context_synchronously
             ).then((value) => mypop(context));
           }
           if (state is AddEditPatientFailure) {

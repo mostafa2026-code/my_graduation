@@ -30,6 +30,7 @@ class ProfileScreen extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: [
                       Theme.of(context).primaryColor,
+                      // ignore: deprecated_member_use
                       Theme.of(context).primaryColor.withOpacity(0.7),
                     ],
                   ),
@@ -144,6 +145,7 @@ class ProfileScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
+                          // ignore: deprecated_member_use
                           color: Colors.black.withOpacity(0.05),
                           blurRadius: 10,
                           offset: const Offset(0, 5),
@@ -182,6 +184,7 @@ class ProfileScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 5),
@@ -198,6 +201,7 @@ class ProfileScreen extends StatelessWidget {
               child,
               Divider(
                 height: 1,
+                // ignore: deprecated_member_use
                 color: Colors.grey.withOpacity(0.2),
                 indent: 50,
               ),

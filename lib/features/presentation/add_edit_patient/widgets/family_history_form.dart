@@ -70,6 +70,7 @@ class _FamilyHistoryFormState extends State<FamilyHistoryForm> {
             massageDialog(
               context,
               "Family History saved successfully",
+            // ignore: use_build_context_synchronously
             ).then((value) => mypop(context));
           }
           if (state is AddEditPatientFailure) {

@@ -72,6 +72,7 @@ class _TnerapeuticHistoryFormState extends State<TnerapeuticHistoryForm> {
             massageDialog(
               context,
               "Therapeutic History saved successfully",
+            // ignore: use_build_context_synchronously
             ).then((value) => mypop(context));
           }
           if (state is AddEditPatientFailure) {
