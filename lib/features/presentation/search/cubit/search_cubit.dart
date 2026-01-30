@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,6 +14,14 @@ class SearchCubit extends Cubit<SearchStates> {
   String? selectedDisease;
   String? sortBy;
   late Stream<QuerySnapshot<Map<String, dynamic>>> result;
+  Timer? _debounce;
+
+  void onSearchChanged() {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 300), () {
+      searchPatients();
+    });
+  }
 
   void searchPatients() {
     try {
@@ -35,7 +44,7 @@ class SearchCubit extends Cubit<SearchStates> {
 
   void getallpatient() {
     result = FirestoreHelper.getAllPatient();
-    log("All docs for doctor: ${result.length}");
+
     result.listen((result) {
       log("Docs found: ${result.docs.length}");
       for (var doc in result.docs) {
@@ -49,8 +58,15 @@ class SearchCubit extends Cubit<SearchStates> {
   void resetSearch() {
     selectedDisease = null;
     sortBy = null;
-    searchController.dispose();
+    searchController.clear();
 
     emit(SearchInitial());
+  }
+
+  @override
+  Future<void> close() {
+    _debounce?.cancel();
+    searchController.dispose();
+    return super.close();
   }
 }

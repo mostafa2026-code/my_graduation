@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_graduation/core/const/my_images.dart';
+import 'package:my_graduation/core/navigation/my_routes.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 
 // ignore: must_be_immutable
 class PateintDetails extends StatelessWidget {
-   PateintDetails({super.key, required this.model});
+  PateintDetails({super.key, required this.model});
 
   final PatientModel? model;
   late Map<String, dynamic> examinationAbnormalities = {
@@ -75,12 +77,18 @@ class PateintDetails extends StatelessWidget {
               data: neededInvestingation,
               icon: Icons.monitor_heart_outlined,
             ),
-            
             const Gap(10),
             if (model?.diagnosis != null && model!.diagnosis!.isNotEmpty)
               _buildDiagnosisCard(),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.push(MyRoutes.addPatient, extra: model);
+        },
+        backgroundColor: MyColors.primary,
+        child: const Icon(Icons.edit, color: Colors.white),
       ),
     );
   }

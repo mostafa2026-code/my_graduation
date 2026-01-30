@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_graduation/core/enums/my_enums.dart';
@@ -20,11 +18,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    SearchCubit().resetSearch();
+    context.read<SearchCubit>().resetSearch();
     context.read<SearchCubit>().getallpatient();
   }
-
-  Timer? debounce;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -49,16 +45,10 @@ class _SearchScreenState extends State<SearchScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          suffixIcon: Icon(Icons.search),
+                          suffixIcon: const Icon(Icons.search),
                         ),
                         onChanged: (value) {
-                          if (debounce?.isActive ?? false) debounce!.cancel();
-                          debounce = Timer(
-                            const Duration(milliseconds: 500),
-                            () {
-                              searchCubit.searchPatients();
-                            },
-                          );
+                          searchCubit.onSearchChanged();
                         },
                       ),
                     ),
