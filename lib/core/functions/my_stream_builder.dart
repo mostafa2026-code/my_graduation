@@ -8,6 +8,7 @@ import 'package:my_graduation/features/data/models/patient_model.dart';
 
 StreamBuilder<QuerySnapshot<Map<String, dynamic>>> myStreamBuilder({
   required Stream<QuerySnapshot<Map<String, dynamic>>> stream,
+  bool Function(PatientModel)? filter,
 }) {
   return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
     stream: stream,
@@ -30,6 +31,21 @@ StreamBuilder<QuerySnapshot<Map<String, dynamic>>> myStreamBuilder({
       List<PatientModel> models = snapshot.data!.docs
           .map((e) => PatientModel.fromJson(e.data()))
           .toList();
+
+      if (filter != null) {
+        models = models.where(filter).toList();
+      }
+
+      if (models.isEmpty) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(child: Lottie.asset(MyImages.emptyJson)),
+            Text("No Matched Data!"),
+          ],
+        );
+      }
 
       log(models.toString());
       return PatientsListView(patients: models);

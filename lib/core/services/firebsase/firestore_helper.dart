@@ -8,10 +8,10 @@ import 'package:my_graduation/features/data/models/patient_model.dart';
 class FirestoreHelper {
   static const String kpatientsCollection = 'patients';
   static const String doctorCollection = 'doctors';
-  static DoctorsModel? doctorsModel = SharedHelper.getUserInfo();
-  static final String? name = doctorsModel?.name;
-  static final String? email = doctorsModel?.email;
-  static final String? uid = doctorsModel?.id;
+  static DoctorsModel? get doctorsModel => SharedHelper.getUserInfo();
+  static String? get name => doctorsModel?.name;
+  static String? get email => doctorsModel?.email;
+  static String? get uid => doctorsModel?.id;
 
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -53,6 +53,7 @@ class FirestoreHelper {
       'analysisofcomplains': patient.analysisofcomplains,
       'pastMedicalHistory': patient.pastMedicalHistory,
       'theraputicHistory': patient.theraputicHistory,
+      'diagnosis': patient.diagnosis,
     });
   }
 
@@ -87,6 +88,10 @@ class FirestoreHelper {
     String? sortBy,
     String? name,
   ) {
+    log(
+      "Query Parameters: diagnosis=$diagnosis, sortBy=$sortBy, name=$name, uid=$uid",
+    );
+
     Query<Map<String, dynamic>> collectionReference = _firestore
         .collection(kpatientsCollection)
         .where("doctorId", isEqualTo: uid);
@@ -99,6 +104,7 @@ class FirestoreHelper {
     }
 
     if (name != null && name.trim().isNotEmpty) {
+      log("Adding name search order");
       collectionReference = collectionReference.orderBy(
         FieldPath(['personalHistory', 'name']),
       );
@@ -106,25 +112,20 @@ class FirestoreHelper {
         '$name\uf8ff',
       ]);
     } else {
+      log("Adding sort order: $sortBy");
       // لو مفيش بحث بالاسم → نفرز حسب sortBy
       switch (sortBy) {
+        case "name":
+          collectionReference = collectionReference.orderBy(
+            FieldPath(['personalHistory', 'name']),
+          );
+          break;
         case "age":
           collectionReference = collectionReference.orderBy(
             FieldPath(['personalHistory', 'age']),
           );
           break;
-        case "latestDate":
-          collectionReference = collectionReference.orderBy(
-            'date',
-            descending: true,
-          );
-          break;
-        case "oldestDate":
-          collectionReference = collectionReference.orderBy(
-            'date',
-            descending: false,
-          );
-          break;
+
         default:
           collectionReference = collectionReference.orderBy(
             FieldPath(['personalHistory', 'name']),

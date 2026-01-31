@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:my_graduation/core/functions/my_future_builder.dart';
+import 'package:my_graduation/core/cubits/theme_cubit.dart';
+import 'package:my_graduation/core/functions/my_stream_builder.dart';
 import 'package:my_graduation/core/services/firebsase/firebase_helper.dart';
 import 'package:my_graduation/core/services/firebsase/firestore_helper.dart';
 import 'package:my_graduation/core/utils/my_text_styles.dart';
@@ -25,6 +27,18 @@ class HomeScreen extends StatelessWidget {
             );
           },
         ),
+        actions: [
+          BlocBuilder<ThemeCubit, bool>(
+            builder: (context, isDark) {
+              return IconButton(
+                icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+                onPressed: () {
+                  context.read<ThemeCubit>().toggleTheme();
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -51,7 +65,9 @@ class HomeScreen extends StatelessWidget {
                 Text("Undiagnosed Cases", style: MyTextStyles.headlineSmall),
                 const Gap(16),
                 myStreamBuilder(
-                  stream: FirestoreHelper.getPatientWithoutDiagnosis(),
+                  stream: FirestoreHelper.getAllPatient(),
+                  filter: (patient) =>
+                      patient.diagnosis == null || patient.diagnosis!.isEmpty,
                 ),
               ],
             ),

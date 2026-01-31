@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:my_graduation/component/my_main_botton.dart';
-import 'package:my_graduation/core/functions/my_future_builder.dart';
+import 'package:my_graduation/core/functions/my_stream_builder.dart';
 import 'package:my_graduation/core/navigation/my_routes.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/core/services/firebsase/firestore_helper.dart';

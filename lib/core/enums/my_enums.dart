@@ -13,4 +13,4 @@ enum Onset {
 
 enum Course { progressive, stationary, regressive, intermetent }
 
-enum SortBy { name, date, age, latestDay, oldestDay }
+enum SortBy { name, age }

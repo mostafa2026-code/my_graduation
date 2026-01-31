@@ -75,7 +75,7 @@ class DoctorsModel {
 
   //copyWith
 
-  DoctorsModel copyWith(
+  DoctorsModel copyWith({
     String? name,
     String? image,
     String? speciality,
@@ -91,7 +91,7 @@ class DoctorsModel {
     double? salary,
     String? fromHour,
     String? toHour,
-  ) {
+  }) {
     return DoctorsModel(
       name: name ?? this.name,
       image: image ?? this.image,

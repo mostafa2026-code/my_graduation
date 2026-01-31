@@ -36,9 +36,7 @@ class PateintDetails extends StatelessWidget {
           children: [
             _buildHeader(context),
             const Gap(24),
-            _buildSectionTitle("Contact Info"),
-            _buildContactInfo(),
-            const Gap(16),
+
             _buildExpandableSection(
               title: "Personal History",
               data: model?.personalHistory,
@@ -136,54 +134,6 @@ class PateintDetails extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.black87,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildContactInfo() {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            _buildInfoRow(Icons.phone_outlined, "Phone", model?.phone ?? "N/A"),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildInfoRow(IconData icon, String label, String value) {
-    return Row(
-      children: [
-        Icon(icon, color: MyColors.primary, size: 20),
-        const Gap(12),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: const TextStyle(color: Colors.grey, fontSize: 12),
-            ),
-            Text(value, style: const TextStyle(fontWeight: FontWeight.w500)),
-          ],
-        ),
-      ],
     );
   }
 

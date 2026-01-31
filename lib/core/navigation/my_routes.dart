@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_graduation/features/data/models/doctors_model.dart';
 import 'package:my_graduation/features/data/models/patient_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_graduation/features/presentation/add_edit_patient/cubit/add_edit_patient_cubit.dart';
@@ -17,6 +18,7 @@ import 'package:my_graduation/features/presentation/home/pages/patients_by_disea
 import 'package:my_graduation/features/presentation/onboarding/pages/onboarding_screen.dart';
 import 'package:my_graduation/features/presentation/patient_details/pages/pateint_details.dart';
 import 'package:my_graduation/features/presentation/patients/pages/patients_home.dart';
+import 'package:my_graduation/features/presentation/profile/pages/edit_profile_screen.dart';
 import 'package:my_graduation/features/presentation/profile/pages/profile_screen.dart';
 import 'package:my_graduation/features/presentation/q_and_a/pages/q_and_a_screen.dart';
 import 'package:my_graduation/features/presentation/search/pages/search_screen.dart';
@@ -49,6 +51,7 @@ class MyRoutes {
       '/verifyemailForResetPassword';
   static const String patientsByDisease = '/patientsByDisease';
   static const String doctorInfo = '/doctorInfo';
+  static const String editProfile = '/editProfile';
 
   static final GoRouter routes = GoRouter(
     initialLocation: splash,
@@ -147,6 +150,11 @@ class MyRoutes {
       GoRoute(
         path: welcome,
         builder: (context, state) => const WelcomeScreen(),
+      ),
+      GoRoute(
+        path: editProfile,
+        builder: (context, state) =>
+            EditProfileScreen(doctor: state.extra as DoctorsModel),
       ),
     ],
   );

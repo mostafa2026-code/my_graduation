@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -82,7 +80,7 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
             massageDialog(
               context,
               "Personal History saved successfully",
-            // ignore: use_build_context_synchronously
+              // ignore: use_build_context_synchronously
             ).then((value) => mypop(context));
           }
           if (state is AddEditPatientFailure) {
@@ -97,28 +95,25 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Gap(16),
-              MyTextFeild(
-                hint: "Name",
-                controller: widget.formCubit.nameController,
-              ),
-              const Gap(8),
-              MyTextFeild(
-                hint: "Age",
-                controller: widget.formCubit.ageController,
-              ),
-              const Gap(8),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Text("Gender"),
-                  const Gap(16),
-                  BlocBuilder<
-                    PersonalHistoryFormCubit,
-                    PersonalHistoryFormState
-                  >(
-                    bloc: widget.formCubit,
-                    builder: (context, state) {
-                      return Wrap(
+              BlocBuilder<PersonalHistoryFormCubit, PersonalHistoryFormState>(
+                builder: (context, state) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MyTextFeild(
+                        hint: "Name",
+                        controller: widget.formCubit.nameController,
+                      ),
+                      const Gap(8),
+                      MyTextFeild(
+                        hint: "Age",
+                        controller: widget.formCubit.ageController,
+                      ),
+                      const Gap(8),
+                      const Text("Gender"),
+                      const Gap(16),
+                      Wrap(
                         spacing: 5,
                         children: [
                           MyChip(
@@ -138,34 +133,21 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
                             },
                           ),
                         ],
-                      );
-                    },
-                  ),
-                ],
-              ),
-              const Gap(8),
-              MyTextFeild(
-                hint: "Address",
-                controller: widget.formCubit.addressController,
-              ),
-              const Gap(8),
-              MyTextFeild(
-                hint: "Occupation",
-                controller: widget.formCubit.occupationController,
-              ),
-              const Gap(8),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Text("Martial Status"),
-                  const Gap(16),
-                  BlocBuilder<
-                    PersonalHistoryFormCubit,
-                    PersonalHistoryFormState
-                  >(
-                    bloc: widget.formCubit,
-                    builder: (context, state) {
-                      return Wrap(
+                      ),
+                      const Gap(8),
+                      MyTextFeild(
+                        hint: "Address",
+                        controller: widget.formCubit.addressController,
+                      ),
+                      const Gap(8),
+                      MyTextFeild(
+                        hint: "Occupation",
+                        controller: widget.formCubit.occupationController,
+                      ),
+                      const Gap(8),
+                      const Text("Marital Status"),
+                      const Gap(16),
+                      Wrap(
                         children: [
                           MyChip(
                             isSelected:
@@ -190,27 +172,20 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
                             },
                           ),
                         ],
-                      );
-                    },
-                  ),
-                ],
-              ),
-              if (widget.formCubit.martialStatus == MartialStatus.married.name)
-                MyTextFeild(
-                  hint: "Number of Childern",
-                  controller: widget.formCubit.childrenNumberController,
-                ),
-              const Gap(8),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Text("Smoking Status"),
-                  const Gap(16),
-
-                  BlocBuilder(
-                    bloc: widget.formCubit,
-                    builder: (context, state) {
-                      return Wrap(
+                      ),
+                      if (widget.formCubit.martialStatus ==
+                          MartialStatus.married.name) ...[
+                        const Gap(8),
+                        MyTextFeild(
+                          hint: "Number of Children",
+                          keyboardType: TextInputType.number,
+                          controller: widget.formCubit.childrenNumberController,
+                        ),
+                      ],
+                      const Gap(8),
+                      const Text("Smoking Status"),
+                      const Gap(8),
+                      Wrap(
                         spacing: 8,
                         children: [
                           MyChip(
@@ -224,7 +199,6 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
                               );
                             },
                           ),
-
                           MyChip(
                             isSelected:
                                 widget.formCubit.smokingStatus ==
@@ -236,7 +210,6 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
                               );
                             },
                           ),
-
                           MyChip(
                             isSelected:
                                 widget.formCubit.smokingStatus ==
@@ -248,12 +221,11 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
                               );
                             },
                           ),
-
                           MyChip(
                             isSelected:
                                 widget.formCubit.smokingStatus ==
                                 SmokingStatus.lightSmoker.name,
-                            label: "light Smoker",
+                            label: "Light Smoker",
                             onselected: (_) {
                               widget.formCubit.selectSmokingStatus(
                                 SmokingStatus.lightSmoker,
@@ -261,15 +233,15 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
                             },
                           ),
                         ],
-                      );
-                    },
-                  ),
-                ],
-              ),
-              const Gap(8),
-              MyTextFeild(
-                hint: "Specail Habits",
-                controller: widget.formCubit.specailHabitController,
+                      ),
+                      const Gap(8),
+                      MyTextFeild(
+                        hint: "Special Habits",
+                        controller: widget.formCubit.specailHabitController,
+                      ),
+                    ],
+                  );
+                },
               ),
 
               const Gap(8),
@@ -279,20 +251,7 @@ class _PersonalHistoryFormState extends State<PersonalHistoryForm> {
                   PatientModel patient = widget.cubit.currentPatient.copyWith(
                     personalHistory: widget.formCubit.setPersonalHistoryData(),
                   );
-                  log('Name: ${widget.formCubit.nameController.text}');
-                  log('Age: ${widget.formCubit.ageController.text}');
-                  log('Address: ${widget.formCubit.addressController.text}');
-                  log(
-                    'Occupation: ${widget.formCubit.occupationController.text}',
-                  );
-                  log('Gender: ${widget.formCubit.gender}');
-                  log('Martial Status: ${widget.formCubit.martialStatus}');
-                  log(
-                    'Children Number: ${widget.formCubit.childrenNumberController.text}',
-                  );
-                  log(
-                    'Special Habits: ${widget.formCubit.specailHabitController.text}',
-                  );
+
                   widget.cubit.currentPatient = patient;
                   widget.cubit.updatePatient();
                 },

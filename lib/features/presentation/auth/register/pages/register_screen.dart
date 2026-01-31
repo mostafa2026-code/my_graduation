@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -116,9 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   title: "Register",
                   onTap: () {
                     if (formKeyReg.currentState!.validate()) {
-                      log(cubitReg.nameReg.text);
-                      log(cubitReg.emailReg.text);
-                      log(cubitReg.passwordReg.text);
+                      
                       FocusScope.of(context).unfocus();
                       cubitReg.register();
                     }

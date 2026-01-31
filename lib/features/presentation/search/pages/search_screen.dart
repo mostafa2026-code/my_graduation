@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_graduation/core/enums/my_enums.dart';
-import 'package:my_graduation/core/functions/my_future_builder.dart';
+import 'package:my_graduation/core/functions/my_stream_builder.dart';
 import 'package:my_graduation/core/lists/diseases_list.dart';
 import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/features/presentation/search/cubit/search_cubit.dart';
@@ -64,10 +64,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   DropdownButtonFormField(
-                                    hint: Text(
-                                      searchCubit.selectedDisease ??
-                                          "Select Disease",
-                                    ),
+                                    initialValue: searchCubit.selectedDisease,
+                                    hint: const Text("Select Disease"),
                                     items: diseasesList
                                         .map(
                                           (e) => DropdownMenuItem(
@@ -93,6 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 ),
                                 TextButton(
                                   onPressed: () {
+                                    searchCubit.searchPatients();
                                     mypop(context);
                                   },
                                   child: Text("OK"),
@@ -139,38 +138,6 @@ class _SearchScreenState extends State<SearchScreen> {
                               searchCubit.sortBy = null;
                             }
 
-                            searchCubit.searchPatients();
-                          },
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("Latest Date"),
-                        Checkbox.adaptive(
-                          value: searchCubit.sortBy == SortBy.latestDay.name,
-                          onChanged: (value) {
-                            if (value == true) {
-                              searchCubit.sortBy = SortBy.latestDay.name;
-                            } else {
-                              searchCubit.sortBy = null;
-                            }
-                            searchCubit.searchPatients();
-                          },
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("Oldest Date"),
-                        Checkbox.adaptive(
-                          value: searchCubit.sortBy == SortBy.oldestDay.name,
-                          onChanged: (value) {
-                            if (value == true) {
-                              searchCubit.sortBy = SortBy.oldestDay.name;
-                            } else {
-                              searchCubit.sortBy = null;
-                            }
                             searchCubit.searchPatients();
                           },
                         ),

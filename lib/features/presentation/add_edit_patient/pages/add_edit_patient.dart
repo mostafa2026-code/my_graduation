@@ -56,7 +56,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
       diagnosisController.text = patientModel.diagnosis.toString();
       cubit.currentPatient = patientModel;
     } else if (!isEdit) {
-      cubit.generateDoc(cubit.generatePatient()!);
+      cubit.generatePatient();
     }
   }
 

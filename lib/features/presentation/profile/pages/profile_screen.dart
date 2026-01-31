@@ -1,67 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:my_graduation/core/navigation/my_routes.dart';
 import 'package:my_graduation/core/services/shared_prefrences/shared_helper.dart';
 import 'package:my_graduation/core/utils/my_colors.dart';
 import 'package:my_graduation/core/utils/my_text_styles.dart';
+import 'package:my_graduation/core/navigation/navigation_methods.dart';
 import 'package:my_graduation/features/data/models/doctors_model.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  void _refresh() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     final DoctorsModel? doctor = SharedHelper.getUserInfo();
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () async {
+              if (doctor != null) {
+                await mypush(context, MyRoutes.editProfile, doctor);
+                _refresh();
+              }
+            },
+            icon: const Icon(Icons.edit, color: Colors.white),
+          ),
+        ],
+        title: Text(
+          "My Profile",
+          style: MyTextStyles.titleLarge.copyWith(color: Colors.white),
+        ),
+      ),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            expandedHeight: 200,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                "My Profile",
-                style: MyTextStyles.titleLarge.copyWith(color: Colors.white),
-              ),
-              background: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Theme.of(context).primaryColor,
-                      // ignore: deprecated_member_use
-                      Theme.of(context).primaryColor.withOpacity(0.7),
-                    ],
-                  ),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Gap(40),
-                      Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const CircleAvatar(
-                          radius: 45,
-                          backgroundColor: MyColors.background,
-                          child: Icon(
-                            Icons.person,
-                            size: 50,
-                            color: MyColors.primary,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
