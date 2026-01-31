@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -47,7 +46,6 @@ StreamBuilder<QuerySnapshot<Map<String, dynamic>>> myStreamBuilder({
         );
       }
 
-      log(models.toString());
       return PatientsListView(patients: models);
     },
   );

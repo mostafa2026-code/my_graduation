@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_graduation/core/services/shared_prefrences/shared_helper.dart';
 import 'package:my_graduation/features/data/models/doctors_model.dart';
@@ -34,7 +33,6 @@ class FirestoreHelper {
 
       return "success";
     } on FirebaseException catch (e) {
-      log(e.toString());
       return e.toString();
     }
   }
@@ -88,10 +86,6 @@ class FirestoreHelper {
     String? sortBy,
     String? name,
   ) {
-    log(
-      "Query Parameters: diagnosis=$diagnosis, sortBy=$sortBy, name=$name, uid=$uid",
-    );
-
     Query<Map<String, dynamic>> collectionReference = _firestore
         .collection(kpatientsCollection)
         .where("doctorId", isEqualTo: uid);
@@ -104,7 +98,6 @@ class FirestoreHelper {
     }
 
     if (name != null && name.trim().isNotEmpty) {
-      log("Adding name search order");
       collectionReference = collectionReference.orderBy(
         FieldPath(['personalHistory', 'name']),
       );
@@ -112,8 +105,7 @@ class FirestoreHelper {
         '$name\uf8ff',
       ]);
     } else {
-      log("Adding sort order: $sortBy");
-      // لو مفيش بحث بالاسم → نفرز حسب sortBy
+      // If no name search -> sort by sortBy
       switch (sortBy) {
         case "name":
           collectionReference = collectionReference.orderBy(

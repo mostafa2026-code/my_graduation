@@ -164,7 +164,7 @@ class _AddEditPatientState extends State<AddEditPatient> {
             massageDialog(
               context,
               "Patient saved successfully",
-              // ignore: use_build_context_synchronously
+            // ignore: use_build_context_synchronously
             ).then((value) => mypop(context));
           },
         ),

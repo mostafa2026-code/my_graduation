@@ -122,14 +122,8 @@ class MyRoutes {
       GoRoute(path: qAndA, builder: (context, state) => const QAndAScreen()),
 
       GoRoute(path: about, builder: (context, state) => const AboutScreen()),
-      // GoRoute(
-      //   path: logout,
-      //   builder: (context, state) => const LogoutScreen(),
-      // ),
-      // GoRoute(
-      //   path: notifications,
-      //   builder: (context, state) => const NotificationsScreen(),
-      // ),
+  
+
       GoRoute(
         path: verifyemailForResetPassword,
         builder: (context, state) => const VerifyEmailForResetPassword(),

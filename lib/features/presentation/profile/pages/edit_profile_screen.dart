@@ -38,14 +38,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           if (state is EditProfileLoading) {
             loadingDialog(context);
           } else if (state is EditProfileSuccess) {
-            mypop(context); 
+            mypop(context);
             massageDialog(
               context,
               "Profile Updated Successfully",
             // ignore: use_build_context_synchronously
-            ).then((_) => mypop(context)); 
+            ).then((_) => mypop(context));
           } else if (state is EditProfileFailure) {
-            mypop(context); 
+            mypop(context);
             errorDialog(context, state.error);
           }
         },

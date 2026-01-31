@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:my_graduation/features/data/models/doctors_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,7 +54,6 @@ class SharedHelper {
 
       return DoctorsModel.fromJson(json);
     } catch (e) {
-      log("Error parsing user info: $e");
       return null;
     }
   }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +29,7 @@ class SearchCubit extends Cubit<SearchStates> {
         sortBy?.trim(),
         searchController.text.trim(),
       );
-      result.listen((snapshot) {
-        log("Docs found: ${snapshot.docs.length}");
-        for (var doc in snapshot.docs) {
-          log(doc.data().toString());
-        }
-      });
+      result.listen((snapshot) {});
       emit(SearchSuccess(result: result));
     } on FirebaseException catch (e) {
       emit(SearchError(e.message.toString()));
@@ -45,12 +39,7 @@ class SearchCubit extends Cubit<SearchStates> {
   void getallpatient() {
     result = FirestoreHelper.getAllPatient();
 
-    result.listen((result) {
-      log("Docs found: ${result.docs.length}");
-      for (var doc in result.docs) {
-        log(doc.data().toString());
-      }
-    });
+    result.listen((result) {});
 
     emit(SearchSuccess(result: result));
   }

@@ -13,7 +13,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
-        children: [
+        children:  [
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,

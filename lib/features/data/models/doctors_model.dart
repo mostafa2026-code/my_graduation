@@ -73,8 +73,6 @@ class DoctorsModel {
     return data;
   }
 
-  //copyWith
-
   DoctorsModel copyWith({
     String? name,
     String? image,
